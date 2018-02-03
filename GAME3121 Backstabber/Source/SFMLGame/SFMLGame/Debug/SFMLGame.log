@@ -1,0 +1,44 @@
+﻿  SFMLGame.cpp
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(9): error C2653: 'sf': is not a class or namespace name
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(9): error C2065: 'RenderWindow': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(9): error C2146: syntax error: missing ';' before identifier 'window'
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(9): error C3861: 'VideoMode': identifier not found
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(9): error C3861: 'window': identifier not found
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(10): error C2653: 'sf': is not a class or namespace name
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(10): error C2065: 'CircleShape': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(10): error C2146: syntax error: missing ';' before identifier 'shape'
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(10): error C3861: 'shape': identifier not found
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(11): error C2065: 'shape': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(11): error C2228: left of '.setFillColor' must have class/struct/union
+  c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(11): note: type is 'unknown-type'
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(11): error C2653: 'sf': is not a class or namespace name
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(11): error C2065: 'Green': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(13): error C2065: 'window': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(13): error C2228: left of '.isOpen' must have class/struct/union
+  c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(13): note: type is 'unknown-type'
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(15): error C2653: 'sf': is not a class or namespace name
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(15): error C2065: 'Event': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(15): error C2146: syntax error: missing ';' before identifier 'event'
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(15): error C2065: 'event': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(16): error C2065: 'window': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(16): error C2228: left of '.pollEvent' must have class/struct/union
+  c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(16): note: type is 'unknown-type'
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(16): error C2065: 'event': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(18): error C2065: 'event': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(18): error C2228: left of '.type' must have class/struct/union
+  c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(18): note: type is 'unknown-type'
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(18): error C2653: 'sf': is not a class or namespace name
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(18): error C2065: 'Closed': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(19): error C2065: 'window': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(19): error C2228: left of '.close' must have class/struct/union
+  c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(19): note: type is 'unknown-type'
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(22): error C2065: 'window': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(22): error C2228: left of '.clear' must have class/struct/union
+  c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(22): note: type is 'unknown-type'
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(23): error C2065: 'window': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(23): error C2228: left of '.draw' must have class/struct/union
+  c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(23): note: type is 'unknown-type'
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(23): error C2065: 'shape': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(24): error C2065: 'window': undeclared identifier
+c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(24): error C2228: left of '.display' must have class/struct/union
+  c:\users\squee\source\repos\sfmlgame\sfmlgame\sfmlgame.cpp(24): note: type is 'unknown-type'
