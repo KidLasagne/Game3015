@@ -3,6 +3,8 @@
 #include <vector>
 #include <cmath>
 
+
+
 GameObject::~GameObject(void)
 {
 	for (unsigned int i = 0; i< children.size(); i++)
@@ -25,9 +27,27 @@ void GameObject::Update(float msec) {
 	if (parent)
 	{ //This node has a parent...  
 
+		//MakeRotate(msec);
+
+		/*
+				sf::Transformable TR = transform;
+
+		sf::Transform tir = TR.getTransform();
+
+		tir.rotate(msec, parent->GetTransform().getPosition().x, parent->GetTransform().getPosition().y);
+
+		*/
+
+		//worldTransform = MultiplyTransforms(parent->worldTransform, transform);
+
+		//worldTransform = parent->GetWorldTransform() * transform;
+
+		//transform.rotate(transform.getRotation() + parent->GetTransform().getRotation());
+
+		//worldTransform = parent->worldTransform * transform;
+		//worldTransform = parent->worldTransform * transform;
+
 		worldTransform = MultiplyTransforms(parent->worldTransform, transform);
-		//worldTransform = parent->worldTransform * transform;
-		//worldTransform = parent->worldTransform * transform;
 	}
 	else
 	{ //Root node, world transform is local transform!  

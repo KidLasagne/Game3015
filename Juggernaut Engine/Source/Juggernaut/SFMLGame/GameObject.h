@@ -40,13 +40,41 @@ public:
 	{
 		sf::Transformable storageTransformable;
 		storageTransformable.setRotation(selfTransform.getRotation() * otherTransformable.getRotation());
-		storageTransformable.setPosition(selfTransform.getRotation() * (otherTransformable.getPosition() + selfTransform.getPosition() ) );
+		storageTransformable.setPosition(selfTransform.getRotation() * (otherTransformable.getPosition() - selfTransform.getPosition() ) );
+
+
+		//sf::Transformable storageTransformable;
+		//storageTransformable.setRotation(selfTransform.getRotation() * otherTransformable.getRotation());
+		//storageTransformable.setPosition(selfTransform.getRotation() * (otherTransformable.getPosition() + selfTransform.getPosition()));
+
 		//storageTransformable.setScale(selfTransform.getScale);
 		return storageTransformable;
 	}
+
+	/*
+	sf::Transformable operator* (const sf::Transformable& other) const
+	{
+		sf::Transformable storageTransformable;
+		storageTransformable.setRotation(transform.getRotation() * other.getRotation());
+		storageTransformable.setPosition(transform.getRotation() * (other.getPosition() + transform.getPosition()));
+		//storageTransformable.setScale(selfTransform.getScale);
+		
+
+		return storageTransformable;
+	}
+	*/
+
+	/*
+	MyClass operator* (float x, const MyClass& y)
+	{
+		//...
+	}
+	*/
+
 	void MakeRotate(float msec)
 	{
-		transform.setRotation(transform.getRotation() + msec);
+		//transform.setRotation(transform.getRotation() + msec);
+		transform.rotate(msec);
 	}
 
 protected:
