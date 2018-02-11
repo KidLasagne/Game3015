@@ -13,13 +13,15 @@ public:
 		parent = NULL; 
 	}
 
-	GameObject(float myX, float myY, float ang, float siz)
+	GameObject(float myX, float myY, float ang, float siz, sf::Color col, float originX, float originY)
 	{
 		parent = NULL;
 		
 		transform.setPosition(myX,myY);
 		transform.setRotation(ang);
 		SetSize(siz);
+		SetColor(col);
+		SetOrigin(originX, originY);
 	}
 	~GameObject(void);
 	void SetTransform(const sf::Transformable &matrix) { transform = matrix; }
@@ -39,15 +41,9 @@ public:
 	sf::Transformable MultiplyTransforms(sf::Transformable selfTransform, sf::Transformable otherTransformable)
 	{
 		sf::Transformable storageTransformable;
-		storageTransformable.setRotation(selfTransform.getRotation() * otherTransformable.getRotation());
-		storageTransformable.setPosition(selfTransform.getRotation() * (otherTransformable.getPosition() - selfTransform.getPosition() ) );
+		storageTransformable.setRotation(selfTransform.getRotation() + otherTransformable.getRotation());
+		storageTransformable.setPosition(storageTransformable.getRotation() * (otherTransformable.getPosition().x + selfTransform.getPosition().x), storageTransformable.getRotation() * (otherTransformable.getPosition().y + selfTransform.getPosition().y ) );
 
-
-		//sf::Transformable storageTransformable;
-		//storageTransformable.setRotation(selfTransform.getRotation() * otherTransformable.getRotation());
-		//storageTransformable.setPosition(selfTransform.getRotation() * (otherTransformable.getPosition() + selfTransform.getPosition()));
-
-		//storageTransformable.setScale(selfTransform.getScale);
 		return storageTransformable;
 	}
 
@@ -64,17 +60,34 @@ public:
 	}
 	*/
 
-	/*
-	MyClass operator* (float x, const MyClass& y)
+	void UpdateMyShape()
 	{
-		//...
+		myCircle.setPosition(transform.getPosition());
+		myCircle.setRotation(transform.getRotation());
+		myCircle.setOrigin(transform.getOrigin());
+		myCircle.setFillColor(myColor);
+		myCircle.setRadius(size);
 	}
-	*/
 
 	void MakeRotate(float msec)
 	{
 		//transform.setRotation(transform.getRotation() + msec);
 		transform.rotate(msec);
+	}
+
+	void SetColor(sf::Color col)
+	{
+		myColor = col;
+	}
+
+	void SetOrigin(float orgX, float orgY)
+	{
+		transform.setOrigin(orgX,orgY);
+	}
+
+	sf::CircleShape GetMyCircle()
+	{
+		return myCircle;
 	}
 
 protected:
@@ -84,5 +97,6 @@ protected:
 	sf::Transformable transform;
 	std::vector<GameObject*> children;
 	float size;
-
+	sf::CircleShape myCircle;
+	sf::Color myColor;
 };

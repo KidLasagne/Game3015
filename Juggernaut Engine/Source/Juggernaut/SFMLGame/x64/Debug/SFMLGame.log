@@ -1,3 +1,4 @@
-﻿  SFMLGame.cpp
-c:\users\squee\documents\github\game3015\juggernaut engine\source\juggernaut\sfmlgame\sfmlgame.cpp(133): warning C4305: 'argument': truncation from 'double' to 'float'
+﻿  GameObject.cpp
+  SFMLGame.cpp
+c:\users\squee\documents\github\game3015\juggernaut engine\source\juggernaut\sfmlgame\sfmlgame.cpp(134): warning C4305: 'argument': truncation from 'double' to 'float'
   SFMLGame.vcxproj -> C:\Users\squee\Documents\GitHub\Game3015\Juggernaut Engine\Source\Juggernaut\\..\..\Test\SFMLGame.exe
