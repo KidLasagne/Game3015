@@ -69,6 +69,15 @@ public:
 		myCircle.setRadius(size);
 	}
 
+	void UpdateMyShape(float myXPos, float myYPos, float myRot, sf::Color myCol, float myOriginX, float myOriginY, float mySize)
+	{
+		myCircle.setPosition(myXPos, myYPos);
+		myCircle.setRotation(myRot);
+		myCircle.setOrigin(myOriginX, myOriginY);
+		myCircle.setFillColor(myCol);
+		myCircle.setRadius(mySize);
+	}
+
 	void MakeRotate(float msec)
 	{
 		//transform.setRotation(transform.getRotation() + msec);
