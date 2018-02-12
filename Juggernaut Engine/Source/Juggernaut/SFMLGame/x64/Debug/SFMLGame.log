@@ -1,3 +1,8 @@
-﻿  SFMLGame.cpp
-c:\users\squee\documents\github\game3015\juggernaut engine\source\juggernaut\sfmlgame\scenegraph.h(107): warning C4305: 'argument': truncation from 'double' to 'float'
+﻿  SceneGraph.cpp
+  Generating Code...
+  Compiling...
+  Juggernaut.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  SFMLGame.cpp
   SFMLGame.vcxproj -> C:\Users\squee\Documents\GitHub\Game3015\Juggernaut Engine\Source\Juggernaut\\..\..\Test\SFMLGame.exe
