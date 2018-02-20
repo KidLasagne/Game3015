@@ -5,42 +5,54 @@
 #include <SFML/Graphics.hpp>
 
 #include <stdio.h>
-//#include "BaseMessage.hpp"
-//#include "BaseComponent.hpp"
-//#include "Transform.hpp"
+#include "BaseMessage.h"
+#include "BaseComponent.h"
+#include "Transform.h"
 #include <iostream>
 #include <list>
 #include <vector>
 #include <iterator>
-//#include <glm/glm.hpp>
+#include <glm/glm.hpp>
 //#include <matrix_transform.hpp>
 
 class GameObject
 {
 public:
 
-	GameObject() 
+	GameObject(int uniqueID) 
 	{
-		parent = NULL; 
+		GameObjectID = uniqueID;
+		parent = NULL;
 	}
 
-	GameObject(float myX, float myY, float ang, float siz, sf::Color col, float originX, float originY, float localPosX, float localPosY)
+	GameObject(float myX, float myY, float ang, float siz, sf::Color col, float originX, float originY, float localPosX, float localPosY, int uniqueID)
 	{
 		parent = NULL;
-		
+		GameObjectID = uniqueID;
+
 		SetWorldPosition(myX, myY);
-		transform.setPosition(localPosX,localPosY);
-		transform.setRotation(ang);
+		//transform.setPosition(localPosX,localPosY);
+		//transform.setRotation(ang);
 		SetSize(siz);
 		SetColor(col);
 		SetOrigin(originX, originY);
 	}
 	~GameObject(void);
-	void SetTransform(const sf::Transformable &matrix) { transform = matrix; }
-	sf::Transformable GetTransform() { return transform; }
-	sf::Transformable GetWorldTransform() { return worldTransform; }
+	void SetTransform(const sf::Transformable &matrix) 
+	{ 
+		//transform = matrix; 
+	}
+	Transform GetTransform() { return transform; }
+	glm::mat4 GetWorldTransform() { return worldTransform; }
 	void SetParent(GameObject* p) { parent = p; }
 	void AddChild(GameObject* s);
+
+	int GetObjectID() const { return GameObjectID; }
+
+	void AddComponent(BaseComponent* component);
+
+	//bool SendMessage(BaseMessage* msg);
+
 	void SetSize(float newSize)
 	{
 		size = newSize;
@@ -74,9 +86,9 @@ public:
 
 	void UpdateMyShape()
 	{
-		myCircle.setPosition(worldTransform.getPosition());
-		myCircle.setRotation(transform.getRotation());
-		myCircle.setOrigin(transform.getOrigin());
+		//myCircle.setPosition(worldTransform.getPosition());
+		//myCircle.setRotation(transform.getRotation());
+		//myCircle.setOrigin(transform.getOrigin());
 		myCircle.setFillColor(myColor);
 		myCircle.setRadius(size);
 	}
@@ -93,7 +105,7 @@ public:
 	void MakeRotate(float msec)
 	{
 		//transform.setRotation(transform.getRotation() + msec);
-		transform.rotate(msec);
+		//transform.rotate(msec);
 	}
 
 	void SetColor(sf::Color col)
@@ -103,7 +115,7 @@ public:
 
 	void SetOrigin(float orgX, float orgY)
 	{
-		transform.setOrigin(orgX,orgY);
+		//transform.setOrigin(orgX,orgY);
 	}
 
 	sf::CircleShape GetMyCircle()
@@ -113,16 +125,25 @@ public:
 
 	void SetWorldPosition(float myX, float myY)
 	{
-		worldTransform.setPosition(myX, myY);
+		//worldTransform.setPosition(myX, myY);
 	}
-	
+
+	void Awake();
+	void Start();
+	void LateUpdate(float msec);
+
 protected:
 
+	int GameObjectID;
 	GameObject* parent;
-	sf::Transformable worldTransform;
-	sf::Transformable transform;
+	//sf::Transformable worldTransform;
+	//sf::Transformable transform;
 	std::vector<GameObject*> children;
 	float size;
 	sf::CircleShape myCircle;
 	sf::Color myColor;
+
+	Transform transform;
+	glm::mat4 worldTransform;
+	std::vector<BaseComponent*> m_Components;
 };
