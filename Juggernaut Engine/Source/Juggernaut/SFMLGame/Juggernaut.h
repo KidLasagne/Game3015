@@ -101,10 +101,10 @@ public:
 		GameObject *moon = new GameObject(960, 540, 135.0f, 50.0f, sf::Color::White, 150, 0, 0, 0);
 		*/
 
-		GameObject *scene = new GameObject(0, 0, 0.0f, 50.0f, sf::Color::Blue, 0, 0, 0, 0);
-		GameObject *sun = new GameObject(50, 50, 45.0f, 50.0f, sf::Color::Red, 0, 0, 0, 0);
-		GameObject *earth = new GameObject(100, 100, 90.0f, 50.0f, sf::Color::Green, 0, 0, 0, 0);
-		GameObject *moon = new GameObject(150, 150, 135.0f, 50.0f, sf::Color::White, 0, 0, 0, 0);
+		GameObject *scene = new GameObject(0, 0, 0.0f, 50.0f, sf::Color::Blue, 0, 0, 0, 0, 0);
+		GameObject *sun = new GameObject(50, 50, 45.0f, 50.0f, sf::Color::Red, 0, 0, 0, 0, 1);
+		GameObject *earth = new GameObject(100, 100, 90.0f, 50.0f, sf::Color::Green, 0, 0, 0, 0, 2);
+		GameObject *moon = new GameObject(150, 150, 135.0f, 50.0f, sf::Color::White, 0, 0, 0, 0, 3);
 
 		//GameObject *nibiru = new GameObject(centerX, centerY, 0.0f, 50.0f);
 
