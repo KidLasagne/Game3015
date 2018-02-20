@@ -22,18 +22,23 @@ void GameObject::AddChild(GameObject* s)
 void GameObject::Update(float msec) {
 
 	//transform.setRotation(transform.getRotation() += msec);
-	MakeRotate(msec);
+	//MakeRotate(msec);
 
 	if (parent)
 	{ //This node has a parent...  
 
 	  //worldTransform = parent->worldTransform * transform;
 
+		//worldTransform = MultiplyTransforms(parent->worldTransform, transform);
+		
+		MakeRotate(msec);
 		worldTransform = MultiplyTransforms(parent->worldTransform, transform);
+
 	}
 	else
 	{ //Root node, world transform is local transform!  
 		worldTransform = transform;
+		MakeRotate(msec);
 	}
 	for (std::vector<GameObject*>::iterator i = children.begin(); i != children.end(); ++i)
 	{

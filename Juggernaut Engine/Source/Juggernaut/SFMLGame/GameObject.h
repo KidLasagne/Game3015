@@ -4,6 +4,17 @@
 #include <cmath>
 #include <SFML/Graphics.hpp>
 
+#include <stdio.h>
+//#include "BaseMessage.hpp"
+//#include "BaseComponent.hpp"
+//#include "Transform.hpp"
+#include <iostream>
+#include <list>
+#include <vector>
+#include <iterator>
+//#include <glm/glm.hpp>
+//#include <matrix_transform.hpp>
+
 class GameObject
 {
 public:
@@ -13,11 +24,12 @@ public:
 		parent = NULL; 
 	}
 
-	GameObject(float myX, float myY, float ang, float siz, sf::Color col, float originX, float originY)
+	GameObject(float myX, float myY, float ang, float siz, sf::Color col, float originX, float originY, float localPosX, float localPosY)
 	{
 		parent = NULL;
 		
-		transform.setPosition(myX,myY);
+		SetWorldPosition(myX, myY);
+		transform.setPosition(localPosX,localPosY);
 		transform.setRotation(ang);
 		SetSize(siz);
 		SetColor(col);
@@ -62,7 +74,7 @@ public:
 
 	void UpdateMyShape()
 	{
-		myCircle.setPosition(transform.getPosition());
+		myCircle.setPosition(worldTransform.getPosition());
 		myCircle.setRotation(transform.getRotation());
 		myCircle.setOrigin(transform.getOrigin());
 		myCircle.setFillColor(myColor);
@@ -99,6 +111,11 @@ public:
 		return myCircle;
 	}
 
+	void SetWorldPosition(float myX, float myY)
+	{
+		worldTransform.setPosition(myX, myY);
+	}
+	
 protected:
 
 	GameObject* parent;
