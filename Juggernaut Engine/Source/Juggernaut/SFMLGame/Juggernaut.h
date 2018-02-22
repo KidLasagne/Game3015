@@ -118,7 +118,9 @@ public:
 		{
 			HandleExitConditions();
 
-			sf::Time elapsed = clock.restart();
+			//sf::Time elapsed = clock.restart();
+			sf::Time elapsed = clock.getElapsedTime();
+
 
 			sf::Event event;
 			while (window.pollEvent(event))
@@ -127,8 +129,10 @@ public:
 					window.close();
 			}
 
-			scene->Update(0.02);
+			//scene->Update(0.02);
+			scene->Update(elapsed.asSeconds());
 
+			clock.restart();
 			/*
 			scene->UpdateMyShape();
 			sun->UpdateMyShape();
@@ -149,6 +153,10 @@ public:
 			sun->UpdateMyShape();
 			earth->UpdateMyShape();
 			moon->UpdateMyShape();
+
+			//sun->Update;
+			//earth->Update;
+			//moon->Update;
 
 			window.clear();
 			window.draw(scene->GetMyCircle());

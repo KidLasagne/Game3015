@@ -89,6 +89,10 @@ public:
 		//myCircle.setPosition(worldTransform.getPosition());
 		//myCircle.setRotation(transform.getRotation());
 		//myCircle.setOrigin(transform.getOrigin());
+
+		//myCircle.setPosition(transform.m_Position.x, transform.m_Position.y);
+		//myCircle.setRotation(transform.m_Rotation.x);
+
 		myCircle.setFillColor(myColor);
 		myCircle.setRadius(size);
 	}
