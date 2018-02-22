@@ -76,6 +76,16 @@ void GameObject::AddComponent(BaseComponent* component)
 	m_Components.push_back(component);
 }
 
+sf::Transformable MultiplyTransforms(sf::Transformable selfTransform, sf::Transformable otherTransformable)
+{
+	sf::Transformable storageTransformable;
+	storageTransformable.setRotation(selfTransform.getRotation() + otherTransformable.getRotation());
+	storageTransformable.setPosition(storageTransformable.getRotation() * (otherTransformable.getPosition().x + selfTransform.getPosition().x), storageTransformable.getRotation() * (otherTransformable.getPosition().y + selfTransform.getPosition().y));
+
+	return storageTransformable;
+}
+
+
 /*
 void GameObject::AddChild(GameObject* child) {
 	m_Children.push_back(child);

@@ -62,33 +62,17 @@ public:
 		return size;
 	}
 	virtual void Update(float msec);
-	sf::Transformable MultiplyTransforms(sf::Transformable selfTransform, sf::Transformable otherTransformable)
-	{
-		sf::Transformable storageTransformable;
-		storageTransformable.setRotation(selfTransform.getRotation() + otherTransformable.getRotation());
-		storageTransformable.setPosition(storageTransformable.getRotation() * (otherTransformable.getPosition().x + selfTransform.getPosition().x), storageTransformable.getRotation() * (otherTransformable.getPosition().y + selfTransform.getPosition().y ) );
-
-		return storageTransformable;
-	}
-
-	/*
-	sf::Transformable operator* (const sf::Transformable& other) const
-	{
-		sf::Transformable storageTransformable;
-		storageTransformable.setRotation(transform.getRotation() * other.getRotation());
-		storageTransformable.setPosition(transform.getRotation() * (other.getPosition() + transform.getPosition()));
-		//storageTransformable.setScale(selfTransform.getScale);
-		
-
-		return storageTransformable;
-	}
-	*/
+	sf::Transformable MultiplyTransforms(sf::Transformable selfTransform, sf::Transformable otherTransformable);
 
 	void UpdateMyShape()
 	{
 		//myCircle.setPosition(worldTransform.getPosition());
 		//myCircle.setRotation(transform.getRotation());
 		//myCircle.setOrigin(transform.getOrigin());
+
+		//myCircle.setPosition(transform.m_Position.x, transform.m_Position.y);
+		//myCircle.setRotation(transform.m_Rotation.x);
+
 		myCircle.setFillColor(myColor);
 		myCircle.setRadius(size);
 	}
@@ -140,8 +124,8 @@ protected:
 	//sf::Transformable transform;
 	std::vector<GameObject*> children;
 	float size;
-	sf::CircleShape myCircle;
 	sf::Color myColor;
+	sf::CircleShape myCircle;
 
 	Transform transform;
 	glm::mat4 worldTransform;
