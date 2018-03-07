@@ -31,6 +31,7 @@ public:
 	void SetTexture(std::string name);
 	void RenderSprite();
 	sf::Sprite GetSprite();
+	void AttachChild(GameObject*);
 
 	transform transform;
 	

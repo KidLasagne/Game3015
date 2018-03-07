@@ -66,3 +66,9 @@ sf::Sprite GameObject::GetSprite()
 {
 	return sprite;
 }
+
+void GameObject::AttachChild(GameObject* child)
+{
+	childObjects.push_back(child);
+	child->parent = this;
+}
