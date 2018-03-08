@@ -45,6 +45,7 @@ void GameObject::InitializeGameObject()
 	SetPosition(0, 0);
 	SetRotation(0);
 	SetScale(1);
+	SetName("Empty");
 }
 
 void GameObject::SetTexture(std::string tex)
@@ -71,4 +72,23 @@ void GameObject::AttachChild(GameObject* child)
 {
 	childObjects.push_back(child);
 	child->parent = this;
+}
+
+void GameObject::PushBaseComponent(BaseComponent* baseC)
+{
+	BaseComponentList.push_back(baseC);
+}
+
+GameObject* GameObject::FindObjectByName(std::string nam)
+{
+	for (auto& game_object : childObjects)
+	{
+		if (game_object->GetName() == nam)
+		{
+			return game_object;
+		}
+	}
+
+	return NULL;
+
 }

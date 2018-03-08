@@ -31,14 +31,21 @@ public:
 	void SetTexture(std::string name);
 	void RenderSprite();
 	sf::Sprite GetSprite();
+	void SetName(std::string str) { name = str; }
+	std::string GetName() { return name; }
 	void AttachChild(GameObject*);
+	void PushBaseComponent(BaseComponent* baseC);
+	GameObject* FindObjectByName(std::string nam);
 
 	transform transform;
-	
+	std::string name;
+
 	GameObject* parent;
 	std::vector<GameObject*> childObjects;
+	std::vector<BaseComponent*> BaseComponentList;
 
 	sf::Texture texture;
 	sf::Sprite sprite; // (tex);
+
 };
 
