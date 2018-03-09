@@ -28,14 +28,22 @@ int main()
 	GameObject *gam3 = new GameObject();
 	GameObject *gam4 = new GameObject();
 
+	gam1->SetRotation(-90.0f);
+	gam2->SetWorldPosition(100, 0);
+	gam2->SetSphereColor(sf::Color::Red);
+	gam3->SetWorldPosition(200, 0);
+	gam3->SetSphereColor(sf::Color::Green);
+	gam4->SetWorldPosition(300, 0);
+	gam4->SetSphereColor(sf::Color::Yellow);
+
 	gam1->SetName("g1");
 	gam2->SetName("g2");
 	gam3->SetName("g3");
 	gam4->SetName("g3");
 
 	gam1->AttachChild(gam2);
-	gam1->AttachChild(gam3);
-	gam1->AttachChild(gam4);
+	gam2->AttachChild(gam3);
+	gam3->AttachChild(gam4);
 
 	GameObjectManager *gamu = new GameObjectManager();
 	gamu->PushGameObject(gam1);
@@ -63,7 +71,7 @@ int main()
 	}
 
 	std::cout << "Testing for NULL: " << std::endl;
-	std::cout << "Object Name: " << gam1->FindObjectByName("g3")->GetName() << std::endl;
+	//std::cout << "Object Name: " << gam1->FindObjectByName("g3")->GetName() << std::endl;
 	if (gam1->FindObjectByName("powerman") == NULL)
 	{
 		std::cout << "No Object Found." << std::endl;
@@ -73,6 +81,10 @@ int main()
 		std::cout << "Found it!" << std::endl;
 	}
 
+	gamu->Awake();
+	gamu->Start();
+
+	float f = 0.0f;
 
 	while (window.isOpen())
 	{
@@ -83,7 +95,23 @@ int main()
 			{
 				window.close();
 			}
+			if (event.type == sf::Event::MouseButtonPressed)
+			{
+				gamu->FindGameObjectByName("g1")->worldTransform.Position.x += 50.0f;
+			}
 		}
+
+		gamu->FindGameObjectByName("g2")->SetRotation(50.0f);
+
+		gamu->Update();
+		gamu->LateUpdate();
+
+		window.clear();
+		for (auto& game_object : gamu->GameObjectLibrary)
+		{
+			window.draw(game_object->GetSphere());
+		}
+		window.display();
 
 		//window.clear();
 		//window.draw(sprite);
