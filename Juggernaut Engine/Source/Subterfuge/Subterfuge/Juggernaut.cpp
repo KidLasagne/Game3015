@@ -118,7 +118,8 @@ void Juggernaut::RenderTheWindow()
 		//window.draw(First->GetSphere());
 		for (auto& game_object : Manager.GetGameObjectLibrary())
 		{
-			window.draw(game_object->GetSphere());
+			window.draw(game_object->GetSprite());
+			//window.draw(game_object->GetSphere());
 		}
 		window.display();
 	}
