@@ -44,12 +44,22 @@ void Juggernaut::RenderTheWindow()
 
 	First->SetWorldPosition(0, 0);
 	First->SetSphereColor(sf::Color::Blue);
-	Second->SetWorldPosition(200, 200);
+	Second->SetWorldPosition(0, 0);
+	Second->SetLocalPosition(100, 100);
 	Second->SetSphereColor(sf::Color::Red);
-	Third->SetWorldPosition(400, 400);
+	Third->SetWorldPosition(0, 0);
+	Third->SetLocalPosition(100, 100);
 	Third->SetSphereColor(sf::Color::Yellow);
-	Fourth->SetWorldPosition(600, 600);
+	Fourth->SetWorldPosition(0, 0);
+	Fourth->SetLocalPosition(100, 100);
 	Fourth->SetSphereColor(sf::Color::Green);
+
+	
+	//Second->SetWorldPosition(Second->AddTransform(First->GetWorldTransform(), Second->GetLocalTransform()).Position.x, Second->AddTransform(First->GetWorldTransform(), Second->GetLocalTransform()).Position.y);
+
+	First->AttachChild(Second);
+	Second->AttachChild(Third);
+	Third->AttachChild(Fourth);
 
 	Manager.PushGameObject(First);
 	Manager.PushGameObject(Second);
