@@ -1,7 +1,5 @@
 ﻿  main.cpp
   Generating code
-  6 of 176 functions ( 3.4%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    9 functions had inline decision re-evaluated but remain unchanged
+  All 191 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   Subterfuge.vcxproj -> C:\Users\squee\Documents\GitHub\Game3015\Juggernaut Engine\Source\Subterfuge\\..\..\Game\Release-x64\Subterfuge.exe
