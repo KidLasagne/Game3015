@@ -18,6 +18,9 @@ void GameObject::Update()
 {
 	SnapToParent();
 	circleShape.setPosition(worldTransform.Position);
+	sprite.setPosition(worldTransform.Position);
+	sprite.setRotation(worldTransform.Rotation);
+	//sprite.setScale( sprite.getLocalBounds().width, sprite.getLocalBounds().height);
 }
 
 void GameObject::LateUpdate()
@@ -49,16 +52,21 @@ void GameObject::InitializeGameObject()
 	SetName("Empty");
 	circleShape.setFillColor(sf::Color::Blue);
 	circleShape.setRadius(50.0f);
+	SetTexture("Mage.png", sprite, 100,100,0,0,worldTransform.Position.x, worldTransform.Position.y, 1, 1, 0.0f);
 }
 
-void GameObject::SetTexture(std::string tex)
+void GameObject::SetTexture(std::string tex, sf::Sprite spr, float width, float height, float startX, float startY, float posX, float posY, float scaleX, float scaleY, float rot)
 {
-	if (!texture.loadFromFile(tex))
+	if (!texture.loadFromFile(tex, sf::IntRect(startX,startY,width,height)))
 	{
 		std::cout << "The Image Was Not Found..." << std::endl;
 		return;
 	}
 
+	sprite.setTexture(texture);
+	sprite.setPosition(posX,posY);
+	sprite.setScale(scaleX, scaleY);
+	sprite.setRotation(rot);
 }
 
 void GameObject::RenderSprite()

@@ -34,7 +34,7 @@ public:
 	void SetWorldRotation(float rot);
 	void SetScale(float s);
 	void InitializeGameObject();
-	void SetTexture(std::string name);
+	void SetTexture(std::string name, sf::Sprite spr, float width, float height, float startX, float startY, float posX, float posY, float scaleX, float scaleY, float rot);
 	void RenderSprite();
 	sf::Sprite GetSprite();
 	void SetName(std::string str) { name = str; }
