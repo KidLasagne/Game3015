@@ -32,10 +32,10 @@ void Juggernaut::RenderTheWindow()
 	sf::RenderWindow window({ 1920,1080 }, "Huzzah it works");
 	window.setFramerateLimit(30);
 	
-	sf::CircleShape sprite;
-	sprite.setFillColor(sf::Color::Blue);
-	sprite.setRadius(50.0f);
-	sprite.setPosition(0,0);
+	sf::CircleShape csprite;
+	csprite.setFillColor(sf::Color::Blue);
+	csprite.setRadius(50.0f);
+	csprite.setPosition(0,0);
 
 	GameObject *First = new GameObject();
 	GameObject *Second = new GameObject();
@@ -55,6 +55,35 @@ void Juggernaut::RenderTheWindow()
 	Manager.PushGameObject(Second);
 	Manager.PushGameObject(Third);
 	Manager.PushGameObject(Fourth);
+
+	sf::Texture tex;
+	
+	if (!tex.loadFromFile("TheCommissionersMagnificence.png"))
+	{
+		std::cout << "The Image Was Not Found..." << std::endl;
+	}
+
+	sf::Sprite sprite; // (tex);
+	sprite.setTexture(tex);
+	window.draw(sprite);
+	window.display();
+
+	bool tempBool = false;
+	while (tempBool == false)
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+			{
+				tempBool = true;
+			}
+			if (event.type == sf::Event::MouseButtonPressed)
+			{
+				tempBool = true;
+			}
+		}
+	}
 
 	Beginning();
 
