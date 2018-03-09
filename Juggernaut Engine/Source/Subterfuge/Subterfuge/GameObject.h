@@ -28,8 +28,8 @@ public:
 	void Update();
 	void LateUpdate();
 
-	void SetPosition(float x, float y);
-	void SetRotation(float rot);
+	void SetLocalPosition(float x, float y);
+	void SetLocalRotation(float rot);
 	void SetWorldPosition(float x, float y);
 	void SetWorldRotation(float rot);
 	void SetScale(float s);
@@ -42,13 +42,14 @@ public:
 	void AttachChild(GameObject*);
 	void PushBaseComponent(BaseComponent* baseC);
 	GameObject* FindObjectByName(std::string nam);
-	void CombineTransforms();
+	transform AddTransform(transform otherTransform, transform selfTransform);
 	transform GameObject::Rotate(transform v, float degrees);
 	double GameObject::Deg2Rad(double degrees);
 	sf::CircleShape GetSphere() { return circleShape; }
 	void SetSphereColor(sf::Color sphereColor) { circleShape.setFillColor(sphereColor); }
 	void SetRadius(float rad) { circleShape.setRadius(rad); }
 	float GetRadius() { return circleShape.getRadius(); }
+	void SnapToParent();
 
 	transform GetWorldTransform() { return worldTransform; }
 	transform GetLocalTransform() { return Transform; }

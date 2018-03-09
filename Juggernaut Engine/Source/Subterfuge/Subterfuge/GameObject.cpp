@@ -16,6 +16,7 @@ void GameObject::Start()
 
 void GameObject::Update()
 {
+	SnapToParent();
 	circleShape.setPosition(worldTransform.Position);
 }
 
@@ -24,13 +25,13 @@ void GameObject::LateUpdate()
 
 }
 
-void GameObject::SetPosition(float x, float y)
+void GameObject::SetLocalPosition(float x, float y)
 {
 	Transform.Position.x = x;
 	Transform.Position.y = y;
 }
 
-void GameObject::SetRotation(float rot)
+void GameObject::SetLocalRotation(float rot)
 {
 	Transform.Rotation = rot;
 }
@@ -42,8 +43,8 @@ void GameObject::SetScale(float s)
 
 void GameObject::InitializeGameObject()
 {
-	SetPosition(0, 0);
-	SetRotation(0);
+	SetLocalPosition(0, 0);
+	SetLocalRotation(0);
 	SetScale(1);
 	SetName("Empty");
 	circleShape.setFillColor(sf::Color::Blue);
@@ -95,6 +96,29 @@ GameObject* GameObject::FindObjectByName(std::string nam)
 
 }
 
+transform GameObject::AddTransform(transform otherTransform, transform selfTransform)
+{
+	transform newTransform;
+
+	newTransform.Position = {otherTransform.Position.x + selfTransform.Position.x, otherTransform.Position.y + selfTransform.Position.y};
+
+	return newTransform;
+}
+
+void GameObject::SnapToParent()
+{
+	if (parent != NULL)
+	{
+		SetWorldPosition(AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.x, AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.y);
+	}
+	else
+	{
+		SetWorldPosition(GetWorldTransform().Position.x + GetLocalTransform().Position.x, GetWorldTransform().Position.y + GetLocalTransform().Position.y );
+		SetLocalPosition(0,0);
+	}
+}
+
+/*
 void GameObject::CombineTransforms()
 {
 	if (parent != NULL)
@@ -110,6 +134,7 @@ void GameObject::CombineTransforms()
 	//combinedTransform.Position.y = worldTransform.Position.y + Transform.Position.y;
 	//combinedTransform.Rotation = 
 }
+*/
 
 void GameObject::SetWorldPosition(float x, float y)
 {
