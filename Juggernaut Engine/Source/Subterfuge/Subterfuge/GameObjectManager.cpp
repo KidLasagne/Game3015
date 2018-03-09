@@ -10,7 +10,7 @@ GameObjectManager::~GameObjectManager()
 {
 }
 
-void GameObjectManager::Awake() 
+void GameObjectManager::Awake()
 {
 	for (auto& game_object : GameObjectLibrary)
 	{
@@ -18,7 +18,7 @@ void GameObjectManager::Awake()
 	}
 }
 
-void GameObjectManager::Start() 
+void GameObjectManager::Start()
 {
 	for (auto& game_object : GameObjectLibrary)
 	{
@@ -26,7 +26,7 @@ void GameObjectManager::Start()
 	}
 }
 
-void GameObjectManager::Update() 
+void GameObjectManager::Update()
 {
 	for (auto& game_object : GameObjectLibrary)
 	{
@@ -34,7 +34,7 @@ void GameObjectManager::Update()
 	}
 }
 
-void GameObjectManager::LateUpdate() 
+void GameObjectManager::LateUpdate()
 {
 	for (auto& game_object : GameObjectLibrary)
 	{
@@ -42,12 +42,12 @@ void GameObjectManager::LateUpdate()
 	}
 }
 
-void GameObjectManager::PushGameObject(GameObject* gam) 
+void GameObjectManager::PushGameObject(GameObject* gam)
 {
 	GameObjectLibrary.push_back(gam);
 }
 
-GameObject* GameObjectManager::FindGameObjectByName(std::string nam) 
+GameObject* GameObjectManager::FindGameObjectByName(std::string nam)
 {
 	for (auto& game_object : GameObjectLibrary)
 	{

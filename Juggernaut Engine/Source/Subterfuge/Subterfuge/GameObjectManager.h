@@ -7,7 +7,7 @@ class GameObjectManager
 public:
 	GameObjectManager();
 	~GameObjectManager();
-	
+
 	void Awake();
 	void Start();
 	void Update();
