@@ -47,6 +47,11 @@ public:
 	double GameObject::Deg2Rad(double degrees);
 	sf::CircleShape GetSphere() { return circleShape; }
 	void SetSphereColor(sf::Color sphereColor) { circleShape.setFillColor(sphereColor); }
+	void SetRadius(float rad) { circleShape.setRadius(rad); }
+	float GetRadius() { return circleShape.getRadius(); }
+
+	transform GetWorldTransform() { return worldTransform; }
+	transform GetLocalTransform() { return Transform; }
 
 	transform worldTransform;
 	transform Transform;
@@ -59,7 +64,6 @@ public:
 	sf::Texture texture;
 	sf::Sprite sprite; // (tex);
 	sf::CircleShape circleShape;
-
 
 };
 

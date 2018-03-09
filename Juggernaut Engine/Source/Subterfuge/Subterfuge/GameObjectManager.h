@@ -15,6 +15,7 @@ public:
 	void PushGameObject(GameObject* gam);
 	GameObject* FindGameObjectByName(std::string nam);
 	std::vector<GameObject*> FindGameObjectsByName(std::string nam);
+	std::vector<GameObject*> GetGameObjectLibrary() { return GameObjectLibrary; }
 
 	std::vector<GameObject*> GameObjectLibrary;
 
