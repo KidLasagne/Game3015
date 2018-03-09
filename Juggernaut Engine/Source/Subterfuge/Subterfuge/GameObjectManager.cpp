@@ -45,6 +45,8 @@ void GameObjectManager::LateUpdate()
 void GameObjectManager::PushGameObject(GameObject* gam)
 {
 	GameObjectLibrary.push_back(gam);
+	std::cout << "Pushing Object." << std::endl;
+	//std::cout << "Lib Size: " << GameObjectLibrary.size << std::endl;
 }
 
 GameObject* GameObjectManager::FindGameObjectByName(std::string nam)
@@ -74,3 +76,4 @@ std::vector<GameObject*> GameObjectManager::FindGameObjectsByName(std::string na
 
 	return ObjList;
 }
+
