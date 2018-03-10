@@ -54,6 +54,8 @@ public:
 	float GetLocalRotation() { return Transform.Rotation; }
 	void SnapToParent();
 	void SnapToParentWithRotation();
+	void Translate(float VectorX, float VectorY);
+	void LocalTranslate(float VectorX, float VectorY);
 
 	transform GetWorldTransform() { return worldTransform; }
 	transform GetLocalTransform() { return Transform; }

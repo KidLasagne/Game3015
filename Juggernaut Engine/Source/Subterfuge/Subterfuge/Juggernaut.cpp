@@ -105,6 +105,8 @@ void Juggernaut::RenderTheWindow()
 
 	Beginning();
 
+	int MoveWhich = 0;
+
 	while (window.isOpen())
 	{
 
@@ -128,7 +130,18 @@ void Juggernaut::RenderTheWindow()
 			}
 			if (event.type == sf::Event::KeyPressed)
 			{
-				Second->SetLocalPosition(Second->GetLocalTransform().Position.x + 150.0f, Second->GetLocalTransform().Position.y + 50.0f);
+				if (event.key.code == sf::Keyboard::Space)
+				{
+					MoveWhich++;
+					if (MoveWhich > 3)
+					{
+						MoveWhich = 0;
+					}
+				}
+				/*
+				//Second->SetWorldPosition(Second->GetWorldTransform().Position.x + 150.0f, Second->GetWorldTransform().Position.y + 50.0f);
+				//Second->LocalTranslate(150.0f, 50.0f);
+				First->Translate(150.0f, 50.0f);
 
 				for (auto& game_object : Manager.GetGameObjectLibrary())
 				{
@@ -136,7 +149,41 @@ void Juggernaut::RenderTheWindow()
 					//window.draw(game_object->GetSprite());
 					//window.draw(game_object->GetSphere());
 				}
+				*/
 			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
+				UserInput(-100.0f, 0.0f, First, Second, Third, Fourth, MoveWhich);
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+				UserInput(100.0f, 0.0f, First, Second, Third, Fourth, MoveWhich);
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			{
+				UserInput(0.0f, -100.0f, First, Second, Third, Fourth, MoveWhich);
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			{
+				UserInput(0.0f, 100.0f, First, Second, Third, Fourth, MoveWhich);
+			}
+		}
+
+		if (MoveWhich == 0)
+		{
+			std::cout << "Object: First" << std::endl;
+		}
+		if (MoveWhich == 1)
+		{
+			std::cout << "Object: Second" << std::endl;
+		}
+		if (MoveWhich == 2)
+		{
+			std::cout << "Object: Third" << std::endl;
+		}
+		if (MoveWhich == 3)
+		{
+			std::cout << "Object: Fourth" << std::endl;
 		}
 
 		for (auto& game_object : Manager.GetGameObjectLibrary())
@@ -165,6 +212,26 @@ void Juggernaut::RenderTheWindow()
 			//window.draw(game_object->GetSphere());
 		}
 		window.display();
+	}
+}
+
+void Juggernaut::UserInput(float x, float y, GameObject *First, GameObject *Second, GameObject *Third, GameObject *Fourth, int MoveWhich)
+{
+	if (MoveWhich == 0)
+	{
+		First->Translate(x, y);
+	}
+	if (MoveWhich == 1)
+	{
+		Second->LocalTranslate(x, y);
+	}
+	if (MoveWhich == 2)
+	{
+		Third->LocalTranslate(x, y);
+	}
+	if (MoveWhich == 3)
+	{
+		Fourth->LocalTranslate(x, y);
 	}
 }
 

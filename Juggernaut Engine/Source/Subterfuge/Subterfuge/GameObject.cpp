@@ -19,14 +19,14 @@ void GameObject::Update()
 	if (parent != NULL)
 	{
 		//sprite.setOrigin(0,0);
-		sprite.setOrigin(parent->GetWorldTransform().Position + parent->Transform.Position); //+ parent->Transform.Position);
+		//sprite.setOrigin(parent->GetWorldTransform().Position + parent->Transform.Position); //+ parent->Transform.Position);
 	}
 	else
 	{
 		//Rotate(10.0f);
 		//sprite.setOrigin(0,0);
 	}
-	SnapToParentWithRotation();
+	SnapToParent();
 	//SnapToParentWithRotation();
 	circleShape.setPosition(worldTransform.Position);
 	sprite.setPosition(worldTransform.Position);
@@ -146,6 +146,23 @@ void GameObject::SnapToParent()
 {
 	if (parent != NULL)
 	{
+		/*
+		float myX = worldTransform.Position.x + Transform.Position.x - parent->GetWorldTransform().Position.x - parent->GetLocalTransform().Position.x;
+		float myY = worldTransform.Position.y + Transform.Position.y - parent->GetWorldTransform().Position.y - parent->GetLocalTransform().Position.y;
+		float localX = Transform.Position.x;
+		float localY = Transform.Position.y;
+		SetWorldPosition(0,0);
+		SetLocalPosition(0,0);
+		Translate(parent->GetWorldTransform().Position.x + parent->GetLocalTransform().Position.x, parent->GetWorldTransform().Position.y + parent->GetLocalTransform().Position.y);
+		Translate(myX - localX, myY - localY);
+		SetLocalPosition(localX, localY);
+		*/
+
+		//float myX = GetWorldTransform().Position.x + GetLocalTransform().Position.x - parent->GetWorldTransform().Position.x - parent->GetLocalTransform().Position.x;
+		//float myY = GetWorldTransform().Position.y + GetLocalTransform().Position.y - parent->GetWorldTransform().Position.y - parent->GetLocalTransform().Position.y;
+		//SetWorldPosition(parent->GetWorldTransform().Position.x + parent->GetLocalTransform().Position.x, parent->GetWorldTransform().Position.y + parent->GetLocalTransform().Position.y);
+		//Translate(myX,myY);
+		//SetWorldPosition(parent->GetWorldTransform().Position.x + parent->GetLocalTransform().Position.x + worldTransform.Position.x + Transform.Position.x, parent->GetWorldTransform().Position.y + parent->GetLocalTransform().Position.y + worldTransform.Position.y + Transform.Position.y );
 		SetWorldPosition(AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.x, AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.y);
 		std::cout << "Snapping To Parent Object." << std::endl;
 	}
@@ -221,4 +238,14 @@ void GameObject::Rotate(transform center, float angle)
 
 double GameObject::Deg2Rad(double degrees) {
 	return degrees * (M_PI / 180);
+}
+
+void GameObject::Translate(float VectorX, float VectorY)
+{
+	SetWorldPosition(worldTransform.Position.x + VectorX, worldTransform.Position.y + VectorY);
+}
+
+void GameObject::LocalTranslate(float VectorX, float VectorY)
+{
+	SetLocalPosition(Transform.Position.x + VectorX, Transform.Position.y + VectorY);
 }
