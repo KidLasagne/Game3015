@@ -117,6 +117,23 @@ void Juggernaut::RenderTheWindow()
 		sf::Time elapsed2 = clock.getElapsedTime();
 		std::cout << elapsed2.asSeconds() << std::endl;
 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			UserInput(-15.0f, 0.0f, First, Second, Third, Fourth, MoveWhich);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			UserInput(15.0f, 0.0f, First, Second, Third, Fourth, MoveWhich);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			UserInput(0.0f, -15.0f, First, Second, Third, Fourth, MoveWhich);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			UserInput(0.0f, 15.0f, First, Second, Third, Fourth, MoveWhich);
+		}
+
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -150,22 +167,6 @@ void Juggernaut::RenderTheWindow()
 					//window.draw(game_object->GetSphere());
 				}
 				*/
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-			{
-				UserInput(-100.0f, 0.0f, First, Second, Third, Fourth, MoveWhich);
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-			{
-				UserInput(100.0f, 0.0f, First, Second, Third, Fourth, MoveWhich);
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-			{
-				UserInput(0.0f, -100.0f, First, Second, Third, Fourth, MoveWhich);
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-			{
-				UserInput(0.0f, 100.0f, First, Second, Third, Fourth, MoveWhich);
 			}
 		}
 
