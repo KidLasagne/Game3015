@@ -13,6 +13,18 @@ void Juggernaut::Initialize()
 {
 	ExceedsRequirements = true;
 
+	HANDLE mutex = CreateMutex(NULL, TRUE, L"Juggernaut");
+	if (GetLastError() == ERROR_ALREADY_EXISTS)
+	{
+		std::cout << "Another App Instance Running, Shutting Down..." << std::endl;
+		ExceedsRequirements = false;
+		// There's another instance running.  What do you do?
+	}
+	else
+	{
+		std::cout << "No Other App Instances Found, Running Program..." << std::endl;
+	}
+
 	MEMORYSTATUSEX status;
 	status.dwLength = sizeof(status);
 	GlobalMemoryStatusEx(&status);
