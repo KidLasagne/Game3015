@@ -133,6 +133,16 @@ void Juggernaut::RenderTheWindow()
 		{
 			UserInput(0.0f, 15.0f, First, Second, Third, Fourth, MoveWhich);
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+		{
+			First->SetWorldRotation(First->GetWorldRotation() + 10.0f);
+			First->SetLocalRotation(First->GetLocalRotation() + 10.0f);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+		{
+			First->SetWorldRotation(First->GetWorldRotation() - 10.0f);
+			First->SetLocalRotation(First->GetLocalRotation() - 10.0f);
+		}
 
 		sf::Event event;
 		while (window.pollEvent(event))

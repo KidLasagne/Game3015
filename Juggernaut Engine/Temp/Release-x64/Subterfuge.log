@@ -1,7 +1,8 @@
-﻿  Juggernaut.cpp
+﻿  GameObject.cpp
+GameObject.cpp(73): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   Generating code
-  11 of 210 functions ( 5.2%) were compiled, the rest were copied from previous compilation.
+  13 of 206 functions ( 6.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    4 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Subterfuge.vcxproj -> C:\Users\squee\Documents\GitHub\Game3015\Juggernaut Engine\Source\Subterfuge\\..\..\Game\Release-x64\Subterfuge.exe
