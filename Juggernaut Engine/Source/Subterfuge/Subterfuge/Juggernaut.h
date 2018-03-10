@@ -2,6 +2,7 @@
 
 #include "GameObjectManager.h"
 #include <windows.h>
+#include <stdio.h>
 
 class Juggernaut
 {
