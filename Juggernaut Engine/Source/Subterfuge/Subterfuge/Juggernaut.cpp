@@ -11,12 +11,72 @@ Juggernaut::~Juggernaut()
 
 void Juggernaut::Initialize() 
 {
+	ExceedsRequirements = true;
+
+	MEMORYSTATUSEX status;
+	status.dwLength = sizeof(status);
+	GlobalMemoryStatusEx(&status);
+	std::cout << "RAM Available: " << status.ullTotalPhys << std::endl;
+
+	SYSTEM_INFO siSysInfo;
+
+	// Copy the hardware information to the SYSTEM_INFO structure. 
+
+	GetSystemInfo(&siSysInfo);
+
+	// Display the contents of the SYSTEM_INFO structure. 
+
+	printf("Hardware information: \n");
+	printf("  OEM ID: %u\n", siSysInfo.dwOemId);
+	printf("  Number of processors: %u\n",
+		siSysInfo.dwNumberOfProcessors);
+	printf("  Page size: %u\n", siSysInfo.dwPageSize);
+	printf("  Processor type: %u\n", siSysInfo.dwProcessorType);
+	printf("  Minimum application address: %lx\n",
+		siSysInfo.lpMinimumApplicationAddress);
+	printf("  Maximum application address: %lx\n",
+		siSysInfo.lpMaximumApplicationAddress);
+	printf("  Active processor mask: %u\n",
+		siSysInfo.dwActiveProcessorMask);
+
+	std::cout << "Free Disc Space: " << GetFreeSpace() << std::endl;
+
+	if (GetFreeSpace() > 52428)
+	{
+		std::cout << "You have enough free space." << std::endl;
+	}
+	else
+	{
+		std::cout << "You do not have enough free space. Exiting Program." << std::endl;
+		ExceedsRequirements = false;
+	}
+
+	if (status.ullTotalPhys > 4276000000)
+	{
+		std::cout << "You have enough RAM." << std::endl;
+	}
+	else
+	{
+		std::cout << "You do not have enough RAM. Exiting Program." << std::endl;
+		ExceedsRequirements = false;
+	}
+
+	if (siSysInfo.dwProcessorType > 386)
+	{
+		std::cout << "Your processor exceeds the requirements." << std::endl;
+	}
+	else
+	{
+		std::cout << "Your processor does not meet the requirements. Exiting Program." << std::endl;
+		ExceedsRequirements = false;
+	}
+
 	// Initialize Game Here.
 }
 
 void Juggernaut::Beginning() 
 {
-	Initialize();
+	//Initialize();
 	GetGameObjectManager().Awake();
 	GetGameObjectManager().Start();
 }
@@ -84,6 +144,8 @@ void Juggernaut::RenderTheWindow()
 	window.draw(sprite);
 	window.display();
 
+	Initialize();
+
 	bool tempBool = false;
 	while (tempBool == false)
 	{
@@ -99,6 +161,11 @@ void Juggernaut::RenderTheWindow()
 				tempBool = true;
 			}
 		}
+	}
+
+	if (ExceedsRequirements == false)
+	{
+		return;
 	}
 
 	sf::Clock clock; // starts the clock
