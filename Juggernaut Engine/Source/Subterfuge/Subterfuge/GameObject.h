@@ -43,13 +43,17 @@ public:
 	void PushBaseComponent(BaseComponent* baseC);
 	GameObject* FindObjectByName(std::string nam);
 	transform AddTransform(transform otherTransform, transform selfTransform);
-	transform GameObject::Rotate(transform v, float degrees);
+	void GameObject::Rotate(float angle);
+	void GameObject::Rotate(transform center, float angle);
 	double GameObject::Deg2Rad(double degrees);
 	sf::CircleShape GetSphere() { return circleShape; }
 	void SetSphereColor(sf::Color sphereColor) { circleShape.setFillColor(sphereColor); }
 	void SetRadius(float rad) { circleShape.setRadius(rad); }
 	float GetRadius() { return circleShape.getRadius(); }
+	float GetWorldRotation() { return worldTransform.Rotation; }
+	float GetLocalRotation() { return Transform.Rotation; }
 	void SnapToParent();
+	void SnapToParentWithRotation();
 
 	transform GetWorldTransform() { return worldTransform; }
 	transform GetLocalTransform() { return Transform; }
