@@ -20,15 +20,15 @@ void GameObject::Update()
 	{
 		//SnapToParent();
 		//sprite.setOrigin(0,0);
-		//sprite.setOrigin(parent->GetWorldTransform().Position + parent->Transform.Position); //+ parent->Transform.Position);
+		sprite.setOrigin(parent->GetWorldTransform().Position + parent->Transform.Position); //+ parent->Transform.Position);
 	}
 	else
 	{
 		//Rotate(10.0f);
 		//sprite.setOrigin(0,0);
 	}
-	SnapToParent();
-	//SnapToParentWithRotation();
+	//SnapToParent();
+	SnapToParentWithRotation();
 	circleShape.setPosition(worldTransform.Position);
 	sprite.setPosition(worldTransform.Position);
 	sprite.setRotation(Transform.Rotation);
