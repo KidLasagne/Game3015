@@ -18,16 +18,17 @@ void GameObject::Update()
 {
 	if (parent != NULL)
 	{
+		SnapToParent();
 		//sprite.setOrigin(0,0);
-		//sprite.setOrigin(parent->GetWorldTransform().Position + parent->Transform.Position); //+ parent->Transform.Position);
+		sprite.setOrigin(parent->GetWorldTransform().Position + parent->Transform.Position); //+ parent->Transform.Position);
 	}
 	else
 	{
 		//Rotate(10.0f);
 		//sprite.setOrigin(0,0);
 	}
-	SnapToParent();
-	//SnapToParentWithRotation();
+	//SnapToParent();
+	SnapToParentWithRotation();
 	circleShape.setPosition(worldTransform.Position);
 	sprite.setPosition(worldTransform.Position);
 	sprite.setRotation(Transform.Rotation);
@@ -129,6 +130,8 @@ void GameObject::SnapToParentWithRotation()
 {
 	if (parent != NULL)
 	{
+		//SnapToParent();
+		//Rotate(parent->GetWorldTransform(), 0.001f);
 		Rotate(parent->GetWorldTransform(), parent->GetWorldRotation() * 0.01f);
 		//SetWorldPosition(AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.x, AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.y);
 		SetLocalRotation(GetLocalRotation() + 1.0f);
@@ -138,6 +141,7 @@ void GameObject::SnapToParentWithRotation()
 	{
 		SetWorldPosition(GetWorldTransform().Position.x + GetLocalTransform().Position.x, GetWorldTransform().Position.y + GetLocalTransform().Position.y );
 		SetLocalPosition(0,0);
+		//SetLocalRotation(GetLocalRotation() + 1.0f);
 		//Rotate(GetWorldTransform(), parent->GetWorldRotation() * 0.01f);
 	}
 }
@@ -217,9 +221,20 @@ void GameObject::Rotate(transform center, float angle)
 {
 	if (parent != NULL)
 	{
-		SetWorldPosition((parent->GetWorldTransform().Position.x + GetLocalTransform().Position.x) + (GetLocalTransform().Position.x * cos(angle)), (parent->GetWorldTransform().Position.y + GetLocalTransform().Position.y) + (GetLocalTransform().Position.y * sin(angle)));
+		//Transform.Position.x = (parent->GetWorldTransform().Position.x + parent->GetLocalTransform().Position.x) + cos(parent->GetLocalRotation())* GetRadius();
+		//Transform.Position.y = (parent->GetWorldTransform().Position.y + parent->GetLocalTransform().Position.y) + cos(parent->GetLocalRotation())* GetRadius();
+
+		//Transform.Rotation = Transform.Rotation + angle;
+		
+		SetWorldPosition((parent->GetWorldTransform().Position.x) + (GetLocalTransform().Position.x * cos(angle)), (parent->GetWorldTransform().Position.y) + (GetLocalTransform().Position.y * sin(angle)));
+		//SetWorldPosition((parent->GetWorldTransform().Position.x + GetLocalTransform().Position.x) + (GetLocalTransform().Position.x * cos(angle)), (parent->GetWorldTransform().Position.y + GetLocalTransform().Position.y) + (GetLocalTransform().Position.y * sin(angle)));
 		std::cout << "Rotating around Parent Object." << std::endl;
 	}
+	else
+	{
+		Transform.Rotation = Transform.Rotation + angle;
+	}
+
 	/*
 	float radians = Deg2Rad(degrees);
 	float sin = std::sin(radians);
