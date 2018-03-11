@@ -114,19 +114,19 @@ void Juggernaut::RenderTheWindow()
 	GameObject *Third = new GameObject();
 	GameObject *Fourth = new GameObject();
 
-	First->SetWorldPosition(0, 0);
-	First->SetLocalPosition(100, 100);
+	First->SetPosition(0, 0);
+	//First->SetLocalPosition(100, 100);
 	First->SetSphereColor(sf::Color::Blue);
-	Second->SetWorldPosition(0, 0);
-	Second->SetLocalPosition(100, 100);
+	Second->SetPosition(100, 100);
+	//Second->SetLocalPosition(100, 100);
 	Second->GetSprite().setOrigin(0,0);
 	Second->SetSphereColor(sf::Color::Red);
-	Third->SetWorldPosition(0, 0);
-	Third->SetLocalPosition(100, 100);
+	Third->SetPosition(200, 200);
+	//Third->SetLocalPosition(100, 100);
 	Third->GetSprite().setOrigin(0, 0);
 	Third->SetSphereColor(sf::Color::Yellow);
-	Fourth->SetWorldPosition(0, 0);
-	Fourth->SetLocalPosition(100, 100);
+	Fourth->SetPosition(300, 300);
+	//Fourth->SetLocalPosition(100, 100);
 	Fourth->GetSprite().setOrigin(0, 0);
 	Fourth->SetSphereColor(sf::Color::Green);
 
@@ -214,13 +214,13 @@ void Juggernaut::RenderTheWindow()
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 		{
-			First->SetWorldRotation(First->GetWorldRotation() + 10.0f);
-			First->SetLocalRotation(First->GetLocalRotation() + 10.0f);
+			First->SetRotation(First->GetRotation() + 10.0f);
+			//First->SetLocalRotation(First->GetLocalRotation() + 10.0f);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
 		{
-			First->SetWorldRotation(First->GetWorldRotation() - 10.0f);
-			First->SetLocalRotation(First->GetLocalRotation() - 10.0f);
+			First->SetRotation(First->GetRotation() - 10.0f);
+			//First->SetLocalRotation(First->GetLocalRotation() - 10.0f);
 		}
 
 		sf::Event event;
@@ -309,19 +309,23 @@ void Juggernaut::UserInput(float x, float y, GameObject *First, GameObject *Seco
 {
 	if (MoveWhich == 0)
 	{
-		First->Translate(x, y);
+		First->Translate(First->Transform.Position.x + x, First->Transform.Position.y + y);
+		//First->TranslateMe(x,y);
 	}
 	if (MoveWhich == 1)
 	{
-		Second->LocalTranslate(x, y);
+		Second->Translate(Second->Transform.Position.x + x, Second->Transform.Position.y + y);
+		//Second->TranslateMe(x, y);
 	}
 	if (MoveWhich == 2)
 	{
-		Third->LocalTranslate(x, y);
+		Third->Translate(Third->Transform.Position.x + x, Third->Transform.Position.y + y);
+		//Third->TranslateMe(x, y);
 	}
 	if (MoveWhich == 3)
 	{
-		Fourth->LocalTranslate(x, y);
+		Fourth->Translate(Fourth->Transform.Position.x + x, Fourth->Transform.Position.y + y);
+		//Fourth->TranslateMe(x, y);
 	}
 }
 

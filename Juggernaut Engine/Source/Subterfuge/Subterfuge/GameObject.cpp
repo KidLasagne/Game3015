@@ -20,17 +20,18 @@ void GameObject::Update()
 	{
 		//SnapToParent();
 		//sprite.setOrigin(0,0);
-		sprite.setOrigin(parent->GetWorldTransform().Position + parent->Transform.Position); //+ parent->Transform.Position);
+		//sprite.setOrigin(parent->GetTransform().Position); //+ parent->Transform.Position);
 	}
+
 	else
 	{
 		//Rotate(10.0f);
 		//sprite.setOrigin(0,0);
 	}
 	//SnapToParent();
-	SnapToParentWithRotation();
-	circleShape.setPosition(worldTransform.Position);
-	sprite.setPosition(worldTransform.Position);
+	//SnapToParentWithRotation();
+	circleShape.setPosition(Transform.Position);
+	sprite.setPosition(Transform.Position);
 	sprite.setRotation(Transform.Rotation);
 	//sprite.setScale( sprite.getLocalBounds().width, sprite.getLocalBounds().height);
 }
@@ -40,13 +41,13 @@ void GameObject::LateUpdate()
 
 }
 
-void GameObject::SetLocalPosition(float x, float y)
+void GameObject::SetPosition(float x, float y)
 {
 	Transform.Position.x = x;
 	Transform.Position.y = y;
 }
 
-void GameObject::SetLocalRotation(float rot)
+void GameObject::SetRotation(float rot)
 {
 	Transform.Rotation = rot;
 }
@@ -58,13 +59,13 @@ void GameObject::SetScale(float s)
 
 void GameObject::InitializeGameObject()
 {
-	SetLocalPosition(0, 0);
-	SetLocalRotation(0);
+	SetPosition(0, 0);
+	SetRotation(0);
 	SetScale(1);
 	SetName("Empty");
 	circleShape.setFillColor(sf::Color::Blue);
 	circleShape.setRadius(50.0f);
-	SetTexture("Mage.png", sprite, 100,100,0,0,worldTransform.Position.x, worldTransform.Position.y, 1, 1, 0.0f);
+	SetTexture("Mage.png", sprite, 100,100,0,0,Transform.Position.x, Transform.Position.y, 1, 1, 0.0f);
 	//sprite.setOrigin(0,0);
 }
 
@@ -132,15 +133,17 @@ void GameObject::SnapToParentWithRotation()
 	{
 		//SnapToParent();
 		//Rotate(parent->GetWorldTransform(), 0.001f);
-		Rotate(parent->GetWorldTransform(), parent->GetLocalRotation() * 0.01f);
+		Rotate(parent->GetTransform(), parent->GetRotation() * 0.01f);
+		//Rotate(parent->GetWorldTransform(), parent->GetLocalRotation() * 0.01f);
 		//SetWorldPosition(AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.x, AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.y);
-		SetLocalRotation(GetLocalRotation() + 1.0f);
+		SetRotation(GetRotation() + 1.0f);
 		std::cout << "Rotating around Parent Object." << std::endl;
 	}
 	else
 	{
-		SetWorldPosition(GetWorldTransform().Position.x + GetLocalTransform().Position.x, GetWorldTransform().Position.y + GetLocalTransform().Position.y );
-		SetLocalPosition(0,0);
+		SetRotation(GetRotation() + 1.0f);
+		//SetPosition(GetTransform().Position.x, GetTransform().Position.y);
+		//SetLocalPosition(0,0);
 		//SetLocalRotation(GetLocalRotation() + 1.0f);
 		//Rotate(GetWorldTransform(), parent->GetWorldRotation() * 0.01f);
 	}
@@ -167,7 +170,15 @@ void GameObject::SnapToParent()
 		//SetWorldPosition(parent->GetWorldTransform().Position.x + parent->GetLocalTransform().Position.x, parent->GetWorldTransform().Position.y + parent->GetLocalTransform().Position.y);
 		//Translate(myX,myY);
 		//SetWorldPosition(parent->GetWorldTransform().Position.x + parent->GetLocalTransform().Position.x + worldTransform.Position.x + Transform.Position.x, parent->GetWorldTransform().Position.y + parent->GetLocalTransform().Position.y + worldTransform.Position.y + Transform.Position.y );
-		SetWorldPosition(AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.x, AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.y);
+		//SetWorldPosition(AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.x, AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.y);
+		
+		sf::Vector2f vec = parent->Transform.Position - Transform.Position;
+
+		SetPosition(0,0);
+		SetPosition(parent->Transform.Position.x - vec.x, parent->Transform.Position.y - vec.y);
+
+
+
 
 		/*
 		transform tform;
@@ -180,14 +191,14 @@ void GameObject::SnapToParent()
 		//Translate(tform.Position.x, tform.Position.y);
 		*/
 
-		SetWorldPosition(AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.x, AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.y);
+		//SetWorldPosition(AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.x, AddTransform(parent->GetWorldTransform(), GetLocalTransform()).Position.y);
 
 		std::cout << "Snapping To Parent Object." << std::endl;
 	}
 	else
 	{
-		SetWorldPosition(GetWorldTransform().Position.x + GetLocalTransform().Position.x, GetWorldTransform().Position.y + GetLocalTransform().Position.y);
-		SetLocalPosition(0, 0);
+		//SetWorldPosition(GetWorldTransform().Position.x + GetLocalTransform().Position.x, GetWorldTransform().Position.y + GetLocalTransform().Position.y);
+		//SetLocalPosition(0, 0);
 	}
 }
 
@@ -209,20 +220,9 @@ void GameObject::CombineTransforms()
 }
 */
 
-void GameObject::SetWorldPosition(float x, float y)
-{
-	worldTransform.Position.x = x;
-	worldTransform.Position.y = y;
-}
-
-void GameObject::SetWorldRotation(float rot)
-{
-	worldTransform.Rotation = rot;
-}
-
 void GameObject::Rotate(float angle)
 {
-	SetLocalRotation(GetLocalRotation() + angle);
+	SetRotation(GetRotation() + angle);
 	
 	//for (auto& game_object : childObjects)
 	//{
@@ -240,7 +240,7 @@ void GameObject::Rotate(transform center, float angle)
 
 		//Transform.Rotation = Transform.Rotation + angle;
 		
-		SetWorldPosition((parent->GetWorldTransform().Position.x) + (GetLocalTransform().Position.x * cos(angle)), (parent->GetWorldTransform().Position.y) + (GetLocalTransform().Position.y * sin(angle)));
+		SetPosition((parent->GetTransform().Position.x) + (GetTransform().Position.x * cos(angle)), (parent->GetTransform().Position.y) + (GetTransform().Position.y * sin(angle)));
 		//SetWorldPosition((parent->GetWorldTransform().Position.x + GetLocalTransform().Position.x) + (GetLocalTransform().Position.x * cos(angle)), (parent->GetWorldTransform().Position.y + GetLocalTransform().Position.y) + (GetLocalTransform().Position.y * sin(angle)));
 		std::cout << "Rotating around Parent Object." << std::endl;
 	}
@@ -269,12 +269,64 @@ double GameObject::Deg2Rad(double degrees) {
 	return degrees * (M_PI / 180);
 }
 
-void GameObject::Translate(float VectorX, float VectorY)
+void GameObject::Translate(float Xtarget, float Ytarget)
 {
-	SetWorldPosition(worldTransform.Position.x + VectorX, worldTransform.Position.y + VectorY);
+	if (childObjects.size() == 0)
+	{
+		SetPosition(Xtarget, Ytarget);
+	}
+	else
+	{
+		int myX = Xtarget - Transform.Position.x;
+		int myY = Ytarget - Transform.Position.y;
+		SetPosition(Xtarget, Ytarget);
+		for (auto& game_object : childObjects)
+		{
+			game_object->SetPosition(game_object->Transform.Position.x + myX, game_object->Transform.Position.y + myY);
+
+			for (auto& game_object2 : game_object->childObjects)
+			{
+				game_object2->Translate(game_object2->Transform.Position.x + myX, game_object2->Transform.Position.y + myY);
+			}
+		}
+	}
 }
 
-void GameObject::LocalTranslate(float VectorX, float VectorY)
+void GameObject::TranslateMe(float VectorX, float VectorY)
 {
-	SetLocalPosition(Transform.Position.x + VectorX, Transform.Position.y + VectorY);
+	if (childObjects.size() == 0)
+	{
+		SetPosition(Transform.Position.x + VectorX, Transform.Position.y + VectorY);
+	}
+	else
+	{
+		std::cout << "Size: " << childObjects.size() << std::endl;
+
+		sf::Vector2f mini = Transform.Position;
+		SetPosition(Transform.Position.x + VectorX, Transform.Position.y + VectorY);
+		mini.x = Transform.Position.x - mini.x;
+		mini.y = Transform.Position.y - mini.y;
+
+		for (auto& game_object : childObjects)
+		{
+			sf::Vector2f difference = game_object->Transform.Position - Transform.Position;
+			game_object->SetPosition(Transform.Position.x + difference.x + mini.x, Transform.Position.y + difference.y + mini.y);
+
+			for (auto& game_object2 : game_object->childObjects)
+			{
+				game_object2->TranslateMe(VectorX, VectorY);
+			}
+			//game_object->TranslateMe(difference.x + mini.x, difference.y + mini.y);
+			//game_object->TranslateMe(difference.x + mini.x, difference.y + mini.y);
+		}
+	}
+}
+
+sf::Vector2f GameObject::GetPosition(transform target)
+{
+	sf::Vector2f aVector;
+
+	aVector = target.Position;
+
+	return aVector;
 }

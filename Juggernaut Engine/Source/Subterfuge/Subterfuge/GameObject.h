@@ -28,10 +28,10 @@ public:
 	void Update();
 	void LateUpdate();
 
-	void SetLocalPosition(float x, float y);
-	void SetLocalRotation(float rot);
-	void SetWorldPosition(float x, float y);
-	void SetWorldRotation(float rot);
+	//void SetLocalPosition(float x, float y);
+	void SetRotation(float rot);
+	void SetPosition(float x, float y);
+	//void SetWorldRotation(float rot);
 	void SetScale(float s);
 	void InitializeGameObject();
 	void SetTexture(std::string name, sf::Sprite spr, float width, float height, float startX, float startY, float posX, float posY, float scaleX, float scaleY, float rot);
@@ -50,17 +50,20 @@ public:
 	void SetSphereColor(sf::Color sphereColor) { circleShape.setFillColor(sphereColor); }
 	void SetRadius(float rad) { circleShape.setRadius(rad); }
 	float GetRadius() { return circleShape.getRadius(); }
-	float GetWorldRotation() { return worldTransform.Rotation; }
-	float GetLocalRotation() { return Transform.Rotation; }
+	float GetRotation() { return Transform.Rotation; }
+	//float GetLocalRotation() { return Transform.Rotation; }
 	void SnapToParent();
 	void SnapToParentWithRotation();
-	void Translate(float VectorX, float VectorY);
-	void LocalTranslate(float VectorX, float VectorY);
+	void Translate(float Xtarget, float Ytarget);
+	void TranslateMe(float VectorX, float VectorY);
+	//void LocalTranslate(float VectorX, float VectorY);
 
-	transform GetWorldTransform() { return worldTransform; }
-	transform GetLocalTransform() { return Transform; }
+	sf::Vector2f GetPosition(transform target);
 
-	transform worldTransform;
+	transform GetTransform() { return Transform; }
+	//transform GetLocalTransform() { return Transform; }
+
+	//transform worldTransform;
 	transform Transform;
 	std::string name;
 
