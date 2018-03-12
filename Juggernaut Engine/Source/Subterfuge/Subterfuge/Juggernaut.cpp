@@ -214,17 +214,41 @@ void Juggernaut::RenderTheWindow()
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 		{
-			First->RotateMe(First, First, 0.1f);
-			//Second->Translate(Second->rotate_point(First->Transform.Position, 0.1f, Second->Transform.Position).x, Second->rotate_point(First->Transform.Position, 0.1f, Second->Transform.Position).y);
-			//First->SetRotation(First->GetRotation() + 10.0f);
-			//First->SetLocalRotation(First->GetLocalRotation() + 10.0f);
+			if (MoveWhich == 0)
+			{
+				First->RotateMe(First, First, 0.1f);
+			}
+			if (MoveWhich == 1)
+			{
+				Second->RotateMe(First, Second, 0.1f);
+			}
+			if (MoveWhich == 2)
+			{
+				Third->RotateMe(Second, Third, 0.1f);
+			}
+			if (MoveWhich == 3)
+			{
+				Fourth->RotateMe(Third, Fourth, 0.1f);
+			}
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
 		{
-			First->RotateMe(First, First, -0.1f);
-			//Second->Translate(Second->rotate_point(First->Transform.Position, -0.1f, Second->Transform.Position).x, Second->rotate_point(First->Transform.Position, -0.1f, Second->Transform.Position).y);
-			//First->SetRotation(First->GetRotation() - 10.0f);
-			//First->SetLocalRotation(First->GetLocalRotation() - 10.0f);
+			if (MoveWhich == 0)
+			{
+				First->RotateMe(First, First, -0.1f);
+			}
+			if (MoveWhich == 1)
+			{
+				Second->RotateMe(First, Second, -0.1f);
+			}
+			if (MoveWhich == 2)
+			{
+				Third->RotateMe(Second, Third, -0.1f);
+			}
+			if (MoveWhich == 3)
+			{
+				Fourth->RotateMe(Third, Fourth, -0.1f);
+			}
 		}
 
 		sf::Event event;
