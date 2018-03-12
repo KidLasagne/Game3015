@@ -214,12 +214,16 @@ void Juggernaut::RenderTheWindow()
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 		{
-			First->SetRotation(First->GetRotation() + 10.0f);
+			First->RotateMe(First, First, 0.1f);
+			//Second->Translate(Second->rotate_point(First->Transform.Position, 0.1f, Second->Transform.Position).x, Second->rotate_point(First->Transform.Position, 0.1f, Second->Transform.Position).y);
+			//First->SetRotation(First->GetRotation() + 10.0f);
 			//First->SetLocalRotation(First->GetLocalRotation() + 10.0f);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
 		{
-			First->SetRotation(First->GetRotation() - 10.0f);
+			First->RotateMe(First, First, -0.1f);
+			//Second->Translate(Second->rotate_point(First->Transform.Position, -0.1f, Second->Transform.Position).x, Second->rotate_point(First->Transform.Position, -0.1f, Second->Transform.Position).y);
+			//First->SetRotation(First->GetRotation() - 10.0f);
 			//First->SetLocalRotation(First->GetLocalRotation() - 10.0f);
 		}
 
