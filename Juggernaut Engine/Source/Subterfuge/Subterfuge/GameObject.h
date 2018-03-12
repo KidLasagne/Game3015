@@ -63,7 +63,8 @@ public:
 
 	sf::Vector2f GetLocalPosition();
 	sf::Vector2f GetPosition(transform target);
-	sf::Vector2f ConvertToLocalPosition(sf::Vector2f target);
+	sf::Vector2f ConvertToLocalPosition(sf::Vector2f target) { return target - Transform.Position; };
+	sf::Vector2f ConvertFromLocalPosition(sf::Vector2f target) { return target + Transform.Position; }
 
 	sf::Vector2f GetDirectionVector(sf::Vector2f myself, sf::Vector2f target) { return target - myself; }
 
