@@ -61,7 +61,11 @@ public:
 	sf::Vector2f rotate_point(sf::Vector2f center, float angle, sf::Vector2f p);
 	void RotateMe(GameObject *center, GameObject *me, float angle);
 
+	sf::Vector2f GetLocalPosition();
 	sf::Vector2f GetPosition(transform target);
+	sf::Vector2f ConvertToLocalPosition(sf::Vector2f target);
+
+	sf::Vector2f GetDirectionVector(sf::Vector2f myself, sf::Vector2f target) { return target - myself; }
 
 	transform GetTransform() { return Transform; }
 	//transform GetLocalTransform() { return Transform; }
