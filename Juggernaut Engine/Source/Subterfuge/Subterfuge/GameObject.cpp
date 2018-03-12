@@ -372,47 +372,21 @@ sf::Vector2f GameObject::rotate_point(sf::Vector2f center, float angle, sf::Vect
 
 void GameObject::RotateMe(GameObject *center, GameObject *me, float angle)
 {
-	if (parent == NULL)
+	me->Transform.Rotation = angle;
+	me->Translate(me->rotate_point(center->Transform.Position, angle, me->Transform.Position).x, me->rotate_point(center->Transform.Position, angle, me->Transform.Position).y);
+
+	std::cout << "Rotating Self, Angle = " << me->Transform.Rotation << std::endl;
+
+	if (childObjects.size() == 0)
 	{
-		me->Transform.Rotation = angle;
-		me->Translate(me->rotate_point(center->Transform.Position, angle, me->Transform.Position).x, me->rotate_point(center->Transform.Position, angle, me->Transform.Position).y);
 
-		std::cout << "Rotating Only Self, Angle = " << me->Transform.Rotation << std::endl;
-
-		if (childObjects.size() == 0)
-		{
-
-		}
-		else
-		{
-
-			for (auto& game_object : childObjects)
-			{
-				std::cout << "Rotating First Valid Child Object, Angle = " << game_object->Transform.Rotation << std::endl;
-				game_object->RotateMe(game_object->parent, game_object, angle);
-			}
-		}
 	}
 	else
 	{
-		me->Transform.Rotation = angle;
-		me->Translate(me->rotate_point(center->Transform.Position, angle, me->Transform.Position).x, me->rotate_point(center->Transform.Position, angle, me->Transform.Position).y);
-
-		std::cout << "Rotating Self, Angle = " << me->Transform.Rotation << std::endl;
-
-		if (childObjects.size() == 0)
+		for (auto& game_object : childObjects)
 		{
-
-		}
-		else
-		{
-
-			for (auto& game_object : childObjects)
-			{
-				std::cout << "Rotating Child Object, Angle = " << game_object->Transform.Rotation << std::endl;
-				game_object->RotateMe(game_object->parent, game_object, angle);
-			}
+			std::cout << "Rotating Child Object, Angle = " << game_object->Transform.Rotation << std::endl;
+			game_object->RotateMe(game_object->parent, game_object, angle);
 		}
 	}
-		//Second->rotate_point(First->Transform.Position, 0.1f, Second->Transform.Position).x, Second->rotate_point(First->Transform.Position, 0.1f, Second->Transform.Position).y); 
 }
