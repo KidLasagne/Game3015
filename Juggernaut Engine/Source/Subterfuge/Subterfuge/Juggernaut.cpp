@@ -216,38 +216,41 @@ void Juggernaut::RenderTheWindow()
 		{
 			if (MoveWhich == 0)
 			{
-				First->RotateMe(First, First, 0.1f);
+				//First->RotateMe(First, First, 0.1f);
+				Second->RotateMe(First, Second, 0.1f);
 			}
 			if (MoveWhich == 1)
 			{
-				Second->RotateMe(First, Second, 0.1f);
+				//Second->RotateMe(First, Second, 0.1f);
+				Third->RotateMe(Second, Third, 0.1f);
 			}
 			if (MoveWhich == 2)
 			{
-				Third->RotateMe(Second, Third, 0.1f);
+				//Third->RotateMe(Second, Third, 0.1f);
+				Fourth->RotateMe(Third, Fourth, 0.1f);
 			}
 			if (MoveWhich == 3)
 			{
-				Fourth->RotateMe(Third, Fourth, 0.1f);
+				//Fourth->RotateMe(Third, Fourth, 0.1f);
 			}
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
 		{
 			if (MoveWhich == 0)
 			{
-				First->RotateMe(First, First, -0.1f);
+				Second->RotateMe(First, Second, -0.1f);
 			}
 			if (MoveWhich == 1)
 			{
-				Second->RotateMe(First, Second, -0.1f);
+				Third->RotateMe(Second, Third, -0.1f);
 			}
 			if (MoveWhich == 2)
 			{
-				Third->RotateMe(Second, Third, -0.1f);
+				Fourth->RotateMe(Third, Fourth, -0.1f);
 			}
 			if (MoveWhich == 3)
 			{
-				Fourth->RotateMe(Third, Fourth, -0.1f);
+				// Dragons...
 			}
 		}
 
