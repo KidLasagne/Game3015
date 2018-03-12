@@ -338,11 +338,6 @@ sf::Vector2f GameObject::GetLocalPosition()
 	return myVector;
 }
 
-sf::Vector2f GameObject::ConvertToLocalPosition(sf::Vector2f target)
-{
-	target = target - Transform.Position;
-}
-
 sf::Vector2f GameObject::rotate_point(float cx, float cy, float angle, sf::Vector2f p)
 {
 	float s = sin(angle);
