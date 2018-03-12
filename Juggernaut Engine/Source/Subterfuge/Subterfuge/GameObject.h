@@ -57,6 +57,9 @@ public:
 	void Translate(float Xtarget, float Ytarget);
 	void TranslateMe(float VectorX, float VectorY);
 	//void LocalTranslate(float VectorX, float VectorY);
+	sf::Vector2f rotate_point(float cx, float cy, float angle, sf::Vector2f p);
+	sf::Vector2f rotate_point(sf::Vector2f center, float angle, sf::Vector2f p);
+	void RotateMe(GameObject *center, GameObject *me, float angle);
 
 	sf::Vector2f GetPosition(transform target);
 

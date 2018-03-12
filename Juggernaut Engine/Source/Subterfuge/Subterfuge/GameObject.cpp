@@ -330,3 +330,89 @@ sf::Vector2f GameObject::GetPosition(transform target)
 
 	return aVector;
 }
+
+sf::Vector2f GameObject::rotate_point(float cx, float cy, float angle, sf::Vector2f p)
+{
+	float s = sin(angle);
+	float c = cos(angle);
+
+	// translate point back to origin:
+	p.x -= cx;
+	p.y -= cy;
+
+	// rotate point
+	float xnew = p.x * c - p.y * s;
+	float ynew = p.x * s + p.y * c;
+
+	// translate point back:
+	p.x = xnew + cx;
+	p.y = ynew + cy;
+	return p;
+}
+
+sf::Vector2f GameObject::rotate_point(sf::Vector2f center, float angle, sf::Vector2f p)
+{
+	float s = sin(angle);
+	float c = cos(angle);
+
+	// translate point back to origin:
+	p.x -= center.x;
+	p.y -= center.y;
+
+	// rotate point
+	float xnew = (p.x * c) - (p.y * s);
+	float ynew = (p.x * s) + (p.y * c);
+
+	// translate point back:
+	p.x = xnew + center.x;
+	p.y = ynew + center.y;
+	
+	return p;
+}
+
+void GameObject::RotateMe(GameObject *center, GameObject *me, float angle)
+{
+	if (parent == NULL)
+	{
+		me->Transform.Rotation = angle;
+		me->Translate(me->rotate_point(center->Transform.Position, angle, me->Transform.Position).x, me->rotate_point(center->Transform.Position, angle, me->Transform.Position).y);
+
+		std::cout << "Rotating Only Self, Angle = " << me->Transform.Rotation << std::endl;
+
+		if (childObjects.size() == 0)
+		{
+
+		}
+		else
+		{
+
+			for (auto& game_object : childObjects)
+			{
+				std::cout << "Rotating First Valid Child Object, Angle = " << game_object->Transform.Rotation << std::endl;
+				game_object->RotateMe(game_object->parent, game_object, angle);
+			}
+		}
+	}
+	else
+	{
+		me->Transform.Rotation = angle;
+		me->Translate(me->rotate_point(center->Transform.Position, angle, me->Transform.Position).x, me->rotate_point(center->Transform.Position, angle, me->Transform.Position).y);
+
+		std::cout << "Rotating Self, Angle = " << me->Transform.Rotation << std::endl;
+
+		if (childObjects.size() == 0)
+		{
+
+		}
+		else
+		{
+
+			for (auto& game_object : childObjects)
+			{
+				std::cout << "Rotating Child Object, Angle = " << game_object->Transform.Rotation << std::endl;
+				game_object->RotateMe(game_object->parent, game_object, angle);
+			}
+		}
+	}
+		//Second->rotate_point(First->Transform.Position, 0.1f, Second->Transform.Position).x, Second->rotate_point(First->Transform.Position, 0.1f, Second->Transform.Position).y); 
+}
