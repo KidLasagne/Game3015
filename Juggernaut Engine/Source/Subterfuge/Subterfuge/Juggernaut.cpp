@@ -84,6 +84,9 @@ void Juggernaut::Initialize()
 	}
 
 	// Initialize Game Here.
+	myX = 0;
+	myY = 0;
+	SetBoardSize(10);
 }
 
 void Juggernaut::Beginning() 
@@ -97,6 +100,165 @@ void Juggernaut::MainLoop()
 {
 	GetGameObjectManager().Update();
 	GetGameObjectManager().LateUpdate();
+}
+
+void Juggernaut::Subterfuge()
+{
+	sf::RenderWindow window({ 1920,1080 }, "SUBTERFUGE");
+	window.setFramerateLimit(30);
+
+	sf::Texture tex;
+
+	if (!tex.loadFromFile("TheCommissionersMagnificence.png"))
+	{
+		std::cout << "The Image Was Not Found..." << std::endl;
+	}
+
+	sf::Sprite sprite; // (tex);
+	sprite.setTexture(tex);
+	window.draw(sprite);
+	window.display();
+
+	Initialize();
+
+	bool tempBool = false;
+	while (tempBool == false)
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+			{
+				tempBool = true;
+			}
+			if (event.type == sf::Event::MouseButtonPressed)
+			{
+				tempBool = true;
+			}
+		}
+	}
+
+	if (ExceedsRequirements == false)
+	{
+		return;
+	}
+
+	//TransmuteBoard(boardSize);
+
+	Pawn *First = new Pawn();
+	Manager.PushGameObject(First->getObject());
+
+	while (window.isOpen())
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			if (myX > 0)
+			{
+				First->Move(First->myX - 1, First->myY);
+				myX--;
+			}
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			if (myX < boardSize - 1)
+			{
+				First->Move(First->myX + 1, First->myY);
+				myX++;
+			}
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			if (myY > 0)
+			{
+				First->Move(First->myX, First->myY - 1);
+				myY--;
+			}
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			if (myY < boardSize - 1)
+			{
+				First->Move(First->myX, First->myY + 1);
+				myY++;
+			}
+		}
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+			{
+				window.close();
+			}
+			if (event.type == sf::Event::MouseButtonPressed)
+			{
+				window.close();
+			}
+		}
+
+		for (auto& game_object : Manager.GetGameObjectLibrary())
+		{
+			if (game_object->parent != NULL)
+			{
+				//game_object->Rotate(game_object->parent->GetWorldTransform(), 1.0f + elapsed2.asSeconds);
+			}
+			else
+			{
+				//game_object->Rotate(elapsed2.asSeconds() * 10.0f);
+			}
+		}
+
+		MainLoop();
+
+		window.clear();
+		for (auto& game_object : Manager.GetGameObjectLibrary())
+		{
+			window.draw(game_object->GetSprite());
+		}
+		ShowBoard(window);
+		window.display();
+	}
+}
+
+void Juggernaut::TransmuteBoard(int bSize)
+{
+	/*
+	delete[] board;
+
+	const int brdSize = bSize;
+
+	**board = new int[arraySize][arraySize];
+	*/
+}
+
+void Juggernaut::ShowBoard(sf::RenderWindow& win)
+{
+	for (int y = 0; y <= boardSize; y++)
+	{
+		for (int x = 0; x <= boardSize; x++)
+		{	
+			if (y == 0)
+			{
+				sf::RectangleShape rectangle;
+				rectangle.setSize(sf::Vector2f(3, (100 * (arraySize) )));
+				rectangle.setOutlineColor(sf::Color::White);
+				rectangle.setOutlineThickness(2);
+				rectangle.setPosition(100 * x, 0);
+
+				win.draw(rectangle);
+			}
+			if (x == 0)
+			{
+				sf::RectangleShape rectangle;
+				rectangle.setSize(sf::Vector2f(100 * (arraySize), 3));
+				rectangle.setOutlineColor(sf::Color::White);
+				rectangle.setOutlineThickness(2);
+				rectangle.setPosition(0,100 * y);
+
+				win.draw(rectangle);
+			}
+		}
+	}
 }
 
 void Juggernaut::RenderTheWindow()
