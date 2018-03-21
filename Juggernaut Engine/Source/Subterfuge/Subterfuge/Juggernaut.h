@@ -27,9 +27,10 @@ public:
 	int GetBoardSize() { return boardSize; }
 	void TransmuteBoard(int bSize);
 	void ShowBoard(sf::RenderWindow& win);
+	void PrintBoard();
 
 	int board[10][10];
-
+	
 	GameObjectManager Manager;
 	bool ExceedsRequirements;
 };

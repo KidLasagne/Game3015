@@ -87,6 +87,32 @@ void Juggernaut::Initialize()
 	myX = 0;
 	myY = 0;
 	SetBoardSize(10);
+
+	//board = new int[10][10];
+
+	for (int x = 0; x < 10; x++)
+	{
+		for (int y = 0; y < 10; y++)
+		{
+			//*board[x][y] = 0;
+		}
+	}
+	//*board[0][0] = 1;
+}
+
+void Juggernaut::PrintBoard()
+{
+	for (int x = 0; x < 10; x++)
+	{
+		for (int y = 0; y < 10; y++)
+		{
+			std::cout << board[x][y];
+			if (x == 9)
+			{
+				std::cout << std::endl;
+			}
+		}
+	}
 }
 
 void Juggernaut::Beginning() 
@@ -146,43 +172,16 @@ void Juggernaut::Subterfuge()
 	//TransmuteBoard(boardSize);
 
 	Pawn *First = new Pawn();
-	Manager.PushGameObject(First->getObject());
+	Pawn *Second = new Pawn();
+
+	Second->Move(4,2,board);
+
+	//Manager.PushGameObject(First->getObject());
+	Manager.PushPawn(First);
+	Manager.PushPawn(Second);
 
 	while (window.isOpen())
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			if (myX > 0)
-			{
-				First->Move(First->myX - 1, First->myY);
-				myX--;
-			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			if (myX < boardSize - 1)
-			{
-				First->Move(First->myX + 1, First->myY);
-				myX++;
-			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			if (myY > 0)
-			{
-				First->Move(First->myX, First->myY - 1);
-				myY--;
-			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			if (myY < boardSize - 1)
-			{
-				First->Move(First->myX, First->myY + 1);
-				myY++;
-			}
-		}
-
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -194,11 +193,18 @@ void Juggernaut::Subterfuge()
 			{
 				window.close();
 			}
+			First->DoUserInput(event, board);
+			//PrintBoard();
+			std::cout << std::endl;
+			//DoUserInput(event);
+
+			TransmuteBoard(10.0f);
 		}
 
-		for (auto& game_object : Manager.GetGameObjectLibrary())
+
+		for (auto& game_object : Manager.GetPawnLibrary())
 		{
-			if (game_object->parent != NULL)
+			if (game_object->getObject()->parent != NULL)
 			{
 				//game_object->Rotate(game_object->parent->GetWorldTransform(), 1.0f + elapsed2.asSeconds);
 			}
@@ -211,9 +217,9 @@ void Juggernaut::Subterfuge()
 		MainLoop();
 
 		window.clear();
-		for (auto& game_object : Manager.GetGameObjectLibrary())
+		for (auto& pawn : Manager.GetPawnLibrary())
 		{
-			window.draw(game_object->GetSprite());
+			window.draw(pawn->getObject()->GetSprite());
 		}
 		ShowBoard(window);
 		window.display();
@@ -222,13 +228,17 @@ void Juggernaut::Subterfuge()
 
 void Juggernaut::TransmuteBoard(int bSize)
 {
-	/*
-	delete[] board;
-
-	const int brdSize = bSize;
-
-	**board = new int[arraySize][arraySize];
-	*/
+	for (int y = 0; y < 10; y++)
+	{
+		for (int x = 0; x < 10; x++)
+		{
+			board[x][y] = 0;
+		}
+	}
+	for (auto& pawn : Manager.GetPawnLibrary())
+	{
+		board[pawn->myX][pawn->myY] = pawn->unitType ;
+	}
 }
 
 void Juggernaut::ShowBoard(sf::RenderWindow& win)

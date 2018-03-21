@@ -9,13 +9,12 @@ Juggernaut.cpp(51): warning C4477: 'printf' : format string '%u' requires an arg
   Juggernaut.cpp(51): note: consider using '%llu' in the format string
   Juggernaut.cpp(51): note: consider using '%Iu' in the format string
   Juggernaut.cpp(51): note: consider using '%I64u' in the format string
-Juggernaut.cpp(246): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Juggernaut.cpp(201): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 Juggernaut.cpp(256): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Pawn.cpp
-Pawn.cpp(38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Juggernaut.cpp(266): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating code
-  11 of 199 functions ( 5.5%) were compiled, the rest were copied from previous compilation.
+  10 of 248 functions ( 4.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    8 functions had inline decision re-evaluated but remain unchanged
+    4 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Subterfuge.vcxproj -> C:\Users\squee\Documents\GitHub\Game3015\Juggernaut Engine\Source\Subterfuge\\..\..\Game\Release-x64\Subterfuge.exe
