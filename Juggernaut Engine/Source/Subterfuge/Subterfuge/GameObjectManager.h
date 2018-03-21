@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Pawn.h"
 
 class GameObjectManager
 {
@@ -18,6 +19,13 @@ public:
 	std::vector<GameObject*> GetGameObjectLibrary() { return GameObjectLibrary; }
 
 	std::vector<GameObject*> GameObjectLibrary;
+	
+	void PushPawn(Pawn* pwn);
+	Pawn* FindPawnByName(std::string nam);
+	std::vector<Pawn*> FindPawnsByName(std::string nam);
+	std::vector<Pawn*> GetPawnLibrary() { return PawnLibrary; }
+
+	std::vector<Pawn*> PawnLibrary;
 
 };
 
