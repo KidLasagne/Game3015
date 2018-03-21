@@ -65,7 +65,7 @@ void GameObject::InitializeGameObject()
 	SetName("Empty");
 	circleShape.setFillColor(sf::Color::Blue);
 	circleShape.setRadius(50.0f);
-	SetTexture("Mage.png", sprite, 100,100,0,0,Transform.Position.x, Transform.Position.y, 1, 1, 0.0f);
+	SetTexture("Soldier.png", sprite, 100,100,0,0,Transform.Position.x, Transform.Position.y, 1, 1, 0.0f);
 	//sprite.setOrigin(0,0);
 }
 

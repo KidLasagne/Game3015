@@ -6,7 +6,7 @@
 int main()
 {
 	Juggernaut *Jugg = new Juggernaut();
-	Jugg->RenderTheWindow();
+	Jugg->Subterfuge();
 
 	return 0;
 }
