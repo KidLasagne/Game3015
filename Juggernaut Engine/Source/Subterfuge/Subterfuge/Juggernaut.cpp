@@ -90,11 +90,12 @@ void Juggernaut::Initialize()
 
 	//board = new int[10][10];
 
-	for (int x = 0; x < 10; x++)
+	for (int y = 0; y < 10; y++)
 	{
-		for (int y = 0; y < 10; y++)
+		for (int x = 0; x < 10; x++)
 		{
-			//*board[x][y] = 0;
+			// Ah I see, I don't need to initialize it because it isn't a pointer.
+			//Database[x][y] = new StorageNode();
 		}
 	}
 	//*board[0][0] = 1;
@@ -193,7 +194,7 @@ void Juggernaut::Subterfuge()
 			{
 				window.close();
 			}
-			First->DoUserInput(event, board);
+			First->DoUserInput(event, board, Database);
 			//PrintBoard();
 			std::cout << std::endl;
 			//DoUserInput(event);
@@ -233,11 +234,13 @@ void Juggernaut::TransmuteBoard(int bSize)
 		for (int x = 0; x < 10; x++)
 		{
 			board[x][y] = 0;
+			Database[x][y].InitAllValues();
 		}
 	}
 	for (auto& pawn : Manager.GetPawnLibrary())
 	{
 		board[pawn->myX][pawn->myY] = pawn->unitType ;
+		Database[pawn->myX][pawn->myY].CopyOverAllValues(pawn->myX, pawn->myY, pawn->strength, pawn->dexterity, pawn->magic, pawn->mp, pawn->hp, pawn->team, pawn->attacks, pawn->movementLeft, pawn->unitType);
 	}
 }
 
