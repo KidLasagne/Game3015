@@ -29,9 +29,12 @@ public:
 	void TransmuteBoard(int bSize);
 	void ShowBoard(sf::RenderWindow& win);
 	void PrintBoard();
+	void ShowText(std::string str, sf::RenderWindow& win);
 
 	int board[10][10];
 	StorageNode Database[10][10];
+
+	std::string DisplayString;
 	
 	GameObjectManager Manager;
 	bool ExceedsRequirements;
