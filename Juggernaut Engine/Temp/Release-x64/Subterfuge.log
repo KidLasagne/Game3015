@@ -1,4 +1,10 @@
-﻿  Juggernaut.cpp
+﻿  BaseComponent.cpp
+  GameObject.cpp
+GameObject.cpp(74): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+GameObject.cpp(280): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+GameObject.cpp(281): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  GameObjectManager.cpp
+  Juggernaut.cpp
 Juggernaut.cpp(54): warning C4003: not enough actual parameters for macro 'GetFreeSpace'
 Juggernaut.cpp(56): warning C4003: not enough actual parameters for macro 'GetFreeSpace'
 Juggernaut.cpp(47): warning C4477: 'printf' : format string '%lx' requires an argument of type 'unsigned long', but variadic argument 1 has type 'LPVOID'
@@ -9,12 +15,18 @@ Juggernaut.cpp(51): warning C4477: 'printf' : format string '%u' requires an arg
   Juggernaut.cpp(51): note: consider using '%llu' in the format string
   Juggernaut.cpp(51): note: consider using '%Iu' in the format string
   Juggernaut.cpp(51): note: consider using '%I64u' in the format string
-Juggernaut.cpp(208): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(265): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-Juggernaut.cpp(275): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Juggernaut.cpp(260): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(321): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Juggernaut.cpp(331): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  main.cpp
+  Pawn.cpp
+Pawn.cpp(181): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  PhysicsEngine.cpp
+  Rigidbody.cpp
+  ScalerProduct.cpp
+  StorageNode.cpp
+  transform.cpp
   Generating code
-  10 of 252 functions ( 4.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+  All 261 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   Subterfuge.vcxproj -> C:\Users\squee\Documents\GitHub\Game3015\Juggernaut Engine\Source\Subterfuge\\..\..\Game\Release-x64\Subterfuge.exe

@@ -129,6 +129,40 @@ void Juggernaut::MainLoop()
 	GetGameObjectManager().LateUpdate();
 }
 
+void Juggernaut::ShowText(std::string str, sf::RenderWindow& win)
+{
+	sf::Font font;
+	if (!font.loadFromFile("AnotherDayInParadise.ttf"))
+	{
+		std::cout << "Failed to load font..." << std::endl;
+		// error...
+		return;
+	}
+
+	sf::Text text;
+
+	// select the font
+	text.setFont(font); // font is a sf::Font
+
+						// set the string to display
+	text.setString(str);
+
+	// set the character size
+	text.setCharacterSize(75); // in pixels, not points!
+
+							   // set the color
+	//text.setColor(sf::Color::Red);
+	text.setFillColor(sf::Color::Red);
+
+	// set the text style
+	text.setStyle(sf::Text::Bold);
+
+	text.setPosition(1100, 100);
+
+	// inside the main loop, between window.clear() and window.display()
+	win.draw(text);
+}
+
 void Juggernaut::Subterfuge()
 {
 	sf::RenderWindow window({ 1920,1080 }, "SUBTERFUGE");
@@ -182,8 +216,16 @@ void Juggernaut::Subterfuge()
 	Manager.PushPawn(First);
 	Manager.PushPawn(Second);
 
+	sf::Clock clock; // starts the clock
+	DisplayString = "Starting Game...";
+
 	while (window.isOpen())
 	{
+		window.clear();
+
+		sf::Time elapsed = clock.getElapsedTime();
+		//std::cout << elapsed1.asSeconds() << std::endl;
+
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -200,6 +242,16 @@ void Juggernaut::Subterfuge()
 			if (vec.action == true)
 			{
 				std::cout << "Go to sleep... target X = " << vec.x << " target Y = " << vec.y << std::endl;
+				for (auto& pawn : Manager.GetPawnLibrary())
+				{
+					if (pawn->myX == vec.x && pawn->myY == vec.y)
+					{
+						pawn->Die();
+						clock.restart();
+						DisplayString = "Enemy Killed...";
+					}
+				}
+
 			}
 			//PrintBoard();
 			std::cout << std::endl;
@@ -223,7 +275,11 @@ void Juggernaut::Subterfuge()
 
 		MainLoop();
 
-		window.clear();
+		if (elapsed.asSeconds() < 4.0f)
+		{
+			ShowText(DisplayString, window);
+		}
+
 		for (auto& pawn : Manager.GetPawnLibrary())
 		{
 			window.draw(pawn->getObject()->GetSprite());
@@ -282,6 +338,7 @@ void Juggernaut::ShowBoard(sf::RenderWindow& win)
 
 void Juggernaut::RenderTheWindow()
 {
+	/*
 	sf::RenderWindow window({ 1920,1080 }, "Huzzah it works");
 	window.setFramerateLimit(30);
 	
@@ -468,6 +525,7 @@ void Juggernaut::RenderTheWindow()
 					//window.draw(game_object->GetSphere());
 				}
 				*/
+				/*
 			}
 		}
 
@@ -515,6 +573,7 @@ void Juggernaut::RenderTheWindow()
 		}
 		window.display();
 	}
+	*/
 }
 
 void Juggernaut::UserInput(float x, float y, GameObject *First, GameObject *Second, GameObject *Third, GameObject *Fourth, int MoveWhich)
@@ -541,7 +600,6 @@ void Juggernaut::UserInput(float x, float y, GameObject *First, GameObject *Seco
 	}
 }
 
-/*
 GameObject* SpawnNewObject(float newX, float newY, float scale, std::string name, sf::Color fillCol, float radius)
 {
 	GameObject* spawned = new GameObject();
@@ -558,4 +616,3 @@ GameObject* SpawnNewObject()
 	GameObject* spawned = new GameObject();
 	return spawned;
 }
-*/

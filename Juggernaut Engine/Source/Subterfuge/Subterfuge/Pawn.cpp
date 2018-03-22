@@ -46,7 +46,7 @@ void Pawn::Die()
 	movementLeft = 0;
 	unitType = 0;
 
-	myGameObject->SetTexture("Mage.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->Transform.Position.x, myGameObject->Transform.Position.y, 1, 1, 0.0f);
+	myGameObject->SetTexture("Dead.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->Transform.Position.x, myGameObject->Transform.Position.y, 1, 1, 0.0f);
 }
 
 void Pawn::RestartTurn()
