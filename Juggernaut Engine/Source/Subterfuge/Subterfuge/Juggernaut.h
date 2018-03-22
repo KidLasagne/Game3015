@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include "Pawn.h"
+#include "StorageNode.h"
 
 #define arraySize 10
 
@@ -30,6 +31,7 @@ public:
 	void PrintBoard();
 
 	int board[10][10];
+	StorageNode Database[10][10];
 	
 	GameObjectManager Manager;
 	bool ExceedsRequirements;

@@ -14,6 +14,15 @@ Pawn::Pawn()
 	attacks = 2;
 	movementLeft = 6;
 	unitType = 1;
+	
+	for(int x = 0; x < 10; x++)
+	{
+		for(int y = 0; y < 10; y++)
+		{
+			theDatabase[x][y] = new StorageNode();
+			theDatabase[x][y]->InitAllValues();
+		}
+	}
 
 	myGameObject = new GameObject();
 	//myGameObject->InitializeGameObject();
@@ -22,6 +31,22 @@ Pawn::Pawn()
 
 Pawn::~Pawn()
 {
+
+}
+
+void Pawn::Die()
+{
+	strength = 0;
+	dexterity = 0;
+	magic = 0;
+	mp = 0;
+	hp = 0;
+	team = 0;
+	attacks = 0;
+	movementLeft = 0;
+	unitType = 0;
+
+	myGameObject->SetTexture("Mage.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->Transform.Position.x, myGameObject->Transform.Position.y, 1, 1, 0.0f);
 }
 
 void Pawn::RestartTurn()
@@ -44,7 +69,7 @@ bool Pawn::IsTurnOver()
 	return false;
 }
 
-void Pawn::DoUserInput(sf::Event event, int board[10][10])
+void Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNode database[10][10])
 {
 	if (attacks > 0)
 	{

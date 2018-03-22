@@ -162,6 +162,9 @@
     <ClCompile Include="ScalerProduct.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="StorageNode.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="transform.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -175,6 +178,7 @@
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="ScalerProduct.h" />
+    <ClInclude Include="StorageNode.h" />
     <ClInclude Include="transform.h" />
   </ItemGroup>
   <ItemGroup>
