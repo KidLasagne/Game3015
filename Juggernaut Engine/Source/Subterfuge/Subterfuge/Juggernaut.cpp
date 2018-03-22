@@ -176,6 +176,7 @@ void Juggernaut::Subterfuge()
 	Pawn *Second = new Pawn();
 
 	Second->Move(4,2,board);
+	Second->team = 2;
 
 	//Manager.PushGameObject(First->getObject());
 	Manager.PushPawn(First);
@@ -194,7 +195,12 @@ void Juggernaut::Subterfuge()
 			{
 				window.close();
 			}
-			First->DoUserInput(event, board, Database);
+			Pawn::vectorBool vec;
+			vec = First->DoUserInput(event, board, Database);
+			if (vec.action == true)
+			{
+				std::cout << "Go to sleep... target X = " << vec.x << " target Y = " << vec.y << std::endl;
+			}
 			//PrintBoard();
 			std::cout << std::endl;
 			//DoUserInput(event);

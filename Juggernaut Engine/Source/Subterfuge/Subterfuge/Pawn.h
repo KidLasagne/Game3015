@@ -6,6 +6,14 @@
 class Pawn
 {
 public:
+
+	struct vectorBool
+	{
+		int x;
+		int y;
+		bool action;
+	};
+
 	Pawn();
 	~Pawn();
 
@@ -26,10 +34,10 @@ public:
 	void Move(int xPos, int yPos, int board[10][10]);
 	void UpdatePosition();
 	bool IsTurnOver();
-	void DoUserInput(sf::Event event, int board[10][10], StorageNode database[10][10]);
+	vectorBool DoUserInput(sf::Event event, int board[10][10], StorageNode database[10][10]);
 	void Die();
 
-	void CopyArray(int *arrayFrom[10][10], int *arrayTo[10][10]);
+	//void CopyArray(int *arrayFrom[10][10], int *arrayTo[10][10]);
 
 	int *theBoard[10][10];
 	StorageNode *theDatabase[10][10];
