@@ -59,7 +59,7 @@ void Pawn::SetClass(int i)
 	else if (i == 2)
 	{
 		strength = 25;
-		dexterity = 70;
+		dexterity = 53;
 		magic = 25;
 		mp = 50;
 		hp = 45;
@@ -71,11 +71,26 @@ void Pawn::SetClass(int i)
 		rawAttacks = attacks;
 		myGameObject->SetTexture("Rogue.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);;
 	}
+	else if (i == 3)
+	{
+		strength = 10;
+		dexterity = 43;
+		magic = 100;
+		mp = 100;
+		hp = 30;
+		attacks = 2;
+		movementLeft = 3;
+		unitType = 3;
+		turnOrderPoints = 100;
+		rawMovement = movementLeft;
+		rawAttacks = attacks;
+		myGameObject->SetTexture("Mage.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);;
+	}
 }
 
 void Pawn::ShedTime()
 {
-	turnOrderPoints -= (dexterity * 0.09);
+	turnOrderPoints -= (dexterity * 0.3);
 }
 
 void Pawn::Die()
@@ -100,6 +115,88 @@ void Pawn::RestartTurn()
 	turnOrderPoints = 100;
 	movementLeft = rawMovement;
 	attacks = rawAttacks;
+}
+
+Pawn::stringBool Pawn::UseMagic(std::string spellName, sf::Event event, sf::RenderWindow& win)
+{
+	stringBool strb;
+	strb.exiting = false;
+	strb.attacking = false;
+
+	if (attacks <= 0)
+	{
+		strb.exiting = true;
+		spellPosX = 0;
+		spellPosY = 0;
+		RestartTurn();
+		return strb;
+	}
+	else if (unitType != 3 && unitType != 4)
+	{
+		strb.exiting = true;
+		spellPosX = 0;
+		spellPosY = 0;
+		strb.myStr = "Can't cast magic...";
+		return strb;
+	}
+
+	sf::CircleShape circ;
+	circ.setFillColor(sf::Color::Red);
+	circ.setScale(1, 1);
+	circ.setRadius(50.0f);
+
+	if (spellName == "Fire")
+	{
+		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left)
+		{
+			spellPosX--;
+		}
+		else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right)
+		{
+			spellPosX++;
+		}
+		else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down)
+		{
+			spellPosY++;
+		}
+		else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up)
+		{
+			spellPosY--;
+		}
+		else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+		{
+			strb.exiting = true;
+			spellPosX = 0;
+			spellPosY = 0;
+		}
+		else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return)
+		{
+			attacks--;
+			strb.attacking = true;
+			strb.vect = { myX, myY };
+			strb.targetVect = { myX + spellPosX, myY + spellPosY };
+			spellPosX = 0;
+			spellPosY = 0;
+			return strb;
+		}
+
+		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		//{
+		//	spellPosX = 0;
+		//	spellPosY = 0;
+		//}
+
+		//getObject()->circleShape.setPosition(100 * (myX + spellPosX), 100 * (myY + spellPosY));
+		circ.setPosition(100 * (myX + spellPosX), 100 * (myY + spellPosY));
+		
+		strb.circi = circ;
+
+		strb.vect = {myX, myY};
+		strb.targetVect = {myX + spellPosX, myY + spellPosY};
+	}
+
+	strb.myStr = "Casting Spell... (escape to quit, return to cast)";
+	return strb;
 }
 
 std::string Pawn::Attack(Pawn &other)
@@ -412,6 +509,10 @@ void Pawn::UpdatePosition()
 		{
 			myGameObject->SetTexture("RogueR.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
 		}
+		else if (unitType == 3)
+		{
+			myGameObject->SetTexture("MageR.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
 	}
 	else if (xDir == -1)
 	{
@@ -422,6 +523,10 @@ void Pawn::UpdatePosition()
 		else if (unitType == 2)
 		{
 			myGameObject->SetTexture("RogueL.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
+		else if (unitType == 3)
+		{
+			myGameObject->SetTexture("MageL.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
 		}
 	}
 	else if (yDir == 1)
@@ -434,6 +539,10 @@ void Pawn::UpdatePosition()
 		{
 			myGameObject->SetTexture("RogueU.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
 		}
+		else if (unitType == 3)
+		{
+			myGameObject->SetTexture("MageU.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
 	}
 	else if (yDir == -1)
 	{
@@ -444,6 +553,10 @@ void Pawn::UpdatePosition()
 		else if (unitType == 2)
 		{
 			myGameObject->SetTexture("Rogue.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
+		else if (unitType == 3)
+		{
+			myGameObject->SetTexture("Mage.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
 		}
 	}
 

@@ -225,6 +225,8 @@ void Juggernaut::Subterfuge()
 	Pawn *Second = new Pawn();
 	Pawn *Third = new Pawn();
 	Pawn *Fourth = new Pawn();
+	Pawn *Fifth = new Pawn();
+	Pawn *Sixth = new Pawn();
 
 	First->Move(0, 0, board);
 	Second->team = 1;
@@ -246,14 +248,36 @@ void Juggernaut::Subterfuge()
 	Fourth->getObject()->SetSphereColor(sf::Color::Blue);
 	Fourth->SetClass(2);
 
+	Fifth->Move(9, 9, board);
+	Fifth->team = 1;
+	Fifth->getObject()->SetSphereColor(sf::Color::Red);
+	Fifth->SetClass(3);
+
+	Sixth->Move(3, 1, board);
+	Sixth->team = 2;
+	Sixth->getObject()->SetSphereColor(sf::Color::Blue);
+	Sixth->SetClass(3);
+
 	//Manager.PushGameObject(First->getObject());
 	Manager.PushPawn(First);
 	Manager.PushPawn(Second);
 	Manager.PushPawn(Third);
 	Manager.PushPawn(Fourth);
+	Manager.PushPawn(Fifth);
+	Manager.PushPawn(Sixth);
 
 	sf::Clock clock; // starts the clock
 	DisplayString = "Starting Game...";
+
+	sf::CircleShape ciri;
+
+	bool casting = false;
+
+	for (auto& pawn : Manager.GetPawnLibrary())
+	{
+		clock.restart();
+		pawn->ShedTime();
+	}
 
 	while (window.isOpen())
 	{
@@ -273,39 +297,102 @@ void Juggernaut::Subterfuge()
 			{
 				window.close();
 			}
-			Pawn::vectorBool vec;
-
-
-			//vec = First->DoUserInput(event, board, Database);
-			vec = RetrieveLowestTurnOrder(Manager)->DoUserInput(event, board, Database);
-			
-			if (vec.turnOver == true)
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)
 			{
-				for (auto& pawn : Manager.GetPawnLibrary())
-				{
-					clock.restart();
-					DisplayString = "End of Turn...";
-					pawn->ShedTime();
-				}
+				casting = true;
 			}
 
-			if (vec.action == true)
+			if (casting == false)
 			{
-				std::cout << "Go to sleep... target X = " << vec.x << " target Y = " << vec.y << std::endl;
-				for (auto& pawn : Manager.GetPawnLibrary())
+				Pawn::vectorBool vec;
+
+				//vec = First->DoUserInput(event, board, Database);
+				vec = RetrieveLowestTurnOrder(Manager)->DoUserInput(event, board, Database);
+
+				if (vec.turnOver == true)
 				{
-					if (pawn->myX == vec.x && pawn->myY == vec.y)
+					for (auto& pawn : Manager.GetPawnLibrary())
 					{
-						for (auto& pawn2 : Manager.GetPawnLibrary())
+						clock.restart();
+						DisplayString = "End of Turn...";
+						pawn->ShedTime();
+					}
+				}
+
+				if (vec.action == true)
+				{
+					std::cout << "Go to sleep... target X = " << vec.x << " target Y = " << vec.y << std::endl;
+					for (auto& pawn : Manager.GetPawnLibrary())
+					{
+						if (pawn->myX == vec.x && pawn->myY == vec.y)
 						{
-							if (pawn2->myX == vec.myXPos && pawn2->myY == vec.myYPos)
+							for (auto& pawn2 : Manager.GetPawnLibrary())
 							{
-								clock.restart();
-								DisplayString = pawn2->Attack(*pawn);
+								if (pawn2->myX == vec.myXPos && pawn2->myY == vec.myYPos)
+								{
+									clock.restart();
+									DisplayString = pawn2->Attack(*pawn);
+								}
 							}
 						}
 					}
 				}
+			}
+			else if (casting == true)
+			{
+				Pawn::stringBool strb = RetrieveLowestTurnOrder(Manager)->UseMagic("Fire", event, window);
+				DisplayString = strb.myStr;
+
+				if (strb.exiting == true)
+				{
+					casting = false;
+				}
+				if (strb.attacking == true)
+				{
+					for (auto& pawn : Manager.GetPawnLibrary())
+					{
+						if (pawn->myX == strb.vect.x && pawn->myY == strb.vect.y)
+						{
+							for (auto& pawn2 : Manager.GetPawnLibrary())
+							{
+								if (pawn2->myX == strb.targetVect.x && pawn2->myY == strb.targetVect.y)
+								{
+									if (pawn2->unitType == 0)
+									{
+										DisplayString = "Can't attack nothing...";
+										clock.restart();
+									}
+									else
+									{
+										if (pawn->mp >= 10)
+										{
+											int hip = (pawn->generateRandom((pawn->magic / 2), pawn->magic));
+											pawn2->hp -= hip;
+											DisplayString = "You dealt " + std::to_string(hip) + " points of damage...";
+											pawn->mp -= 10;
+											if (pawn2->hp <= 0)
+											{
+												pawn2->Die();
+											}
+											clock.restart();
+										}
+										else
+										{
+											DisplayString = "No MP...";
+											clock.restart();
+										}
+									}
+								}
+							}
+						}
+					}
+					casting = false;
+				}
+
+				ciri = strb.circi;
+					
+				//RetrieveLowestTurnOrder(Manager)->UseMagic("Fire", event);
+				clock.restart();
 			}
 			//PrintBoard();
 			std::cout << std::endl;
@@ -332,6 +419,11 @@ void Juggernaut::Subterfuge()
 		if (elapsed.asSeconds() < 4.0f)
 		{
 			ShowText(DisplayString, window);
+		}
+
+		if (casting == true)
+		{
+			window.draw(ciri);
 		}
 
 		for (auto& pawn : Manager.GetPawnLibrary())
