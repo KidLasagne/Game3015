@@ -9,13 +9,13 @@ Juggernaut.cpp(51): warning C4477: 'printf' : format string '%u' requires an arg
   Juggernaut.cpp(51): note: consider using '%llu' in the format string
   Juggernaut.cpp(51): note: consider using '%Iu' in the format string
   Juggernaut.cpp(51): note: consider using '%I64u' in the format string
-Juggernaut.cpp(376): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(408): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(483): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-Juggernaut.cpp(493): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Juggernaut.cpp(396): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(438): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(520): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Juggernaut.cpp(530): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating code
-  25 of 341 functions ( 7.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  37 of 348 functions (10.6%) were compiled, the rest were copied from previous compilation.
+    7 functions were new in current compilation
+    54 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Subterfuge.vcxproj -> C:\Users\squee\Documents\GitHub\Game3015\Juggernaut Engine\Source\Subterfuge\\..\..\Game\Release-x64\Subterfuge.exe

@@ -227,6 +227,8 @@ void Juggernaut::Subterfuge()
 	Pawn *Fourth = new Pawn();
 	Pawn *Fifth = new Pawn();
 	Pawn *Sixth = new Pawn();
+	Pawn *Seventh = new Pawn();
+	Pawn *Eighth = new Pawn();
 
 	First->Move(0, 0, board);
 	Second->team = 1;
@@ -258,6 +260,16 @@ void Juggernaut::Subterfuge()
 	Sixth->getObject()->SetSphereColor(sf::Color::Blue);
 	Sixth->SetClass(3);
 
+	Seventh->Move(8,1, board);
+	Seventh->team = 1;
+	Seventh->getObject()->SetSphereColor(sf::Color::Red);
+	Seventh->SetClass(4);
+
+	Eighth->Move(5, 5, board);
+	Eighth->team = 2;
+	Eighth->getObject()->SetSphereColor(sf::Color::Blue);
+	Eighth->SetClass(4);
+
 	//Manager.PushGameObject(First->getObject());
 	Manager.PushPawn(First);
 	Manager.PushPawn(Second);
@@ -265,9 +277,14 @@ void Juggernaut::Subterfuge()
 	Manager.PushPawn(Fourth);
 	Manager.PushPawn(Fifth);
 	Manager.PushPawn(Sixth);
+	Manager.PushPawn(Seventh);
+	Manager.PushPawn(Eighth);
 
 	sf::Clock clock; // starts the clock
+	sf::Clock clock2;
+
 	DisplayString = "Starting Game...";
+	std::string DisplayString2 = "TempString...";
 
 	sf::CircleShape ciri;
 
@@ -276,6 +293,7 @@ void Juggernaut::Subterfuge()
 	for (auto& pawn : Manager.GetPawnLibrary())
 	{
 		clock.restart();
+		clock2.restart();
 		pawn->ShedTime();
 	}
 
@@ -284,6 +302,8 @@ void Juggernaut::Subterfuge()
 		window.clear();
 
 		sf::Time elapsed = clock.getElapsedTime();
+		sf::Time elapsed2 = clock2.getElapsedTime();
+
 		//std::cout << elapsed1.asSeconds() << std::endl;
 
 		sf::Event event;
@@ -366,16 +386,26 @@ void Juggernaut::Subterfuge()
 								{
 									if (pawn2->unitType == 0)
 									{
-										DisplayString = "Can't attack nothing...";
-										clock.restart();
+										DisplayString2 = "Can't attack nothing...";
+										clock2.restart();
 									}
 									else
 									{
 										if (pawn->mp >= 10)
 										{
 											int hip = (pawn->generateRandom((pawn->magic / 2), pawn->magic));
-											pawn2->hp -= hip;
-											DisplayString = "You dealt " + std::to_string(hip) + " points of damage...";
+											if (pawn->unitType == 4)
+											{
+												pawn2->hp += hip;
+												DisplayString2 = "You Healed " + std::to_string(hip) + " points of damage...";
+												clock2.restart();
+											}
+											else
+											{
+												pawn2->hp -= hip;
+												DisplayString2 = "You dealt " + std::to_string(hip) + " points of damage...";
+												clock2.restart();
+											}
 											pawn->mp -= 10;
 											if (pawn2->hp <= 0)
 											{
@@ -424,7 +454,14 @@ void Juggernaut::Subterfuge()
 		MainLoop();
 
 		clock.restart();
-		if (elapsed.asSeconds() < 4.0f)
+
+		if (elapsed2.asSeconds() < 4.0f)
+		{
+			std::string stringy = DisplayString + "\n" + DisplayString2;
+			ShowText(stringy, window);
+
+		}
+		else
 		{
 			ShowText(DisplayString, window);
 		}
