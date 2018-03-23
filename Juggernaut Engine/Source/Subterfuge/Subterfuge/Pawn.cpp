@@ -87,6 +87,21 @@ void Pawn::SetClass(int i)
 		rawAttacks = attacks;
 		myGameObject->SetTexture("Mage.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);;
 	}
+	else if (i == 4)
+	{
+		strength = 10;
+		dexterity = 42;
+		magic = 100;
+		mp = 100;
+		hp = 30;
+		attacks = 3;
+		movementLeft = 3;
+		unitType = 4;
+		turnOrderPoints = 100;
+		rawMovement = movementLeft;
+		rawAttacks = attacks;
+		myGameObject->SetTexture("Priest.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);;
+	}
 }
 
 void Pawn::ShedTime()
@@ -525,6 +540,10 @@ void Pawn::UpdatePosition()
 		{
 			myGameObject->SetTexture("MageR.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
 		}
+		else if (unitType == 4)
+		{
+			myGameObject->SetTexture("PriestR.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
 	}
 	else if (xDir == -1)
 	{
@@ -539,6 +558,10 @@ void Pawn::UpdatePosition()
 		else if (unitType == 3)
 		{
 			myGameObject->SetTexture("MageL.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
+		else if (unitType == 4)
+		{
+			myGameObject->SetTexture("PriestL.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
 		}
 	}
 	else if (yDir == 1)
@@ -555,6 +578,10 @@ void Pawn::UpdatePosition()
 		{
 			myGameObject->SetTexture("MageU.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
 		}
+		else if (unitType == 4)
+		{
+			myGameObject->SetTexture("PriestU.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
 	}
 	else if (yDir == -1)
 	{
@@ -569,6 +596,10 @@ void Pawn::UpdatePosition()
 		else if (unitType == 3)
 		{
 			myGameObject->SetTexture("Mage.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
+		else if (unitType == 4)
+		{
+			myGameObject->SetTexture("Priest.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
 		}
 	}
 
