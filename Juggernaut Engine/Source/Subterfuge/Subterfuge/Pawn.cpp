@@ -131,6 +131,7 @@ void Pawn::RestartTurn()
 	turnOrderPoints = 100;
 	movementLeft = rawMovement;
 	attacks = rawAttacks;
+	myGameObject->GetSphere().setScale(1.0, 1.0);
 }
 
 Pawn::stringBool Pawn::UseMagic(std::string spellName, sf::Event event, sf::RenderWindow& win)
@@ -390,6 +391,7 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 	vec.str = "Moves Left: " + std::to_string(movementLeft) + " Actions: " + std::to_string(attacks);
 	vec.turnOver = false;
 
+	myGameObject->GetSphere().setScale(1.5, 1.5);
 
 	if (attacks > 0)
 	{

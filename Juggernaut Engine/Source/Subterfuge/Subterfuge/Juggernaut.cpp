@@ -401,6 +401,7 @@ void Juggernaut::Subterfuge()
 	std::string DisplayString2 = "TempString...";
 
 	sf::CircleShape ciri;
+	sf::CircleShape circi;
 
 	bool casting = false;
 
@@ -441,7 +442,19 @@ void Juggernaut::Subterfuge()
 				Pawn::vectorBool vec;
 
 				//vec = First->DoUserInput(event, board, Database);
-				vec = RetrieveLowestTurnOrder(Manager)->DoUserInput(event, board, Database);
+				Pawn* storagePawn = RetrieveLowestTurnOrder(Manager);
+				vec = storagePawn->DoUserInput(event, board, Database);
+
+				circi.setFillColor(sf::Color::White);
+				circi.setScale(1, 1);
+				circi.setRadius(75.0f);
+				if (storagePawn != NULL)
+				{
+					circi.setPosition(storagePawn->getObject()->Transform.Position.x - 25.0f, storagePawn->getObject()->Transform.Position.y - 25.0f);
+				}
+
+				//MoveXtoLastPosition(storagePawn, window,circi);
+
 				if (vec.moving == true)
 				{
 					DisplayString = vec.str;
@@ -458,6 +471,9 @@ void Juggernaut::Subterfuge()
 					{
 						pawn->ShedTime();
 					}
+
+					Pawn* p = RetrieveLowestTurnOrder(Manager);
+					circi.setPosition(p->getObject()->Transform.Position.x - 25.0f, p->getObject()->Transform.Position.y - 25.0f);
 				}
 
 				if (vec.action == true)
@@ -585,6 +601,8 @@ void Juggernaut::Subterfuge()
 			window.draw(ciri);
 		}
 
+		window.draw(circi);
+
 		for (auto& pawn : Manager.GetPawnLibrary())
 		{
 			if (pawn->hp <= 0)
@@ -647,6 +665,12 @@ void Juggernaut::ShowBoard(sf::RenderWindow& win)
 			}
 		}
 	}
+}
+
+void Juggernaut::MoveXtoLastPosition(Pawn* pwn, sf::RenderWindow& win, sf::CircleShape circ)
+{
+	//circ.setPosition(pwn->getObject()->Transform.Position.x, pwn->getObject()->Transform.Position.y);
+	//win.draw(circ);
 }
 
 void Juggernaut::RenderTheWindow()
