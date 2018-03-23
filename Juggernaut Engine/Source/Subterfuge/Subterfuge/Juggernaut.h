@@ -32,10 +32,12 @@ public:
 	void ShowText(std::string str, sf::RenderWindow& win);
 	Pawn::vectorBool SearchForConflicts(sf::Vector2i vectorDrawer[10], int &randyStoreX, int &randyStoreY);
 	float generateRandom(float min, float max);
+	void MoveXtoLastPosition(Pawn* pwn, sf::RenderWindow& win, sf::CircleShape circ);
 
 	int board[10][10];
 	StorageNode Database[10][10];
-	
+	sf::Vector2f LastPosition;
+
 	std::string DisplayString;
 	
 	GameObjectManager Manager;
