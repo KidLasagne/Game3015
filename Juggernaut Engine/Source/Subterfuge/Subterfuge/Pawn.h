@@ -34,6 +34,7 @@ public:
 	int attacks;
 	int movementLeft;
 	int unitType;
+	float turnOrderPoints;
 	
 	std::string Attack(Pawn &other);
 	void Move(int xPos, int yPos, int board[10][10]);
@@ -43,6 +44,7 @@ public:
 	void Die();
 	float Pawn::rand_FloatRange(float a, float b);
 	float generateRandom(float min, float max);
+	void ShedTime();
 
 	//void CopyArray(int *arrayFrom[10][10], int *arrayTo[10][10]);
 
