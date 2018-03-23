@@ -17,6 +17,8 @@ Pawn::Pawn()
 	turnOrderPoints = 100;
 	rawMovement = movementLeft;
 	rawAttacks = attacks;
+	yDir = -1;
+	xDir = 0;
 	
 	for(int x = 0; x < 10; x++)
 	{
@@ -119,6 +121,52 @@ std::string Pawn::Attack(Pawn &other)
 		else
 		{
 			float damage = std::floorf(strength + generateRandom( -(strength * 0.4), (strength * 0.4)));
+
+			if (other.xDir == 1)
+			{
+				if (xDir == 1)
+				{
+					damage = damage * 2.5;
+				}
+				else if (xDir == 0)
+				{
+					damage = damage * 1.5;
+				}
+			}
+			else if (other.xDir == -1)
+			{
+				if (xDir == -1)
+				{
+					damage = damage * 2.5;
+				}
+				else if (xDir == 0)
+				{
+					damage = damage * 1.5;
+				}
+			}
+			else if (other.yDir == 1)
+			{
+				if (yDir == 1)
+				{
+					damage = damage * 2.5;
+				}
+				else if (yDir == 0)
+				{
+					damage = damage * 1.5;
+				}
+			}
+			else if (other.yDir == -1)
+			{
+				if (yDir == -1)
+				{
+					damage = damage * 2.5;
+				}
+				else if (yDir == 0)
+				{
+					damage = damage * 1.5;
+				}
+			}
+
 			other.hp -= damage;
 			if (other.hp <= 0)
 			{
@@ -132,6 +180,52 @@ std::string Pawn::Attack(Pawn &other)
 	else
 	{
 		float damage = std::floorf(strength + generateRandom(-(strength * 0.4), (strength * 0.4)));
+
+		if (other.xDir == 1)
+		{
+			if (xDir == 1)
+			{
+				damage = damage * 2.5;
+			}
+			else if (xDir == 0)
+			{
+				damage = damage * 1.5;
+			}
+		}
+		else if (other.xDir == -1)
+		{
+			if (xDir == -1)
+			{
+				damage = damage * 2.5;
+			}
+			else if (xDir == 0)
+			{
+				damage = damage * 1.5;
+			}
+		}
+		else if (other.yDir == 1)
+		{
+			if (yDir == 1)
+			{
+				damage = damage * 2.5;
+			}
+			else if (yDir == 0)
+			{
+				damage = damage * 1.5;
+			}
+		}
+		else if (other.yDir == -1)
+		{
+			if (yDir == -1)
+			{
+				damage = damage * 2.5;
+			}
+			else if (yDir == 0)
+			{
+				damage = damage * 1.5;
+			}
+		}
+
 		other.hp -= damage;
 		if (other.hp <= 0)
 		{
@@ -191,14 +285,19 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 			{
 				if (board[myX - 1][myY] == 0)
 				{
+					yDir = 0;
+					xDir = -1;
 					Move(myX - 1, myY, board);
 					return vec;
 				}
 				else if (database[myX - 1][myY].team != team)
 				{
+					yDir = 0;
+					xDir = -1;
 					vec.action = true;
 					vec.x = myX - 1;
 					vec.y = myY;
+					UpdatePosition();
 					return vec;
 				}
 			}
@@ -209,14 +308,19 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 			{
 				if (board[myX + 1][myY] == 0)
 				{
+					yDir = 0;
+					xDir = 1;
 					Move(myX + 1, myY, board);
 					return vec;
 				}
 				else if (database[myX + 1][myY].team != team)
 				{
+					yDir = 0;
+					xDir = 1;
 					vec.action = true;
 					vec.x = myX + 1;
 					vec.y = myY;
+					UpdatePosition();
 					return vec;
 				}
 			}
@@ -227,14 +331,19 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 			{
 				if (board[myX][myY - 1] == 0)
 				{
+					yDir = 1;
+					xDir = 0;
 					Move(myX, myY - 1, board);
 					return vec;
 				}
 				else if (database[myX][myY - 1].team != team)
 				{
+					yDir = 1;
+					xDir = 0;
 					vec.action = true;
 					vec.x = myX;
 					vec.y = myY - 1;
+					UpdatePosition();
 					return vec;
 				}
 			}
@@ -245,14 +354,19 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 			{
 				if (board[myX][myY + 1] == 0)
 				{
+					yDir = -1;
+					xDir = 0;
 					Move(myX, myY + 1, board);
 					return vec;
 				}
 				else if (database[myX][myY + 1].team != team)
 				{
+					yDir = -1;
+					xDir = 0;
 					vec.action = true;
 					vec.x = myX;
 					vec.y = myY + 1;
+					UpdatePosition();
 					return vec;
 				}
 			}
@@ -287,6 +401,57 @@ void Pawn::Move(int xPos, int yPos, int board[10][10])
 void Pawn::UpdatePosition() 
 {
 	myGameObject->SetPosition(100 * myX, 100 * myY);
+
+	if (xDir == 1)
+	{
+		if (unitType == 1)
+		{
+			myGameObject->SetTexture("SoldierR.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
+		else if (unitType == 2)
+		{
+			myGameObject->SetTexture("RogueR.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
+	}
+	else if (xDir == -1)
+	{
+		if (unitType == 1)
+		{
+			myGameObject->SetTexture("SoldierL.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
+		else if (unitType == 2)
+		{
+			myGameObject->SetTexture("RogueL.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
+	}
+	else if (yDir == 1)
+	{
+		if (unitType == 1)
+		{
+			myGameObject->SetTexture("SoldierU.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
+		else if (unitType == 2)
+		{
+			myGameObject->SetTexture("RogueU.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
+	}
+	else if (yDir == -1)
+	{
+		if (unitType == 1)
+		{
+			myGameObject->SetTexture("Soldier.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
+		else if (unitType == 2)
+		{
+			myGameObject->SetTexture("Rogue.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);
+		}
+	}
+
+	//if (xDir = 1)
+	//{
+	//	myGameObject->SetPosition(100 * myX, 100 * myY );
+	//}
+
 	std::cout << "My x: " << myX << "My y: " << myY << std::endl ;
 	std::cout << "Moves Left: " << attacks << "Raw Moves: " << rawAttacks << " Steps Left:" << movementLeft << " Raw:" << rawMovement << std::endl;
 }
