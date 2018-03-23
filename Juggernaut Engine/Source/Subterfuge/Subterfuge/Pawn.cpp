@@ -14,6 +14,7 @@ Pawn::Pawn()
 	attacks = 3;
 	movementLeft = 6;
 	unitType = 1;
+	turnOrderPoints = 100;
 	
 	for(int x = 0; x < 10; x++)
 	{
@@ -34,6 +35,11 @@ Pawn::~Pawn()
 
 }
 
+void Pawn::ShedTime()
+{
+	turnOrderPoints -= (dexterity * 0.066);
+}
+
 void Pawn::Die()
 {
 	strength = 0;
@@ -52,6 +58,7 @@ void Pawn::Die()
 
 void Pawn::RestartTurn()
 {
+	turnOrderPoints = 100;
 	movementLeft = 6;
 	attacks = 2;
 }
@@ -215,6 +222,7 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 	}
 	else
 	{
+		RestartTurn();
 		std::cout << "Ending Turn." << std::endl;
 		//RestartTurn();
 	}

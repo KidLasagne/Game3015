@@ -163,6 +163,21 @@ void Juggernaut::ShowText(std::string str, sf::RenderWindow& win)
 	win.draw(text);
 }
 
+Pawn* RetrieveLowestTurnOrder(GameObjectManager Manager)
+{
+	float currentLowest = 101;
+	Pawn* pwned = new Pawn();
+	for (auto& pawn : Manager.GetPawnLibrary())
+	{
+		if (pawn->turnOrderPoints < currentLowest)
+		{
+			pwned = pawn;
+			currentLowest = pawn->turnOrderPoints;
+		}
+	}
+	return pwned;
+}
+
 void Juggernaut::Subterfuge()
 {
 	sf::RenderWindow window({ 1920,1080 }, "SUBTERFUGE");
@@ -239,7 +254,11 @@ void Juggernaut::Subterfuge()
 				window.close();
 			}
 			Pawn::vectorBool vec;
-			vec = First->DoUserInput(event, board, Database);
+
+
+			//vec = First->DoUserInput(event, board, Database);
+			vec = RetrieveLowestTurnOrder(Manager)->DoUserInput(event, board, Database);
+			
 			if (vec.action == true)
 			{
 				std::cout << "Go to sleep... target X = " << vec.x << " target Y = " << vec.y << std::endl;
@@ -284,6 +303,11 @@ void Juggernaut::Subterfuge()
 		if (elapsed.asSeconds() < 4.0f)
 		{
 			ShowText(DisplayString, window);
+		}
+
+		for (auto& pawn : Manager.GetPawnLibrary())
+		{
+			pawn->ShedTime();
 		}
 
 		for (auto& pawn : Manager.GetPawnLibrary())
@@ -352,242 +376,6 @@ void Juggernaut::ShowBoard(sf::RenderWindow& win)
 
 void Juggernaut::RenderTheWindow()
 {
-	/*
-	sf::RenderWindow window({ 1920,1080 }, "Huzzah it works");
-	window.setFramerateLimit(30);
-	
-	sf::CircleShape csprite;
-	csprite.setFillColor(sf::Color::Blue);
-	csprite.setRadius(50.0f);
-	csprite.setPosition(0,0);
-
-	GameObject *First = new GameObject();
-	GameObject *Second = new GameObject();
-	GameObject *Third = new GameObject();
-	GameObject *Fourth = new GameObject();
-
-	First->SetPosition(0, 0);
-	//First->SetLocalPosition(100, 100);
-	First->SetSphereColor(sf::Color::Blue);
-	Second->SetPosition(100, 100);
-	//Second->SetLocalPosition(100, 100);
-	Second->GetSprite().setOrigin(0,0);
-	Second->SetSphereColor(sf::Color::Red);
-	Third->SetPosition(200, 200);
-	//Third->SetLocalPosition(100, 100);
-	Third->GetSprite().setOrigin(0, 0);
-	Third->SetSphereColor(sf::Color::Yellow);
-	Fourth->SetPosition(300, 300);
-	//Fourth->SetLocalPosition(100, 100);
-	Fourth->GetSprite().setOrigin(0, 0);
-	Fourth->SetSphereColor(sf::Color::Green);
-
-	
-	//Second->SetWorldPosition(Second->AddTransform(First->GetWorldTransform(), Second->GetLocalTransform()).Position.x, Second->AddTransform(First->GetWorldTransform(), Second->GetLocalTransform()).Position.y);
-
-	First->AttachChild(Second);
-	Second->AttachChild(Third);
-	Third->AttachChild(Fourth);
-
-	//First->Rotate(90.0f);
-
-	Manager.PushGameObject(First);
-	Manager.PushGameObject(Second);
-	Manager.PushGameObject(Third);
-	Manager.PushGameObject(Fourth);
-
-	sf::Texture tex;
-	
-	if (!tex.loadFromFile("TheCommissionersMagnificence.png"))
-	{
-		std::cout << "The Image Was Not Found..." << std::endl;
-	}
-
-	sf::Sprite sprite; // (tex);
-	sprite.setTexture(tex);
-	window.draw(sprite);
-	window.display();
-
-	Initialize();
-
-	bool tempBool = false;
-	while (tempBool == false)
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-			{
-				tempBool = true;
-			}
-			if (event.type == sf::Event::MouseButtonPressed)
-			{
-				tempBool = true;
-			}
-		}
-	}
-
-	if (ExceedsRequirements == false)
-	{
-		return;
-	}
-
-	sf::Clock clock; // starts the clock
-
-	Beginning();
-
-	int MoveWhich = 0;
-
-	while (window.isOpen())
-	{
-
-		//sf::Time elapsed1 = clock.getElapsedTime();
-		//std::cout << elapsed1.asSeconds() << std::endl;
-		//clock.restart();
-
-		sf::Time elapsed2 = clock.getElapsedTime();
-		std::cout << elapsed2.asSeconds() << std::endl;
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			UserInput(-15.0f, 0.0f, First, Second, Third, Fourth, MoveWhich);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			UserInput(15.0f, 0.0f, First, Second, Third, Fourth, MoveWhich);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			UserInput(0.0f, -15.0f, First, Second, Third, Fourth, MoveWhich);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			UserInput(0.0f, 15.0f, First, Second, Third, Fourth, MoveWhich);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-		{
-			if (MoveWhich == 0)
-			{
-				//First->RotateMe(First, First, 0.1f);
-				Second->RotateMe(First, Second, 0.1f);
-			}
-			if (MoveWhich == 1)
-			{
-				//Second->RotateMe(First, Second, 0.1f);
-				Third->RotateMe(Second, Third, 0.1f);
-			}
-			if (MoveWhich == 2)
-			{
-				//Third->RotateMe(Second, Third, 0.1f);
-				Fourth->RotateMe(Third, Fourth, 0.1f);
-			}
-			if (MoveWhich == 3)
-			{
-				//Fourth->RotateMe(Third, Fourth, 0.1f);
-			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-		{
-			if (MoveWhich == 0)
-			{
-				Second->RotateMe(First, Second, -0.1f);
-			}
-			if (MoveWhich == 1)
-			{
-				Third->RotateMe(Second, Third, -0.1f);
-			}
-			if (MoveWhich == 2)
-			{
-				Fourth->RotateMe(Third, Fourth, -0.1f);
-			}
-			if (MoveWhich == 3)
-			{
-				// Dragons...
-			}
-		}
-
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-			{
-				window.close();
-			}
-			if (event.type == sf::Event::MouseButtonPressed)
-			{
-				window.close();
-			}
-			if (event.type == sf::Event::KeyPressed)
-			{
-				if (event.key.code == sf::Keyboard::Space)
-				{
-					MoveWhich++;
-					if (MoveWhich > 3)
-					{
-						MoveWhich = 0;
-					}
-				}
-				/*
-				//Second->SetWorldPosition(Second->GetWorldTransform().Position.x + 150.0f, Second->GetWorldTransform().Position.y + 50.0f);
-				//Second->LocalTranslate(150.0f, 50.0f);
-				First->Translate(150.0f, 50.0f);
-
-				for (auto& game_object : Manager.GetGameObjectLibrary())
-				{
-					//game_object->Rotate(10.0f);
-					//window.draw(game_object->GetSprite());
-					//window.draw(game_object->GetSphere());
-				}
-				*/
-				/*
-			}
-		}
-
-		if (MoveWhich == 0)
-		{
-			std::cout << "Object: First" << std::endl;
-		}
-		if (MoveWhich == 1)
-		{
-			std::cout << "Object: Second" << std::endl;
-		}
-		if (MoveWhich == 2)
-		{
-			std::cout << "Object: Third" << std::endl;
-		}
-		if (MoveWhich == 3)
-		{
-			std::cout << "Object: Fourth" << std::endl;
-		}
-
-		for (auto& game_object : Manager.GetGameObjectLibrary())
-		{
-			if (game_object->parent != NULL)
-			{
-				//game_object->Rotate(game_object->parent->GetWorldTransform(), game_object->parent->GetLocalRotation());
-				//game_object->Rotate(game_object->parent->GetWorldTransform(), 1.0f + elapsed2.asSeconds);
-			}
-			else
-			{
-				//game_object->Rotate(elapsed2.asSeconds() * 10.0f);
-				//game_object->SetLocalRotation(elapsed2.asSeconds() * 100.0f);
-				//game_object->Rotate(1.0f);
-			}
-			//window.draw(game_object->GetSphere());
-		}
-
-		MainLoop();
-
-		window.clear();
-		//window.draw(First->GetSphere());
-		for (auto& game_object : Manager.GetGameObjectLibrary())
-		{
-			window.draw(game_object->GetSprite());
-			//window.draw(game_object->GetSphere());
-		}
-		window.display();
-	}
-	*/
 }
 
 void Juggernaut::UserInput(float x, float y, GameObject *First, GameObject *Second, GameObject *Third, GameObject *Fourth, int MoveWhich)
