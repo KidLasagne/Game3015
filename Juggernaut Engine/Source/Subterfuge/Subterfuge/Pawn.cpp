@@ -11,10 +11,12 @@ Pawn::Pawn()
 	mp = 50;
 	hp = 75;
 	team = 0;
-	attacks = 3;
-	movementLeft = 6;
+	attacks = 2;
+	movementLeft = 4;
 	unitType = 1;
 	turnOrderPoints = 100;
+	rawMovement = movementLeft;
+	rawAttacks = attacks;
 	
 	for(int x = 0; x < 10; x++)
 	{
@@ -35,9 +37,43 @@ Pawn::~Pawn()
 
 }
 
+void Pawn::SetClass(int i)
+{
+	if (i == 1)
+	{
+		strength = 55;
+		dexterity = 45;
+		magic = 0;
+		mp = 50;
+		hp = 80;
+		attacks = 2;
+		movementLeft = 4;
+		unitType = 1;
+		turnOrderPoints = 100;
+		rawMovement = movementLeft;
+		rawAttacks = attacks;
+		myGameObject->SetTexture("Soldier.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition( myGameObject->Transform ).x , myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);;
+	}
+	else if (i == 2)
+	{
+		strength = 25;
+		dexterity = 70;
+		magic = 25;
+		mp = 50;
+		hp = 45;
+		attacks = 3;
+		movementLeft = 5;
+		unitType = 2;
+		turnOrderPoints = 100;
+		rawMovement = movementLeft;
+		rawAttacks = attacks;
+		myGameObject->SetTexture("Rogue.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->GetPosition(myGameObject->Transform).x, myGameObject->GetPosition(myGameObject->Transform).y, 1, 1, 0.0f);;
+	}
+}
+
 void Pawn::ShedTime()
 {
-	turnOrderPoints -= (dexterity * 0.066);
+	turnOrderPoints -= (dexterity * 0.09);
 }
 
 void Pawn::Die()
@@ -58,9 +94,10 @@ void Pawn::Die()
 
 void Pawn::RestartTurn()
 {
+	std::cout << "This shouldn't be triggering constantly..." << std::endl;
 	turnOrderPoints = 100;
-	movementLeft = 6;
-	attacks = 2;
+	movementLeft = rawMovement;
+	attacks = rawAttacks;
 }
 
 std::string Pawn::Attack(Pawn &other)
@@ -68,7 +105,7 @@ std::string Pawn::Attack(Pawn &other)
 	attacks--;
 
 	std::string str = "Empty. If this is displayed, something has gone wrong.";
-	float dexValue = dexterity / other.dexterity;
+	float dexValue = (dexterity * 0.7) / (other.dexterity);
 
 	if(dexValue < 1.0f)
 	{
@@ -81,7 +118,7 @@ std::string Pawn::Attack(Pawn &other)
 		}
 		else
 		{
-			float damage = std::floorf(strength + generateRandom( -(strength * 0.3), (strength * 0.3)));
+			float damage = std::floorf(strength + generateRandom( -(strength * 0.4), (strength * 0.4)));
 			other.hp -= damage;
 			if (other.hp <= 0)
 			{
@@ -94,7 +131,7 @@ std::string Pawn::Attack(Pawn &other)
 	}
 	else
 	{
-		float damage = std::floorf(strength + generateRandom(-(strength * 0.3), (strength * 0.3)));
+		float damage = std::floorf(strength + generateRandom(-(strength * 0.4), (strength * 0.4)));
 		other.hp -= damage;
 		if (other.hp <= 0)
 		{
@@ -143,6 +180,7 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 	vec.y = 0;
 	vec.myXPos = myX;
 	vec.myYPos = myY;
+	vec.turnOver = false;
 
 
 	if (attacks > 0)
@@ -223,6 +261,7 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 	else
 	{
 		RestartTurn();
+		vec.turnOver = true;
 		std::cout << "Ending Turn." << std::endl;
 		//RestartTurn();
 	}
@@ -241,7 +280,7 @@ void Pawn::Move(int xPos, int yPos, int board[10][10])
 	if (movementLeft <= 0)
 	{
 		attacks--;
-		movementLeft = 6;
+		movementLeft = rawMovement;
 	}
 }
 
@@ -249,5 +288,5 @@ void Pawn::UpdatePosition()
 {
 	myGameObject->SetPosition(100 * myX, 100 * myY);
 	std::cout << "My x: " << myX << "My y: " << myY << std::endl ;
-	std::cout << "Moves Left: " << attacks << " , Steps Left: " << movementLeft << std::endl;
+	std::cout << "Moves Left: " << attacks << "Raw Moves: " << rawAttacks << " Steps Left:" << movementLeft << " Raw:" << rawMovement << std::endl;
 }

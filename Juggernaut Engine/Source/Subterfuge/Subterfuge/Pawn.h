@@ -17,6 +17,7 @@ public:
 		bool action;
 		int myXPos;
 		int myYPos;
+		bool turnOver;
 	};
 
 	Pawn();
@@ -35,7 +36,9 @@ public:
 	int movementLeft;
 	int unitType;
 	float turnOrderPoints;
-	
+	int rawMovement;
+	int rawAttacks;
+
 	std::string Attack(Pawn &other);
 	void Move(int xPos, int yPos, int board[10][10]);
 	void UpdatePosition();
@@ -45,6 +48,7 @@ public:
 	float Pawn::rand_FloatRange(float a, float b);
 	float generateRandom(float min, float max);
 	void ShedTime();
+	void SetClass(int i);
 
 	//void CopyArray(int *arrayFrom[10][10], int *arrayTo[10][10]);
 

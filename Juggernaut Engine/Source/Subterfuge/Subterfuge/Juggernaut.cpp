@@ -223,14 +223,34 @@ void Juggernaut::Subterfuge()
 
 	Pawn *First = new Pawn();
 	Pawn *Second = new Pawn();
+	Pawn *Third = new Pawn();
+	Pawn *Fourth = new Pawn();
+
+	First->Move(0, 0, board);
+	Second->team = 1;
+	Second->getObject()->SetSphereColor(sf::Color::Red);
+	Second->SetClass(1);
 
 	Second->Move(4,2,board);
 	Second->team = 2;
 	Second->getObject()->SetSphereColor(sf::Color::Blue);
+	Second->SetClass(1);
+
+	Third->Move(6, 7, board);
+	Third->team = 1;
+	Third->getObject()->SetSphereColor(sf::Color::Red);
+	Third->SetClass(2);
+
+	Fourth->Move(2, 8, board);
+	Fourth->team = 2;
+	Fourth->getObject()->SetSphereColor(sf::Color::Blue);
+	Fourth->SetClass(2);
 
 	//Manager.PushGameObject(First->getObject());
 	Manager.PushPawn(First);
 	Manager.PushPawn(Second);
+	Manager.PushPawn(Third);
+	Manager.PushPawn(Fourth);
 
 	sf::Clock clock; // starts the clock
 	DisplayString = "Starting Game...";
@@ -259,6 +279,16 @@ void Juggernaut::Subterfuge()
 			//vec = First->DoUserInput(event, board, Database);
 			vec = RetrieveLowestTurnOrder(Manager)->DoUserInput(event, board, Database);
 			
+			if (vec.turnOver == true)
+			{
+				for (auto& pawn : Manager.GetPawnLibrary())
+				{
+					clock.restart();
+					DisplayString = "End of Turn...";
+					pawn->ShedTime();
+				}
+			}
+
 			if (vec.action == true)
 			{
 				std::cout << "Go to sleep... target X = " << vec.x << " target Y = " << vec.y << std::endl;
@@ -276,7 +306,6 @@ void Juggernaut::Subterfuge()
 						}
 					}
 				}
-
 			}
 			//PrintBoard();
 			std::cout << std::endl;
@@ -303,11 +332,6 @@ void Juggernaut::Subterfuge()
 		if (elapsed.asSeconds() < 4.0f)
 		{
 			ShowText(DisplayString, window);
-		}
-
-		for (auto& pawn : Manager.GetPawnLibrary())
-		{
-			pawn->ShedTime();
 		}
 
 		for (auto& pawn : Manager.GetPawnLibrary())
