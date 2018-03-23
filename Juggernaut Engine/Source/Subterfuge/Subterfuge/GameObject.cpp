@@ -63,7 +63,7 @@ void GameObject::InitializeGameObject()
 	SetRotation(0);
 	SetScale(1);
 	SetName("Empty");
-	circleShape.setFillColor(sf::Color::Blue);
+	circleShape.setFillColor(sf::Color::Red);
 	circleShape.setRadius(50.0f);
 	SetTexture("Soldier.png", sprite, 100,100,0,0,Transform.Position.x, Transform.Position.y, 1, 1, 0.0f);
 	//sprite.setOrigin(0,0);

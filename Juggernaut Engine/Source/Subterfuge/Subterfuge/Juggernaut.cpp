@@ -211,6 +211,7 @@ void Juggernaut::Subterfuge()
 
 	Second->Move(4,2,board);
 	Second->team = 2;
+	Second->getObject()->SetSphereColor(sf::Color::Blue);
 
 	//Manager.PushGameObject(First->getObject());
 	Manager.PushPawn(First);
@@ -287,6 +288,14 @@ void Juggernaut::Subterfuge()
 
 		for (auto& pawn : Manager.GetPawnLibrary())
 		{
+			if (pawn->hp <= 0)
+			{
+				// Do Absolutely Nothing...
+			}
+			else
+			{
+				window.draw(pawn->getObject()->circleShape);
+			}
 			window.draw(pawn->getObject()->GetSprite());
 		}
 		ShowBoard(window);
