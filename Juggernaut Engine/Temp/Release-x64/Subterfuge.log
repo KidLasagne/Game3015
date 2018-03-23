@@ -1,33 +1,34 @@
 ﻿  Pawn.cpp
-Pawn.cpp(78): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(110): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(115): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-Pawn.cpp(123): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(129): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(133): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(140): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(144): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(151): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(155): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(162): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(166): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(170): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
-Pawn.cpp(182): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(188): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(192): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(199): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(203): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(210): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(214): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(221): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(225): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(229): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
-Pawn.cpp(244): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-Pawn.cpp(254): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(403): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Pawn.cpp(93): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(190): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Pawn.cpp(207): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(212): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+Pawn.cpp(220): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(226): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(230): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(237): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(241): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(248): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(252): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(259): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(263): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(267): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
+Pawn.cpp(279): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(285): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(289): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(296): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(307): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(311): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(318): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(322): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(326): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
+Pawn.cpp(341): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+Pawn.cpp(351): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+Pawn.cpp(500): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating code
-  22 of 321 functions ( 6.9%) were compiled, the rest were copied from previous compilation.
+  25 of 331 functions ( 7.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Subterfuge.vcxproj -> C:\Users\squee\Documents\GitHub\Game3015\Juggernaut Engine\Source\Subterfuge\\..\..\Game\Release-x64\Subterfuge.exe

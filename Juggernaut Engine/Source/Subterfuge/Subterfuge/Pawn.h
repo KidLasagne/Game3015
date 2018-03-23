@@ -20,6 +20,16 @@ public:
 		bool turnOver;
 	};
 
+	struct stringBool
+	{
+		std::string myStr;
+		bool exiting;
+		sf::Vector2i vect;
+		sf::Vector2i targetVect;
+		sf::CircleShape circi;
+		bool attacking;
+	};
+
 	Pawn();
 	~Pawn();
 
@@ -40,6 +50,8 @@ public:
 	int rawAttacks;
 	int xDir;
 	int yDir;
+	int spellPosX;
+	int spellPosY;
 
 	std::string Attack(Pawn &other);
 	void Move(int xPos, int yPos, int board[10][10]);
@@ -51,6 +63,7 @@ public:
 	float generateRandom(float min, float max);
 	void ShedTime();
 	void SetClass(int i);
+	stringBool UseMagic(std::string spellName, sf::Event event, sf::RenderWindow& win);
 
 	//void CopyArray(int *arrayFrom[10][10], int *arrayTo[10][10]);
 
