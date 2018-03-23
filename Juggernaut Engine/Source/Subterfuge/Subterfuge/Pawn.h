@@ -38,6 +38,8 @@ public:
 	float turnOrderPoints;
 	int rawMovement;
 	int rawAttacks;
+	int xDir;
+	int yDir;
 
 	std::string Attack(Pawn &other);
 	void Move(int xPos, int yPos, int board[10][10]);
