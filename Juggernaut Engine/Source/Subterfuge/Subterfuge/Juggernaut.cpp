@@ -308,13 +308,20 @@ void Juggernaut::Subterfuge()
 
 				//vec = First->DoUserInput(event, board, Database);
 				vec = RetrieveLowestTurnOrder(Manager)->DoUserInput(event, board, Database);
+				if (vec.moving == true)
+				{
+					DisplayString = vec.str;
+				}
+				clock.restart();
+
 
 				if (vec.turnOver == true)
 				{
+					clock.restart();
+					DisplayString += "\n End of Turn...";
+
 					for (auto& pawn : Manager.GetPawnLibrary())
 					{
-						clock.restart();
-						DisplayString = "End of Turn...";
 						pawn->ShedTime();
 					}
 				}
@@ -416,6 +423,7 @@ void Juggernaut::Subterfuge()
 
 		MainLoop();
 
+		clock.restart();
 		if (elapsed.asSeconds() < 4.0f)
 		{
 			ShowText(DisplayString, window);

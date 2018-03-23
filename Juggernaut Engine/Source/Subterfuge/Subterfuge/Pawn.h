@@ -18,6 +18,8 @@ public:
 		int myXPos;
 		int myYPos;
 		bool turnOver;
+		std::string str;
+		bool moving;
 	};
 
 	struct stringBool
@@ -52,6 +54,7 @@ public:
 	int yDir;
 	int spellPosX;
 	int spellPosY;
+	bool amIMoving;
 
 	std::string Attack(Pawn &other);
 	void Move(int xPos, int yPos, int board[10][10]);

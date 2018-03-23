@@ -1,34 +1,21 @@
-﻿  Pawn.cpp
-Pawn.cpp(93): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(190): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-Pawn.cpp(207): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(212): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-Pawn.cpp(220): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(226): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(230): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(237): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(241): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(248): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(252): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(259): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(263): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(267): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
-Pawn.cpp(279): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(285): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(289): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(296): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(307): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(311): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(318): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(322): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(326): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
-Pawn.cpp(341): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-Pawn.cpp(351): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-Pawn.cpp(500): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  Juggernaut.cpp
+Juggernaut.cpp(54): warning C4003: not enough actual parameters for macro 'GetFreeSpace'
+Juggernaut.cpp(56): warning C4003: not enough actual parameters for macro 'GetFreeSpace'
+Juggernaut.cpp(47): warning C4477: 'printf' : format string '%lx' requires an argument of type 'unsigned long', but variadic argument 1 has type 'LPVOID'
+Juggernaut.cpp(47): warning C4313: 'printf': '%x' in format string conflicts with argument 1 of type 'LPVOID'
+Juggernaut.cpp(49): warning C4477: 'printf' : format string '%lx' requires an argument of type 'unsigned long', but variadic argument 1 has type 'LPVOID'
+Juggernaut.cpp(49): warning C4313: 'printf': '%x' in format string conflicts with argument 1 of type 'LPVOID'
+Juggernaut.cpp(51): warning C4477: 'printf' : format string '%u' requires an argument of type 'unsigned int', but variadic argument 1 has type 'DWORD_PTR'
+  Juggernaut.cpp(51): note: consider using '%llu' in the format string
+  Juggernaut.cpp(51): note: consider using '%Iu' in the format string
+  Juggernaut.cpp(51): note: consider using '%I64u' in the format string
+Juggernaut.cpp(376): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(408): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(483): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Juggernaut.cpp(493): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating code
-  25 of 331 functions ( 7.6%) were compiled, the rest were copied from previous compilation.
+  25 of 341 functions ( 7.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Subterfuge.vcxproj -> C:\Users\squee\Documents\GitHub\Game3015\Juggernaut Engine\Source\Subterfuge\\..\..\Game\Release-x64\Subterfuge.exe
