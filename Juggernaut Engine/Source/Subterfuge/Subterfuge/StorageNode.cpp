@@ -23,6 +23,7 @@ void StorageNode::CopyOverAllValues(int x, int y, float str, float dex, float ma
 	attacks = attks;
 	movementLeft = movleft;
 	unitType = uType;
+	std::cout << "Moves Left " << movementLeft << std::endl;
 }
 
 void StorageNode::InitAllValues()
