@@ -246,9 +246,14 @@ void Juggernaut::Subterfuge()
 				{
 					if (pawn->myX == vec.x && pawn->myY == vec.y)
 					{
-						pawn->Die();
-						clock.restart();
-						DisplayString = "Enemy Killed...";
+						for (auto& pawn2 : Manager.GetPawnLibrary())
+						{
+							if (pawn2->myX == vec.myXPos && pawn2->myY == vec.myYPos)
+							{
+								clock.restart();
+								DisplayString = pawn2->Attack(*pawn);
+							}
+						}
 					}
 				}
 

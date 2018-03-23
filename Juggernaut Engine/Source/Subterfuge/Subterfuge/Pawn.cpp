@@ -9,9 +9,9 @@ Pawn::Pawn()
 	dexterity = 50;
 	magic = 50;
 	mp = 50;
-	hp = 50;
+	hp = 75;
 	team = 0;
-	attacks = 2;
+	attacks = 3;
 	movementLeft = 6;
 	unitType = 1;
 	
@@ -55,9 +55,67 @@ void Pawn::RestartTurn()
 	attacks = 2;
 }
 
-void Pawn::Attack(Pawn* other)
+std::string Pawn::Attack(Pawn &other)
 {
 	attacks--;
+
+	std::string str = "Empty. If this is displayed, something has gone wrong.";
+	float dexValue = dexterity / other.dexterity;
+
+	if(dexValue < 1.0f)
+	{
+		//std::srand(std::time(0)); //use current time as seed for random generator
+		int random_variable = generateRandom(0.0f, 1.0f);
+		if (random_variable > dexValue)
+		{
+			// The attack Misses.
+			str = "You missed.";
+		}
+		else
+		{
+			float damage = std::floorf(strength + generateRandom( -(strength * 0.3), (strength * 0.3)));
+			other.hp -= damage;
+			if (other.hp <= 0)
+			{
+				other.Die();
+				str = std::to_string(static_cast<int> (damage)) + " damage. The enemy was killed";
+				return str;
+			}
+			str = "You dealt " + std::to_string(static_cast<int> (damage)) + " points of damage.";
+		}
+	}
+	else
+	{
+		float damage = std::floorf(strength + generateRandom(-(strength * 0.3), (strength * 0.3)));
+		other.hp -= damage;
+		if (other.hp <= 0)
+		{
+			other.Die();
+			str = std::to_string(static_cast<int> (damage)) + " damage. The enemy was killed";
+			return str;
+		}
+		str = "You dealt " + std::to_string(static_cast<int> (damage)) + " points of damage.";
+	}
+
+	return str;
+}
+
+float Pawn::rand_FloatRange(float a, float b)
+{
+	std::srand(std::time(0));
+	return ((b - a)*((float)rand() / RAND_MAX)) + a;
+}
+
+float Pawn::generateRandom(float min, float max) 
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<> dis(min, std::nextafter(max, DBL_MAX));
+
+	return dis(gen);
+
+	//std::mt19937 eng{ std::chrono::high_resolution_clock::now().time_since_epoch().count() };
+	//return std::uniform_real_distribution<>(min, max)(eng);
 }
 
 bool Pawn::IsTurnOver()
@@ -75,6 +133,8 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 	vec.action = false;
 	vec.x = 0;
 	vec.y = 0;
+	vec.myXPos = myX;
+	vec.myYPos = myY;
 
 
 	if (attacks > 0)
