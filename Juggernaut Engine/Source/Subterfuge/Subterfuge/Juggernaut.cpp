@@ -178,6 +178,53 @@ Pawn* RetrieveLowestTurnOrder(GameObjectManager Manager)
 	return pwned;
 }
 
+Pawn::vectorBool Juggernaut::SearchForConflicts(sf::Vector2i vectorDrawer[10], int &randyStoreX, int &randyStoreY)
+{
+	Pawn::vectorBool pawny;
+	pawny.action = true;
+	pawny.myXPos = randyStoreX;
+	pawny.myYPos = randyStoreY;
+
+	for (int i = 0; i < 10; i++)
+	{
+		if (vectorDrawer[i] == sf::Vector2i{ randyStoreX, randyStoreY })
+		{
+			randyStoreX = std::floor(generateRandom(0, 9));
+			randyStoreY = std::floor(generateRandom(0, 9));
+			
+			Pawn::vectorBool v2 = SearchForConflicts(vectorDrawer, randyStoreX, randyStoreY);
+
+			if (v2.action == true)
+			{
+				pawny.myXPos = randyStoreX;
+				pawny.myYPos = randyStoreY;
+				pawny.action = true;
+				return pawny;
+			}
+			else
+			{
+				randyStoreX = std::floor(generateRandom(0, 9));
+				randyStoreY = std::floor(generateRandom(0, 9));
+
+				Pawn::vectorBool v2 = SearchForConflicts(vectorDrawer, randyStoreX, randyStoreY);
+			}
+		}
+	}
+	return pawny;
+}
+
+float Juggernaut::generateRandom(float min, float max)
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<> dis(min, std::nextafter(max, DBL_MAX));
+
+	return dis(gen);
+
+	//std::mt19937 eng{ std::chrono::high_resolution_clock::now().time_since_epoch().count() };
+	//return std::uniform_real_distribution<>(min, max)(eng);
+}
+
 void Juggernaut::Subterfuge()
 {
 	sf::RenderWindow window({ 1920,1080 }, "SUBTERFUGE");
@@ -230,45 +277,112 @@ void Juggernaut::Subterfuge()
 	Pawn *Seventh = new Pawn();
 	Pawn *Eighth = new Pawn();
 
-	First->Move(0, 0, board);
-	Second->team = 1;
-	Second->getObject()->SetSphereColor(sf::Color::Red);
-	Second->SetClass(1);
+	sf::Vector2i vectorDrawer[10];
 
-	Second->Move(4,2,board);
+	for (int i = 0; i < 10; i++)
+	{
+		vectorDrawer[i] = { 0, 0 };
+	}
+
+	int randX = std::floor(First->generateRandom(0, 9));
+	int randY = std::floor(First->generateRandom(0, 9));
+
+	First->Move(randX, randY, board);
+	First->team = 1;
+	First->getObject()->SetSphereColor(sf::Color::Red);
+	First->SetClass(1);
+
+	vectorDrawer[0] = { randX, randY };
+
+	int randyStoreX = std::floor(First->generateRandom(0, 9));
+	int randyStoreY = std::floor(First->generateRandom(0, 9));
+
+	Pawn::vectorBool v3 = SearchForConflicts(vectorDrawer, randyStoreX, randyStoreY);
+	vectorDrawer[1] = sf::Vector2i{v3.myXPos, v3.myYPos};
+
+	Second->Move(randyStoreX, randyStoreY, board);
 	Second->team = 2;
 	Second->getObject()->SetSphereColor(sf::Color::Blue);
 	Second->SetClass(1);
 
-	Third->Move(6, 7, board);
+	randyStoreX = std::floor(First->generateRandom(0, 9));
+	randyStoreY = std::floor(First->generateRandom(0, 9));
+	v3 = SearchForConflicts(vectorDrawer, randyStoreX, randyStoreY);
+	vectorDrawer[2] = sf::Vector2i{ v3.myXPos, v3.myYPos };
+	randyStoreX = v3.myXPos;
+	randyStoreY = v3.myYPos;
+
+	Third->Move(randyStoreX, randyStoreY, board);
 	Third->team = 1;
 	Third->getObject()->SetSphereColor(sf::Color::Red);
 	Third->SetClass(2);
 
-	Fourth->Move(2, 8, board);
+	randyStoreX = std::floor(First->generateRandom(0, 9));
+	randyStoreY = std::floor(First->generateRandom(0, 9));
+	v3 = SearchForConflicts(vectorDrawer, randyStoreX, randyStoreY);
+	vectorDrawer[3] = sf::Vector2i{ v3.myXPos, v3.myYPos };
+	randyStoreX = v3.myXPos;
+	randyStoreY = v3.myYPos;
+
+	Fourth->Move(randyStoreX, randyStoreY, board);
 	Fourth->team = 2;
 	Fourth->getObject()->SetSphereColor(sf::Color::Blue);
 	Fourth->SetClass(2);
 
-	Fifth->Move(9, 9, board);
+	randyStoreX = std::floor(First->generateRandom(0, 9));
+	randyStoreY = std::floor(First->generateRandom(0, 9));
+	v3 = SearchForConflicts(vectorDrawer, randyStoreX, randyStoreY);
+	vectorDrawer[4] = sf::Vector2i{ v3.myXPos, v3.myYPos };
+	randyStoreX = v3.myXPos;
+	randyStoreY = v3.myYPos;
+
+	Fifth->Move(randyStoreX, randyStoreY, board);
 	Fifth->team = 1;
 	Fifth->getObject()->SetSphereColor(sf::Color::Red);
 	Fifth->SetClass(3);
 
-	Sixth->Move(3, 1, board);
+	randyStoreX = std::floor(First->generateRandom(0, 9));
+	randyStoreY = std::floor(First->generateRandom(0, 9));
+	v3 = SearchForConflicts(vectorDrawer, randyStoreX, randyStoreY);
+	vectorDrawer[5] = sf::Vector2i{ v3.myXPos, v3.myYPos };
+	randyStoreX = v3.myXPos;
+	randyStoreY = v3.myYPos;
+
+	Sixth->Move(randyStoreX, randyStoreY, board);
 	Sixth->team = 2;
 	Sixth->getObject()->SetSphereColor(sf::Color::Blue);
 	Sixth->SetClass(3);
 
-	Seventh->Move(8,1, board);
+	randyStoreX = std::floor(First->generateRandom(0, 9));
+	randyStoreY = std::floor(First->generateRandom(0, 9));
+	v3 = SearchForConflicts(vectorDrawer, randyStoreX, randyStoreY);
+	vectorDrawer[6] = sf::Vector2i{ v3.myXPos, v3.myYPos };
+	randyStoreX = v3.myXPos;
+	randyStoreY = v3.myYPos;
+
+	Seventh->Move(randyStoreX, randyStoreY, board);
 	Seventh->team = 1;
 	Seventh->getObject()->SetSphereColor(sf::Color::Red);
 	Seventh->SetClass(4);
 
-	Eighth->Move(5, 5, board);
+	randyStoreX = std::floor(First->generateRandom(0, 9));
+	randyStoreY = std::floor(First->generateRandom(0, 9));
+	v3 = SearchForConflicts(vectorDrawer, randyStoreX, randyStoreY);
+	vectorDrawer[7] = sf::Vector2i{ v3.myXPos, v3.myYPos };
+	randyStoreX = v3.myXPos;
+	randyStoreY = v3.myYPos;
+
+	Eighth->Move(randyStoreX, randyStoreY, board);
 	Eighth->team = 2;
 	Eighth->getObject()->SetSphereColor(sf::Color::Blue);
 	Eighth->SetClass(4);
+
+	randyStoreX = std::floor(First->generateRandom(0, 9));
+	randyStoreY = std::floor(First->generateRandom(0, 9));
+	v3 = SearchForConflicts(vectorDrawer, randyStoreX, randyStoreY);
+	vectorDrawer[8] = sf::Vector2i{ v3.myXPos, v3.myYPos };
+	randyStoreX = v3.myXPos;
+	randyStoreY = v3.myYPos;
 
 	//Manager.PushGameObject(First->getObject());
 	Manager.PushPawn(First);
@@ -415,8 +529,9 @@ void Juggernaut::Subterfuge()
 										}
 										else
 										{
-											DisplayString = "No MP...";
+											DisplayString2 = "No MP...";
 											clock.restart();
+											clock2.restart();
 										}
 									}
 								}
@@ -459,7 +574,6 @@ void Juggernaut::Subterfuge()
 		{
 			std::string stringy = DisplayString + "\n" + DisplayString2;
 			ShowText(stringy, window);
-
 		}
 		else
 		{

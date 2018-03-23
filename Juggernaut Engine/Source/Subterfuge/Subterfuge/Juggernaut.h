@@ -30,10 +30,12 @@ public:
 	void ShowBoard(sf::RenderWindow& win);
 	void PrintBoard();
 	void ShowText(std::string str, sf::RenderWindow& win);
+	Pawn::vectorBool SearchForConflicts(sf::Vector2i vectorDrawer[10], int &randyStoreX, int &randyStoreY);
+	float generateRandom(float min, float max);
 
 	int board[10][10];
 	StorageNode Database[10][10];
-
+	
 	std::string DisplayString;
 	
 	GameObjectManager Manager;
