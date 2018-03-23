@@ -2,6 +2,9 @@
 
 #include "GameObject.h"
 #include "StorageNode.h"
+#include <ctime>
+#include <random>
+#include <chrono>
 
 class Pawn
 {
@@ -12,6 +15,8 @@ public:
 		int x;
 		int y;
 		bool action;
+		int myXPos;
+		int myYPos;
 	};
 
 	Pawn();
@@ -30,12 +35,14 @@ public:
 	int movementLeft;
 	int unitType;
 	
-	void Attack(Pawn* other);
+	std::string Attack(Pawn &other);
 	void Move(int xPos, int yPos, int board[10][10]);
 	void UpdatePosition();
 	bool IsTurnOver();
 	vectorBool DoUserInput(sf::Event event, int board[10][10], StorageNode database[10][10]);
 	void Die();
+	float Pawn::rand_FloatRange(float a, float b);
+	float generateRandom(float min, float max);
 
 	//void CopyArray(int *arrayFrom[10][10], int *arrayTo[10][10]);
 
