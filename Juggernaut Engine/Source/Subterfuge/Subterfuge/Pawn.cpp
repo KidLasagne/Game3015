@@ -47,6 +47,7 @@ void Pawn::Die()
 	unitType = 0;
 
 	myGameObject->SetTexture("Dead.png", myGameObject->sprite, 100, 100, 0, 0, myGameObject->Transform.Position.x, myGameObject->Transform.Position.y, 1, 1, 0.0f);
+	myGameObject->GetSphere().setScale(0, 0);
 }
 
 void Pawn::RestartTurn()
