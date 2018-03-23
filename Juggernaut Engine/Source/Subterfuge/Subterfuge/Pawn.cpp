@@ -19,6 +19,7 @@ Pawn::Pawn()
 	rawAttacks = attacks;
 	yDir = -1;
 	xDir = 0;
+	amIMoving = false;
 	
 	for(int x = 0; x < 10; x++)
 	{
@@ -195,7 +196,7 @@ Pawn::stringBool Pawn::UseMagic(std::string spellName, sf::Event event, sf::Rend
 		strb.targetVect = {myX + spellPosX, myY + spellPosY};
 	}
 
-	strb.myStr = "Casting Spell... (escape to quit, return to cast)";
+	strb.myStr = "Casting Spell... \n(escape to quit, return to cast)";
 	return strb;
 }
 
@@ -327,7 +328,7 @@ std::string Pawn::Attack(Pawn &other)
 		if (other.hp <= 0)
 		{
 			other.Die();
-			str = std::to_string(static_cast<int> (damage)) + " damage. The enemy was killed";
+			str = std::to_string(static_cast<int> (damage)) + " damage. \nThe enemy was killed";
 			return str;
 		}
 		str = "You dealt " + std::to_string(static_cast<int> (damage)) + " points of damage.";
@@ -371,6 +372,7 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 	vec.y = 0;
 	vec.myXPos = myX;
 	vec.myYPos = myY;
+	vec.str = "Moves Left: " + std::to_string(movementLeft) + " Actions: " + std::to_string(attacks);
 	vec.turnOver = false;
 
 
@@ -385,6 +387,7 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 					yDir = 0;
 					xDir = -1;
 					Move(myX - 1, myY, board);
+					amIMoving = true;
 					return vec;
 				}
 				else if (database[myX - 1][myY].team != team)
@@ -395,6 +398,7 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 					vec.x = myX - 1;
 					vec.y = myY;
 					UpdatePosition();
+					amIMoving = false;
 					return vec;
 				}
 			}
@@ -408,6 +412,7 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 					yDir = 0;
 					xDir = 1;
 					Move(myX + 1, myY, board);
+					amIMoving = true;
 					return vec;
 				}
 				else if (database[myX + 1][myY].team != team)
@@ -418,6 +423,7 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 					vec.x = myX + 1;
 					vec.y = myY;
 					UpdatePosition();
+					amIMoving = false;
 					return vec;
 				}
 			}
@@ -431,6 +437,7 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 					yDir = 1;
 					xDir = 0;
 					Move(myX, myY - 1, board);
+					amIMoving = true;
 					return vec;
 				}
 				else if (database[myX][myY - 1].team != team)
@@ -441,6 +448,7 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 					vec.x = myX;
 					vec.y = myY - 1;
 					UpdatePosition();
+					amIMoving = false;
 					return vec;
 				}
 			}
@@ -454,6 +462,7 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 					yDir = -1;
 					xDir = 0;
 					Move(myX, myY + 1, board);
+					amIMoving = true;
 					return vec;
 				}
 				else if (database[myX][myY + 1].team != team)
@@ -464,6 +473,7 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 					vec.x = myX;
 					vec.y = myY + 1;
 					UpdatePosition();
+					amIMoving = false;
 					return vec;
 				}
 			}
@@ -476,6 +486,8 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 		std::cout << "Ending Turn." << std::endl;
 		//RestartTurn();
 	}
+
+	vec.moving = amIMoving;
 
 	return vec;
 }
