@@ -20,6 +20,7 @@ public:
 		bool turnOver;
 		std::string str;
 		bool moving;
+		bool attacking;
 	};
 
 	struct stringBool
@@ -67,6 +68,7 @@ public:
 	void ShedTime();
 	void SetClass(int i);
 	stringBool UseMagic(std::string spellName, sf::Event event, sf::RenderWindow& win);
+	vectorBool AutomateMovement(int board[10][10], StorageNode database[10][10]);
 
 	//void CopyArray(int *arrayFrom[10][10], int *arrayTo[10][10]);
 

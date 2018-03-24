@@ -398,7 +398,7 @@ void Juggernaut::Subterfuge()
 	sf::Clock clock2;
 
 	DisplayString = "Starting Game...";
-	std::string DisplayString2 = "TempString...";
+	std::string DisplayString2 = "No String Used Here...";
 
 	sf::CircleShape ciri;
 	sf::CircleShape circi;
@@ -443,7 +443,15 @@ void Juggernaut::Subterfuge()
 
 				//vec = First->DoUserInput(event, board, Database);
 				Pawn* storagePawn = RetrieveLowestTurnOrder(Manager);
-				vec = storagePawn->DoUserInput(event, board, Database);
+				if (storagePawn->team == 1)
+				{
+					vec = storagePawn->DoUserInput(event, board, Database);
+				}
+				else if(storagePawn->team >= 2)
+				{
+					vec = storagePawn->AutomateMovement(board, Database);
+				}
+
 
 				circi.setFillColor(sf::Color::White);
 				circi.setScale(1, 1);
@@ -461,6 +469,41 @@ void Juggernaut::Subterfuge()
 				}
 				clock.restart();
 
+				if (vec.attacking == true)
+				{
+					//std::cout << "ATTACKING!!!!" << std::endl;
+					DisplayString2 = "Attacking Enemy.... \n(automated)";
+					clock2.restart();
+
+					for (auto& pawn : Manager.GetPawnLibrary())
+					{
+						if (pawn->myX == vec.myXPos && pawn->myY == vec.myYPos)
+						{
+							DisplayString2 = "Found the First...";
+
+							for (auto& pawn2 : Manager.GetPawnLibrary())
+							{
+								if (pawn2->myX == vec.x && pawn2->myY == vec.y)
+								{
+									DisplayString2 = "It's in the loop...";
+									clock.restart();
+									DisplayString2 = pawn->Attack(*pawn2);
+									//pawn->attacks--;
+
+									while (pawn->attacks > 0 && pawn2->unitType != 0)
+									{
+										DisplayString2 = pawn->Attack(*pawn2);
+										//pawn->attacks--;
+									}
+									//pawn->RestartTurn();
+									vec.turnOver = true;
+									pawn->UpdatePosition();
+									pawn2->UpdatePosition();
+								}
+							}
+						}
+					}
+				}
 
 				if (vec.turnOver == true)
 				{
