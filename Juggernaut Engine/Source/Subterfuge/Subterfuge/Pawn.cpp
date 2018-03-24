@@ -223,6 +223,8 @@ std::string Pawn::Attack(Pawn &other)
 	std::string str = "Empty. If this is displayed, something has gone wrong.";
 	float dexValue = (dexterity * 0.7) / (other.dexterity);
 
+	std::cout << "ATTACKING NOW!!!!" << std::endl;
+
 	if(dexValue < 1.0f)
 	{
 		//std::srand(std::time(0)); //use current time as seed for random generator
@@ -350,6 +352,12 @@ std::string Pawn::Attack(Pawn &other)
 		str = "You dealt " + std::to_string(static_cast<int> (damage)) + " points of damage.";
 	}
 
+	if (attacks < 1 && team > 2)
+	{
+		str = "No more attacks";
+		RestartTurn();
+	}
+
 	return str;
 }
 
@@ -390,6 +398,12 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 	vec.myYPos = myY;
 	vec.str = "Moves Left: " + std::to_string(movementLeft) + " Actions: " + std::to_string(attacks);
 	vec.turnOver = false;
+
+	if (team > 1)
+	{
+		vec = AutomateMovement(board, database);
+		return vec;
+	}
 
 	myGameObject->GetSphere().setScale(1.5, 1.5);
 
@@ -509,12 +523,468 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 	return vec;
 }
 
+Pawn::vectorBool Pawn::AutomateMovement(int board[10][10], StorageNode database[10][10])
+{
+	Pawn::vectorBool v4;
+	v4.action = false;
+	v4.turnOver = false;
+	v4.moving = false;
+	v4.myXPos = myX;
+	v4.myYPos = myY;
+	v4.x = 0;
+	v4.y = 0;
+	v4.attacking = false;
+
+	bool canIAttack = false;
+	
+	int enemyX = 0;
+	int enemyY = 0;
+	int moveX = 0;
+	int moveY = 0;
+
+	if (attacks > 0)
+	{
+		for (int y = 0; y < 10; y++)
+		{
+			for (int x = 0; x < 10; x++)
+			{
+				if (x > 0)
+				{
+					if (database[myX - 1][myY].unitType != 0 && database[myX - 1][myY].team != team)
+					{
+						enemyX = myX - 1;
+						enemyY = myY;
+
+						v4.action = false;
+						v4.myXPos = myX;
+						v4.myYPos = myY;
+						v4.x = enemyX;
+						v4.y = enemyY;
+						v4.attacking = true;
+						canIAttack = true;
+						return v4;
+					}
+				}
+				if (y > 0)
+				{
+					if (database[myX][myY - 1].unitType != 0 && database[myX][myY - 1].team != team)
+					{
+						enemyX = myX;
+						enemyY = myY - 1;
+
+						v4.action = false;
+						v4.myXPos = myX;
+						v4.myYPos = myY;
+						v4.x = enemyX;
+						v4.y = enemyY;
+						v4.attacking = true;
+						canIAttack = true;
+						return v4;
+					}
+				}
+				if (x < 10 - 1)
+				{
+					if (database[myX + 1][myY].unitType != 0 && database[myX + 1][myY].team != team)
+					{
+						enemyX = myX + 1;
+						enemyY = myY;
+
+						v4.action = false;
+						v4.myXPos = myX;
+						v4.myYPos = myY;
+						v4.x = enemyX;
+						v4.y = enemyY;
+						v4.attacking = true;
+						canIAttack = true;
+						return v4;
+					}
+				}
+				if (y < 10 - 1)
+				{
+					if (database[myX][myY + 1].unitType != 0 && database[myX][myY + 1].team != team)
+					{
+						enemyX = myX;
+						enemyY = myY + 1;
+
+						v4.action = false;
+						v4.myXPos = myX;
+						v4.myYPos = myY;
+						v4.x = enemyX;
+						v4.y = enemyY;
+						v4.attacking = true;
+						canIAttack = true;
+						return v4;
+					}
+				}
+			}
+		}
+		if (canIAttack == true)
+		{
+			std::cout << "Attacking..." << std::endl;
+			v4.str = "Attacking...";
+			return v4;
+		}
+		else
+		{
+			std::cout << "Moving Around..." << std::endl;
+			v4.str = "Moving Around...";
+
+			int Virus[10][10];
+			int TempBoard[10][10];
+			for (int y = 0; y < 10; y++)
+			{
+				for (int x = 0; x < 10; x++)
+				{
+					Virus[x][y] = board[x][y];
+					TempBoard[x][y] = board[x][y];
+				}
+			}
+			Virus[myX][myY] = 99;
+			for (int i = 0; i < movementLeft; i++)
+			{
+				for (int y = 0; y < 10; y++)
+				{
+					for (int x = 0; x < 10; x++)
+					{
+						if (Virus[x][y] == 99)
+						{
+							if (x > 0)
+							{
+								TempBoard[x - 1][y] = 99;
+							}
+							if (y > 0)
+							{
+								TempBoard[x][y - 1] = 99;
+							}
+							if (x < 10 - 1)
+							{
+								TempBoard[x + 1][y] = 99;
+							}
+							if (y < 10 - 1)
+							{
+								TempBoard[x][y + 1] = 99;
+							}
+						}
+					}
+				}
+
+				for (int y = 0; y < 10; y++)
+				{
+					for (int x = 0; x < 10; x++)
+					{
+						Virus[x][y] = TempBoard[x][y];
+					}
+				}
+			}
+
+			for (int y = 0; y < 10; y++)
+			{
+				for (int x = 0; x < 10; x++)
+				{
+					TempBoard[x][y] = 0;
+				}
+			}
+
+			enemyX = 0;
+			enemyY = 0;
+
+			for (int y = 0; y < 10; y++)
+			{
+				for (int x = 0; x < 10; x++)
+				{
+					if (Virus[x][y] == 99)
+					{
+						if (x > 0)
+						{
+							if (database[x - 1][y].team != team && database[x - 1][y].unitType != 0)
+							{
+								if (unitType == 3 || unitType == 4)
+								{
+									enemyX = x - 1;
+									enemyY = y;
+									TempBoard[x][y] = 3;
+								}
+								else if (unitType == 2)
+								{
+									enemyX = x - 1;
+									enemyY = y;
+									TempBoard[x][y] = 2;
+								}
+								else if (unitType == 1)
+								{
+									enemyX = x - 1;
+									enemyY = y;
+									TempBoard[x][y] = 1;
+								}
+							}
+						}
+						if (y > 0)
+						{
+							if (database[x][y - 1].team != team && database[x][y - 1].unitType != 0)
+							{
+								if (unitType == 3 || unitType == 4)
+								{
+									enemyX = x;
+									enemyY = y - 1;
+									TempBoard[x][y] = 3;
+								}
+								else if (unitType == 2)
+								{
+									enemyX = x;
+									enemyY = y - 1;
+									TempBoard[x][y] = 2;
+								}
+								else if (unitType == 1)
+								{
+									enemyX = x;
+									enemyY = y - 1;
+									TempBoard[x][y] = 1;
+								}
+							}
+						}
+						if (x < 10 - 1)
+						{
+							if (database[x + 1][y].team != team && database[x + 1][y].unitType != 0)
+							{
+								if (unitType == 3 || unitType == 4)
+								{
+									enemyX = x + 1;
+									enemyY = y;
+									TempBoard[x][y] = 3;
+								}
+								else if (unitType == 2)
+								{
+									enemyX = x + 1;
+									enemyY = y;
+									TempBoard[x][y] = 2;
+								}
+								else if (unitType == 1)
+								{
+									enemyX = x + 1;
+									enemyY = y;
+									TempBoard[x][y] = 1;
+								}
+							}
+						}
+						if (y < 10 - 1)
+						{
+							if (database[x][y + 1].team != team && database[x][y + 1].unitType != 0)
+							{
+								if (unitType == 3 || unitType == 4)
+								{
+									enemyX = x;
+									enemyY = y + 1;
+									TempBoard[x][y] = 3;
+								}
+								else if (unitType == 2)
+								{
+									enemyX = x;
+									enemyY = y + 1;
+									TempBoard[x][y] = 2;
+								}
+								else if (unitType == 1)
+								{
+									enemyX = x;
+									enemyY = y + 1;
+									TempBoard[x][y] = 1;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			int highestValue = 0;
+			moveX = 0;
+			moveY = 0;
+
+			int dx = 0;
+			int dy = 0;
+
+			for (int y = 0; y < 10; y++)
+			{
+				for (int x = 0; x < 10; x++)
+				{
+					if (TempBoard[x][y] == 3)
+					{
+						highestValue = 3;
+						moveX = x;
+						moveY = y;
+						dx = x - myX;
+						dy = y - myY;
+					}
+					else if (TempBoard[x][y] == 2 && highestValue < TempBoard[x][y])
+					{
+						highestValue = 2;
+						moveX = x;
+						moveY = y;
+						dx = x - myX;
+						dy = y - myY;
+					}
+					else if (TempBoard[x][y] == 1 && highestValue < TempBoard[x][y])
+					{
+						highestValue = 1;
+						moveX = x;
+						moveY = y;
+						dx = x - myX;
+						dy = y - myY;
+					}
+				}
+			}
+
+			dx = std::abs(dx);
+			dy = std::abs(dy);
+
+			if (highestValue > 0)
+			{
+				myX = moveX;
+				myY = moveY;
+				UpdatePosition();
+				movementLeft -= dx + dy;
+
+				if (movementLeft <= 0)
+				{
+					attacks--;
+					movementLeft = rawMovement;
+
+					if (attacks <= 0)
+					{
+						RestartTurn();
+						v4.turnOver = true;
+						std::cout << "Ending Turn." << std::endl;
+					}
+					else
+					{
+						v4.action = true;
+						v4.myXPos = moveX;
+						v4.myYPos = moveY;
+						v4.x = enemyX;
+						v4.y = enemyY;
+
+						std::cout << "Restarting Because I can Still Move...." << std::endl;
+						v4.str = "Restarting Because I can Still Move....";
+
+						//AutomateMovement(board, database);
+					}
+				}
+			}
+			else
+			{
+				int markX = 0;
+				int markY = 0;
+
+				for (int y = 0; y < 10; y++)
+				{
+					for (int x = 0; x < 10; x++)
+					{
+						if (database[x][y].team != team && database[x][y].unitType != 0)
+						{
+							if (unitType == 3 || unitType == 4)
+							{
+								highestValue = 3;
+								markX = x;
+								markY = y;
+								//dx = x - myx;
+								//dy = y - myY;
+								//dx = std::abs(dx);
+								//dy = std::abs(dy);
+							}
+							else if (unitType == 2)
+							{
+								highestValue = 2;
+								markX = x;
+								markY = y;
+								//dx = x - myx;
+								//dy = y - myY;
+								//dx = std::abs(dx);
+								//dy = std::abs(dy);
+							}
+							else if (unitType == 1)
+							{
+								highestValue = 1;
+								markX = x;
+								markY = y;
+								//dx = x - myx;
+								//dy = y - myY;
+								//dx = std::abs(dx);
+								//dy = std::abs(dy);
+							}
+						}
+					}
+				}
+
+				int highestX = 10;
+				int highestY = 10;
+
+				for (int y = 0; y < 10; y++)
+				{
+					for (int x = 0; x < 10; x++)
+					{
+						dx = x - myX;
+						dy = y - myY;
+						dx = std::abs(dx);
+						dy = std::abs(dy);
+						if (markX - x < highestX && markX != x && dx + dy <= movementLeft)
+						{
+							highestX = x;
+							highestY = y;
+						}
+					}
+				}
+
+				myX = moveX;
+				myY = moveY;
+				UpdatePosition();
+				movementLeft -= dx + dy;
+
+				if (movementLeft <= 0)
+				{
+					attacks--;
+					movementLeft = rawMovement;
+
+					if (attacks <= 0)
+					{
+						RestartTurn();
+						v4.turnOver = true;
+						std::cout << "Ending Turn." << std::endl;
+					}
+					else
+					{
+						v4.action = true;
+						v4.myXPos = moveX;
+						v4.myYPos = moveY;
+						v4.x = enemyX;
+						v4.y = enemyY;
+
+						std::cout << "Restarting Because I can Still Move...." << std::endl;
+						v4.str = "Restarting Because I can Still Move....";
+
+						//AutomateMovement(board, database);
+					}
+				}
+			}
+		}
+	}
+	else if (attacks <= 0)
+	{
+		RestartTurn();
+		v4.turnOver = true;
+		v4.str = "No attacks left, ending turn.";
+		std::cout << "NO ATTACKS LEFT!!!" << std::endl;
+		v4.myXPos = myX;
+		v4.myYPos = myY;
+		v4.attacking = false;
+		v4.action = false;
+		v4.moving = false;
+	}
+
+	return v4;
+}
+
 void Pawn::Move(int xPos, int yPos, int board[10][10]) 
 {
-	//*board[myX][myY] = 0;
 	myX = xPos;
 	myY = yPos;
-	//*board[myX][myY] = unitType;
 	UpdatePosition();
 	movementLeft--;
 	if (movementLeft <= 0)
