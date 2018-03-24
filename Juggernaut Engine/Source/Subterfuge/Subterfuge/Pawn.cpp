@@ -795,8 +795,8 @@ Pawn::vectorBool Pawn::AutomateMovement(int board[10][10], StorageNode database[
 			}
 
 			int highestValue = 0;
-			moveX = 0;
-			moveY = 0;
+			moveX = 8;
+			moveY = 8;
 
 			int dx = 0;
 			int dy = 0;
@@ -868,11 +868,13 @@ Pawn::vectorBool Pawn::AutomateMovement(int board[10][10], StorageNode database[
 					}
 				}
 			}
-			else
+			else // if Highest Value <= 0
 			{
 				int markX = 0;
 				int markY = 0;
-
+				
+				bool didIFindSomething = false;
+					
 				for (int y = 0; y < 10; y++)
 				{
 					for (int x = 0; x < 10; x++)
@@ -884,30 +886,21 @@ Pawn::vectorBool Pawn::AutomateMovement(int board[10][10], StorageNode database[
 								highestValue = 3;
 								markX = x;
 								markY = y;
-								//dx = x - myx;
-								//dy = y - myY;
-								//dx = std::abs(dx);
-								//dy = std::abs(dy);
+								didIFindSomething = true;
 							}
 							else if (unitType == 2)
 							{
 								highestValue = 2;
 								markX = x;
 								markY = y;
-								//dx = x - myx;
-								//dy = y - myY;
-								//dx = std::abs(dx);
-								//dy = std::abs(dy);
+								didIFindSomething = true;
 							}
 							else if (unitType == 1)
 							{
 								highestValue = 1;
 								markX = x;
 								markY = y;
-								//dx = x - myx;
-								//dy = y - myY;
-								//dx = std::abs(dx);
-								//dy = std::abs(dy);
+								didIFindSomething = true;
 							}
 						}
 					}
@@ -932,10 +925,124 @@ Pawn::vectorBool Pawn::AutomateMovement(int board[10][10], StorageNode database[
 					}
 				}
 
-				myX = moveX;
-				myY = moveY;
+				bool itWorked = false;
+
+				if (didIFindSomething == false)
+				{
+					int randy = generateRandom(0,2);
+					
+					if (randy >= 1)
+					{
+						if (myY + movementLeft < 10)
+						{
+							if (database[myX][myY + movementLeft].unitType == 0)
+							{
+								moveY = myY + movementLeft;
+								moveX = myX;
+								itWorked = true;
+							}
+						}
+						else if (myX + movementLeft < 10)
+						{
+							 if (database[myX + movementLeft][myY].unitType == 0)
+							{
+								moveY = myY;
+								moveX = myX + movementLeft;
+								itWorked = true;
+							}
+						}
+						if(itWorked == false)
+						{
+							movementLeft--;
+							if (myX < 9 && myY < 9)
+							{
+								if (database[myX + 1][myY + 1].unitType == 0)
+								{
+									moveX = myX + 1;
+									moveY = myY + 1;
+								}
+							}
+							if (myX < 9 && myY > 0)
+							{
+								if (database[myX + 1][myY - 1].unitType == 0)
+								{
+									moveX = myX + 1;
+									moveY = myY - 1;
+								}
+							}
+							if (myX > 0 && myY > 0)
+							{
+								if (database[myX - 1][myY - 1].unitType == 0)
+								{
+									moveX = myX - 1;
+									moveY = myY - 1;
+								}
+							}
+							if (myX > 0 && myY < 9)
+							{
+								if (database[myX - 1][myY + 1].unitType == 0)
+								{
+									moveX = myX - 1;
+									moveY = myY + 1;
+								}
+							}
+							if (myY > 0)
+							{
+								if (database[myX][myY - 1].unitType == 0)
+								{
+									moveX = myX;
+									moveY = myY - 1;
+								}
+							}
+							if (myX < 9)
+							{
+								if (database[myX + 1][myY].unitType == 0)
+								{
+									moveX = myX + 1;
+									moveY = myY;
+								}
+							}
+							if (myX > 0)
+							{
+								if (database[myX - 1][myY].unitType == 0)
+								{
+									moveX = myX - 1;
+									moveY = myY;
+								}
+							}
+							if (myY < 9)
+							{
+								if (database[myX][myY + 1].unitType == 0)
+								{
+									moveX = myX;
+									moveY = myY + 1;
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					myX = moveX;
+					myY = moveY;
+				}
 				UpdatePosition();
-				movementLeft -= dx + dy;
+
+				if (highestX == 10 && highestY == 10)
+				{
+					if (itWorked == true)
+					{
+						movementLeft = 0;
+					}
+					else
+					{
+						movementLeft--;
+					}
+				}
+				else
+				{
+					movementLeft -= dx + dy;
+				}
 
 				if (movementLeft <= 0)
 				{
