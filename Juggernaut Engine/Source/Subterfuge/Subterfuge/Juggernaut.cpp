@@ -277,7 +277,11 @@ void Juggernaut::Subterfuge()
 	Pawn *Seventh = new Pawn();
 	Pawn *Eighth = new Pawn();
 
-	sf::Vector2i vectorDrawer[10];
+	Pawn *Ninth = new Pawn();
+	Pawn *Tenth = new Pawn();
+	Pawn *Eleventh = new Pawn();
+
+	sf::Vector2i vectorDrawer[11];
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -384,6 +388,37 @@ void Juggernaut::Subterfuge()
 	randyStoreX = v3.myXPos;
 	randyStoreY = v3.myYPos;
 
+	Ninth->Move(randyStoreX, randyStoreY, board);
+	Ninth->team = 2;
+	Ninth->getObject()->SetSphereColor(sf::Color::Blue);
+	Ninth->SetClass(3);
+
+	randyStoreX = std::floor(First->generateRandom(0, 9));
+	randyStoreY = std::floor(First->generateRandom(0, 9));
+	v3 = SearchForConflicts(vectorDrawer, randyStoreX, randyStoreY);
+	vectorDrawer[9] = sf::Vector2i{ v3.myXPos, v3.myYPos };
+	randyStoreX = v3.myXPos;
+	randyStoreY = v3.myYPos;
+
+	Tenth->Move(randyStoreX, randyStoreY, board);
+	Tenth->team = 2;
+	Tenth->getObject()->SetSphereColor(sf::Color::Blue);
+	Tenth->SetClass(1);
+
+	randyStoreX = std::floor(First->generateRandom(0, 9));
+	randyStoreY = std::floor(First->generateRandom(0, 9));
+	v3 = SearchForConflicts(vectorDrawer, randyStoreX, randyStoreY);
+	vectorDrawer[10] = sf::Vector2i{ v3.myXPos, v3.myYPos };
+	randyStoreX = v3.myXPos;
+	randyStoreY = v3.myYPos;
+
+	Eleventh->Move(randyStoreX, randyStoreY, board);
+	Eleventh->team = 1;
+	Eleventh->getObject()->SetSphereColor(sf::Color::Red);
+	Eleventh->SetClass(2);
+
+
+
 	//Manager.PushGameObject(First->getObject());
 	Manager.PushPawn(First);
 	Manager.PushPawn(Second);
@@ -393,6 +428,9 @@ void Juggernaut::Subterfuge()
 	Manager.PushPawn(Sixth);
 	Manager.PushPawn(Seventh);
 	Manager.PushPawn(Eighth);
+	Manager.PushPawn(Ninth);
+	Manager.PushPawn(Tenth);
+	Manager.PushPawn(Eleventh);
 
 	sf::Clock clock; // starts the clock
 	sf::Clock clock2;
