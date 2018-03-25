@@ -523,6 +523,78 @@ Pawn::vectorBool Pawn::DoUserInput(sf::Event event, int board[10][10], StorageNo
 	return vec;
 }
 
+Pawn::stringBool Pawn::AutomateMagic(std::string spellname, int board[10][10], StorageNode database[10][10])
+{
+	attacks--;
+	stringBool v;
+	v.attacking = true;
+	v.myStr = "\nEnemy Casting Magic...";
+	v.exiting = false;
+	v.targetVect = { 0,0 };
+	v.vect = {myX, myY};
+
+	if (spellname == "Fire")
+	{
+		for (int x = 0; x < 10; x++)
+		{
+			for (int y = 0; y < 10; y++)
+			{
+				if (database[x][y].unitType == 3 || database[x][y].unitType == 4)
+				{
+					if (database[x][y].team != team && unitType != 4)
+					{
+						v.myStr += "\nCasting Offensive Magic";
+						v.targetVect = { x , y };
+						return v;
+					}
+					else if (database[x][y].team == team && unitType == 4)
+					{
+						v.myStr += "\nHealing Damage";
+						v.targetVect = { x , y };
+						return v;
+					}
+				}
+				else if (database[x][y].unitType == 2 && unitType != 4)
+				{
+					if (database[x][y].team != team)
+					{
+						v.myStr += "\nCasting Offensive Magic";
+						v.targetVect = { x , y };
+						return v;
+					}
+					else if (database[x][y].team == team && unitType == 4)
+					{
+						v.myStr += "\nHealing Damage";
+						v.targetVect = { x , y };
+						return v;
+					}
+				}
+				else if (database[x][y].unitType == 1 && unitType != 4)
+				{
+					if (database[x][y].team != team)
+					{
+						v.myStr += "\nCasting Offensive Magic";
+						v.targetVect = { x , y };
+						return v;
+					}
+					else if (database[x][y].team == team && unitType == 4)
+					{
+						v.myStr += "\nHealing Damage";
+						v.targetVect = { x , y };
+						return v;
+					}
+				}
+			}
+		}
+	}
+
+	v.attacking = false;
+	v.exiting = true;
+	v.myStr += "\nNo enemies to attack...\nEnding Turn";
+	//RestartTurn();
+	return v;
+}
+
 Pawn::vectorBool Pawn::AutomateMovement(int board[10][10], StorageNode database[10][10])
 {
 	Pawn::vectorBool v4;
