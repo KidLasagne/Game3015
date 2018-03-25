@@ -436,6 +436,14 @@ void Juggernaut::Subterfuge()
 			{
 				casting = true;
 			}
+			Pawn* sp = RetrieveLowestTurnOrder(Manager);
+			if(sp->unitType == 3 || sp->unitType == 4)
+			{
+				if (sp->team > 1)
+				{
+					casting = true;
+				}
+			}
 
 			if (casting == false)
 			{
@@ -540,8 +548,18 @@ void Juggernaut::Subterfuge()
 			}
 			else if (casting == true)
 			{
-				Pawn::stringBool strb = RetrieveLowestTurnOrder(Manager)->UseMagic("Fire", event, window);
-				DisplayString = strb.myStr;
+				Pawn::stringBool strb;
+				Pawn* storagePawn = RetrieveLowestTurnOrder(Manager);
+				if (storagePawn->team > 1)
+				{
+					strb = storagePawn->AutomateMagic("Fire", board, Database);
+					DisplayString = strb.myStr;
+				}
+				else
+				{
+					strb = storagePawn->UseMagic("Fire", event, window);
+					DisplayString = strb.myStr;
+				}
 
 				if (strb.exiting == true)
 				{
@@ -598,6 +616,16 @@ void Juggernaut::Subterfuge()
 						}
 					}
 					casting = false;
+
+					if (storagePawn->team > 1 && storagePawn->attacks <= 0)
+					{
+						for (auto& pawn : Manager.GetPawnLibrary())
+						{
+							pawn->ShedTime();
+						}
+						storagePawn->RestartTurn();
+						casting = false;
+					}
 				}
 
 				ciri = strb.circi;
