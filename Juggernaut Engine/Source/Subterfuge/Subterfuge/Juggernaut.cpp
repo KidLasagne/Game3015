@@ -17,8 +17,11 @@ void Juggernaut::Initialize()
 	if (GetLastError() == ERROR_ALREADY_EXISTS)
 	{
 		std::cout << "Another App Instance Running, Shutting Down..." << std::endl;
-		ExceedsRequirements = false;
+		//ExceedsRequirements = false;
 		// There's another instance running.  What do you do?
+
+		// I've disabled this, having more than one app instance is normal for this program.
+		// Press Escape, Subterfuge returns true, restart the game. This was the most efficient method of achieving it.
 	}
 	else
 	{
@@ -157,7 +160,14 @@ void Juggernaut::ShowText(std::string str, sf::RenderWindow& win)
 	// set the text style
 	text.setStyle(sf::Text::Bold);
 
-	text.setPosition(1100, 100);
+	if (str == "Press Escape to Restart Game...")
+	{
+		text.setPosition(1100, 900);
+	}
+	else
+	{
+		text.setPosition(1100, 100);
+	}
 
 	// inside the main loop, between window.clear() and window.display()
 	win.draw(text);
@@ -225,14 +235,16 @@ float Juggernaut::generateRandom(float min, float max)
 	//return std::uniform_real_distribution<>(min, max)(eng);
 }
 
-void Juggernaut::Subterfuge()
+bool Juggernaut::Subterfuge()
 {
+	bool exiting = true;
+
 	sf::RenderWindow window({ 1920,1080 }, "SUBTERFUGE");
 	window.setFramerateLimit(30);
 
 	sf::Texture tex;
 
-	if (!tex.loadFromFile("TheCommissionersMagnificence.png"))
+	if (!tex.loadFromFile("Subterfuge.png"))
 	{
 		std::cout << "The Image Was Not Found..." << std::endl;
 	}
@@ -263,7 +275,7 @@ void Juggernaut::Subterfuge()
 
 	if (ExceedsRequirements == false)
 	{
-		return;
+		return false;
 	}
 
 	//TransmuteBoard(boardSize);
@@ -438,6 +450,8 @@ void Juggernaut::Subterfuge()
 	DisplayString = "Starting Game...";
 	std::string DisplayString2 = "No String Used Here...";
 
+	std::string ExitTheGame = "Press Escape to Restart Game...";
+
 	sf::CircleShape ciri;
 	sf::CircleShape circi;
 
@@ -473,6 +487,10 @@ void Juggernaut::Subterfuge()
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)
 			{
 				casting = true;
+			}
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+			{
+				return true;
 			}
 			Pawn* sp = RetrieveLowestTurnOrder(Manager);
 			if(sp->unitType == 3 || sp->unitType == 4)
@@ -705,6 +723,8 @@ void Juggernaut::Subterfuge()
 			ShowText(DisplayString, window);
 		}
 
+		ShowText(ExitTheGame, window);
+
 		if (casting == true)
 		{
 			window.draw(ciri);
@@ -727,6 +747,8 @@ void Juggernaut::Subterfuge()
 		ShowBoard(window);
 		window.display();
 	}
+
+	return false;
 }
 
 void Juggernaut::TransmuteBoard(int bSize)
@@ -810,6 +832,16 @@ void Juggernaut::UserInput(float x, float y, GameObject *First, GameObject *Seco
 	}
 }
 
+void Juggernaut::ExitGame()
+{
+	// Initialize Game Here.
+	myX = 0;
+	myY = 0;
+	SetBoardSize(10);
+
+
+}
+
 GameObject* SpawnNewObject(float newX, float newY, float scale, std::string name, sf::Color fillCol, float radius)
 {
 	GameObject* spawned = new GameObject();
@@ -826,3 +858,4 @@ GameObject* SpawnNewObject()
 	GameObject* spawned = new GameObject();
 	return spawned;
 }
+

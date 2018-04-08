@@ -19,7 +19,7 @@ public:
 	void MainLoop();
 	GameObjectManager GetGameObjectManager() { return Manager; }
 	void RenderTheWindow();
-	void Subterfuge();
+	bool Subterfuge();
 	void UserInput(float x, float y, GameObject *First, GameObject *Second, GameObject *Third, GameObject *Fourth, int MoveWhich);
 	int myX;
 	int myY;
@@ -33,6 +33,7 @@ public:
 	Pawn::vectorBool SearchForConflicts(sf::Vector2i vectorDrawer[10], int &randyStoreX, int &randyStoreY);
 	float generateRandom(float min, float max);
 	void MoveXtoLastPosition(Pawn* pwn, sf::RenderWindow& win, sf::CircleShape circ);
+	void ExitGame();
 
 	int board[10][10];
 	StorageNode Database[10][10];

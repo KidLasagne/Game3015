@@ -1,25 +1,23 @@
 ﻿  Juggernaut.cpp
-Juggernaut.cpp(54): warning C4003: not enough actual parameters for macro 'GetFreeSpace'
-Juggernaut.cpp(56): warning C4003: not enough actual parameters for macro 'GetFreeSpace'
-Juggernaut.cpp(47): warning C4477: 'printf' : format string '%lx' requires an argument of type 'unsigned long', but variadic argument 1 has type 'LPVOID'
-Juggernaut.cpp(47): warning C4313: 'printf': '%x' in format string conflicts with argument 1 of type 'LPVOID'
-Juggernaut.cpp(49): warning C4477: 'printf' : format string '%lx' requires an argument of type 'unsigned long', but variadic argument 1 has type 'LPVOID'
-Juggernaut.cpp(49): warning C4313: 'printf': '%x' in format string conflicts with argument 1 of type 'LPVOID'
-Juggernaut.cpp(51): warning C4477: 'printf' : format string '%u' requires an argument of type 'unsigned int', but variadic argument 1 has type 'DWORD_PTR'
-  Juggernaut.cpp(51): note: consider using '%llu' in the format string
-  Juggernaut.cpp(51): note: consider using '%Iu' in the format string
-  Juggernaut.cpp(51): note: consider using '%I64u' in the format string
-Juggernaut.cpp(192): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(193): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(206): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(207): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(222): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-Juggernaut.cpp(291): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(292): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(301): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(302): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(312): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(313): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(57): warning C4003: not enough actual parameters for macro 'GetFreeSpace'
+Juggernaut.cpp(59): warning C4003: not enough actual parameters for macro 'GetFreeSpace'
+Juggernaut.cpp(50): warning C4477: 'printf' : format string '%lx' requires an argument of type 'unsigned long', but variadic argument 1 has type 'LPVOID'
+Juggernaut.cpp(50): warning C4313: 'printf': '%x' in format string conflicts with argument 1 of type 'LPVOID'
+Juggernaut.cpp(52): warning C4477: 'printf' : format string '%lx' requires an argument of type 'unsigned long', but variadic argument 1 has type 'LPVOID'
+Juggernaut.cpp(52): warning C4313: 'printf': '%x' in format string conflicts with argument 1 of type 'LPVOID'
+Juggernaut.cpp(54): warning C4477: 'printf' : format string '%u' requires an argument of type 'unsigned int', but variadic argument 1 has type 'DWORD_PTR'
+  Juggernaut.cpp(54): note: consider using '%llu' in the format string
+  Juggernaut.cpp(54): note: consider using '%Iu' in the format string
+  Juggernaut.cpp(54): note: consider using '%I64u' in the format string
+Juggernaut.cpp(202): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(203): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(216): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(217): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(232): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+Juggernaut.cpp(303): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(304): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(313): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(314): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 Juggernaut.cpp(324): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 Juggernaut.cpp(325): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 Juggernaut.cpp(336): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
@@ -36,13 +34,15 @@ Juggernaut.cpp(396): warning C4244: '=': conversion from 'float' to 'int', possi
 Juggernaut.cpp(397): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 Juggernaut.cpp(408): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 Juggernaut.cpp(409): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(625): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(678): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(761): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-Juggernaut.cpp(771): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Juggernaut.cpp(420): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(421): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(643): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(696): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(783): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Juggernaut.cpp(793): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating code
-  32 of 356 functions ( 9.0%) were compiled, the rest were copied from previous compilation.
+  34 of 356 functions ( 9.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+    15 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Subterfuge.vcxproj -> C:\Users\squee\Documents\GitHub\Game3015\Juggernaut Engine\Source\Subterfuge\\..\..\Game\Release-x64\Subterfuge.exe

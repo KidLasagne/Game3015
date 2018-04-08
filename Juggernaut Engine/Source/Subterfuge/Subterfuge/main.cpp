@@ -5,8 +5,25 @@
 
 int main()
 {
-	Juggernaut *Jugg = new Juggernaut();
-	Jugg->Subterfuge();
+	bool ContinueLoop = true;
+	Juggernaut *Jugg;
+
+	while (ContinueLoop == true)
+	{
+		bool exiting = false;
+		Jugg = NULL;
+		Jugg = new Juggernaut();
+		exiting = Jugg->Subterfuge();
+
+		if (exiting == true)
+		{
+			ContinueLoop = true;
+		}
+		else
+		{
+			ContinueLoop = false;
+		}
+	}
 
 	return 0;
 }
