@@ -164,6 +164,10 @@ void Juggernaut::ShowText(std::string str, sf::RenderWindow& win)
 	{
 		text.setPosition(1100, 900);
 	}
+	else if (str == "Enemy's Turn: Press Return...")
+	{
+		text.setPosition(1100, 800);
+	}
 	else
 	{
 		text.setPosition(1100, 100);
@@ -452,8 +456,13 @@ bool Juggernaut::Subterfuge()
 
 	std::string ExitTheGame = "Press Escape to Restart Game...";
 
+	std::string EnemysTurnMessage = "Enemy's Turn: Press Return...";
+
 	sf::CircleShape ciri;
 	sf::CircleShape circi;
+
+	bool EnemyIsMoving = false;
+	bool PlayersTurn = true;
 
 	bool casting = false;
 
@@ -466,6 +475,12 @@ bool Juggernaut::Subterfuge()
 
 	while (window.isOpen())
 	{
+		Pawn* TurnPawn = RetrieveLowestTurnOrder(Manager);
+		if (TurnPawn->team > 1)
+		{
+			PlayersTurn = false;
+		}
+
 		window.clear();
 
 		sf::Time elapsed = clock.getElapsedTime();
@@ -487,6 +502,10 @@ bool Juggernaut::Subterfuge()
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)
 			{
 				casting = true;
+			}
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return)
+			{
+				EnemyIsMoving = true;
 			}
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 			{
@@ -510,10 +529,15 @@ bool Juggernaut::Subterfuge()
 				if (storagePawn->team == 1)
 				{
 					vec = storagePawn->DoUserInput(event, board, Database);
+					PlayersTurn = true;
 				}
 				else if(storagePawn->team >= 2)
 				{
-					vec = storagePawn->AutomateMovement(board, Database);
+					PlayersTurn = false;
+					if (EnemyIsMoving == true)
+					{
+						vec = storagePawn->AutomateMovement(board, Database);
+					}
 				}
 
 
@@ -527,75 +551,83 @@ bool Juggernaut::Subterfuge()
 
 				//MoveXtoLastPosition(storagePawn, window,circi);
 
-				if (vec.moving == true)
+				if (EnemyIsMoving == true || PlayersTurn == true)
 				{
-					DisplayString = vec.str;
-				}
-				clock.restart();
-
-				if (vec.attacking == true)
-				{
-					//std::cout << "ATTACKING!!!!" << std::endl;
-					DisplayString2 = "Attacking Enemy.... \n(automated)";
-					clock2.restart();
-
-					for (auto& pawn : Manager.GetPawnLibrary())
+					if (vec.moving == true)
 					{
-						if (pawn->myX == vec.myXPos && pawn->myY == vec.myYPos)
+						DisplayString = vec.str;
+					}
+					clock.restart();
+
+					if (vec.attacking == true)
+					{
+						//std::cout << "ATTACKING!!!!" << std::endl;
+						DisplayString2 = "Attacking Enemy.... \n(automated)";
+						clock2.restart();
+
+						for (auto& pawn : Manager.GetPawnLibrary())
 						{
-							DisplayString2 = "Found the First...";
-
-							for (auto& pawn2 : Manager.GetPawnLibrary())
+							if (pawn->myX == vec.myXPos && pawn->myY == vec.myYPos)
 							{
-								if (pawn2->myX == vec.x && pawn2->myY == vec.y)
-								{
-									DisplayString2 = "It's in the loop...";
-									clock.restart();
-									DisplayString2 = pawn->Attack(*pawn2);
-									//pawn->attacks--;
+								DisplayString2 = "Found the First...";
 
-									while (pawn->attacks > 0 && pawn2->unitType != 0)
+								for (auto& pawn2 : Manager.GetPawnLibrary())
+								{
+									if (pawn2->myX == vec.x && pawn2->myY == vec.y)
 									{
+										DisplayString2 = "It's in the loop...";
+										clock.restart();
 										DisplayString2 = pawn->Attack(*pawn2);
 										//pawn->attacks--;
+
+										while (pawn->attacks > 0 && pawn2->unitType != 0)
+										{
+											DisplayString2 = pawn->Attack(*pawn2);
+											//pawn->attacks--;
+										}
+										//pawn->RestartTurn();
+										vec.turnOver = true;
+										pawn->UpdatePosition();
+										pawn2->UpdatePosition();
 									}
-									//pawn->RestartTurn();
-									vec.turnOver = true;
-									pawn->UpdatePosition();
-									pawn2->UpdatePosition();
 								}
 							}
 						}
 					}
-				}
 
-				if (vec.turnOver == true)
-				{
-					clock.restart();
-					DisplayString += "\n End of Turn...";
-
-					for (auto& pawn : Manager.GetPawnLibrary())
+					if (vec.turnOver == true)
 					{
-						pawn->ShedTime();
+						clock.restart();
+						DisplayString += "\n End of Turn...";
+
+						for (auto& pawn : Manager.GetPawnLibrary())
+						{
+							pawn->ShedTime();
+						}
+
+						if (PlayersTurn == false)
+						{
+							EnemyIsMoving = false;
+						}
+
+						Pawn* p = RetrieveLowestTurnOrder(Manager);
+						circi.setPosition(p->getObject()->Transform.Position.x - 25.0f, p->getObject()->Transform.Position.y - 25.0f);
 					}
 
-					Pawn* p = RetrieveLowestTurnOrder(Manager);
-					circi.setPosition(p->getObject()->Transform.Position.x - 25.0f, p->getObject()->Transform.Position.y - 25.0f);
-				}
-
-				if (vec.action == true)
-				{
-					std::cout << "Go to sleep... target X = " << vec.x << " target Y = " << vec.y << std::endl;
-					for (auto& pawn : Manager.GetPawnLibrary())
+					if (vec.action == true)
 					{
-						if (pawn->myX == vec.x && pawn->myY == vec.y)
+						std::cout << "Go to sleep... target X = " << vec.x << " target Y = " << vec.y << std::endl;
+						for (auto& pawn : Manager.GetPawnLibrary())
 						{
-							for (auto& pawn2 : Manager.GetPawnLibrary())
+							if (pawn->myX == vec.x && pawn->myY == vec.y)
 							{
-								if (pawn2->myX == vec.myXPos && pawn2->myY == vec.myYPos)
+								for (auto& pawn2 : Manager.GetPawnLibrary())
 								{
-									clock.restart();
-									DisplayString = pawn2->Attack(*pawn);
+									if (pawn2->myX == vec.myXPos && pawn2->myY == vec.myYPos)
+									{
+										clock.restart();
+										DisplayString = pawn2->Attack(*pawn);
+									}
 								}
 							}
 						}
@@ -613,81 +645,88 @@ bool Juggernaut::Subterfuge()
 				}
 				else
 				{
-					strb = storagePawn->UseMagic("Fire", event, window);
-					DisplayString = strb.myStr;
+					if (EnemyIsMoving == true)
+					{
+						strb = storagePawn->UseMagic("Fire", event, window);
+						DisplayString = strb.myStr;
+					}
 				}
 
-				if (strb.exiting == true)
+				if (EnemyIsMoving == true || PlayersTurn == true)
 				{
-					casting = false;
-				}
-				if (strb.attacking == true)
-				{
-					for (auto& pawn : Manager.GetPawnLibrary())
+
+					if (strb.exiting == true)
 					{
-						if (pawn->myX == strb.vect.x && pawn->myY == strb.vect.y)
+						casting = false;
+					}
+					if (strb.attacking == true)
+					{
+						for (auto& pawn : Manager.GetPawnLibrary())
 						{
-							for (auto& pawn2 : Manager.GetPawnLibrary())
+							if (pawn->myX == strb.vect.x && pawn->myY == strb.vect.y)
 							{
-								if (pawn2->myX == strb.targetVect.x && pawn2->myY == strb.targetVect.y)
+								for (auto& pawn2 : Manager.GetPawnLibrary())
 								{
-									if (pawn2->unitType == 0)
+									if (pawn2->myX == strb.targetVect.x && pawn2->myY == strb.targetVect.y)
 									{
-										DisplayString2 = "Can't attack nothing...";
-										clock2.restart();
-									}
-									else
-									{
-										if (pawn->mp >= 10)
+										if (pawn2->unitType == 0)
 										{
-											int hip = (pawn->generateRandom((pawn->magic / 2), pawn->magic));
-											if (pawn->unitType == 4)
-											{
-												pawn2->hp += hip;
-												DisplayString2 = "You Healed " + std::to_string(hip) + " points of damage...";
-												clock2.restart();
-											}
-											else
-											{
-												pawn2->hp -= hip;
-												DisplayString2 = "You dealt " + std::to_string(hip) + " points of damage...";
-												clock2.restart();
-											}
-											pawn->mp -= 10;
-											if (pawn2->hp <= 0)
-											{
-												pawn2->Die();
-											}
-											clock.restart();
+											DisplayString2 = "Can't attack nothing...";
+											clock2.restart();
 										}
 										else
 										{
-											DisplayString2 = "No MP...";
-											clock.restart();
-											clock2.restart();
+											if (pawn->mp >= 10)
+											{
+												int hip = (pawn->generateRandom((pawn->magic / 2), pawn->magic));
+												if (pawn->unitType == 4)
+												{
+													pawn2->hp += hip;
+													DisplayString2 = "You Healed " + std::to_string(hip) + " points of damage...";
+													clock2.restart();
+												}
+												else
+												{
+													pawn2->hp -= hip;
+													DisplayString2 = "You dealt " + std::to_string(hip) + " points of damage...";
+													clock2.restart();
+												}
+												pawn->mp -= 10;
+												if (pawn2->hp <= 0)
+												{
+													pawn2->Die();
+												}
+												clock.restart();
+											}
+											else
+											{
+												DisplayString2 = "No MP...";
+												clock.restart();
+												clock2.restart();
+											}
 										}
 									}
 								}
 							}
 						}
-					}
-					casting = false;
-
-					if (storagePawn->team > 1 && storagePawn->attacks <= 0)
-					{
-						for (auto& pawn : Manager.GetPawnLibrary())
-						{
-							pawn->ShedTime();
-						}
-						storagePawn->RestartTurn();
 						casting = false;
-					}
-				}
 
-				ciri = strb.circi;
-					
-				//RetrieveLowestTurnOrder(Manager)->UseMagic("Fire", event);
-				clock.restart();
+						if (storagePawn->team > 1 && storagePawn->attacks <= 0)
+						{
+							for (auto& pawn : Manager.GetPawnLibrary())
+							{
+								pawn->ShedTime();
+							}
+							storagePawn->RestartTurn();
+							casting = false;
+						}
+					}
+
+					ciri = strb.circi;
+
+					//RetrieveLowestTurnOrder(Manager)->UseMagic("Fire", event);
+					clock.restart();
+				}
 			}
 			//PrintBoard();
 			std::cout << std::endl;
@@ -731,6 +770,11 @@ bool Juggernaut::Subterfuge()
 		}
 
 		window.draw(circi);
+
+		if (PlayersTurn == false)
+		{
+			ShowText(EnemysTurnMessage, window);
+		}
 
 		for (auto& pawn : Manager.GetPawnLibrary())
 		{
