@@ -34,6 +34,7 @@ public:
 	float generateRandom(float min, float max);
 	void MoveXtoLastPosition(Pawn* pwn, sf::RenderWindow& win, sf::CircleShape circ);
 	void ExitGame();
+	void RandomizePieceClass(Pawn *ClassToRandomize);
 
 	int board[10][10];
 	StorageNode Database[10][10];
