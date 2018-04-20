@@ -167,6 +167,7 @@ void Juggernaut::ShowText(std::string str, sf::RenderWindow& win)
 	else if (str == "Enemy's Turn: Press Return...")
 	{
 		text.setPosition(1100, 800);
+		text.setFillColor(sf::Color::Blue);
 	}
 	else
 	{
@@ -239,6 +240,11 @@ float Juggernaut::generateRandom(float min, float max)
 	//return std::uniform_real_distribution<>(min, max)(eng);
 }
 
+void Juggernaut::RandomizePieceClass(Pawn *ClassToRandomize)
+{
+
+}
+
 bool Juggernaut::Subterfuge()
 {
 	bool exiting = true;
@@ -306,11 +312,15 @@ bool Juggernaut::Subterfuge()
 
 	int randX = std::floor(First->generateRandom(0, 9));
 	int randY = std::floor(First->generateRandom(0, 9));
+	
+	int randyClass = std::floor(First->generateRandom(1, 4));
 
 	First->Move(randX, randY, board);
 	First->team = 1;
 	First->getObject()->SetSphereColor(sf::Color::Red);
-	First->SetClass(1);
+	First->SetClass(randyClass);
+	
+	randyClass = std::floor(First->generateRandom(1, 5));
 
 	vectorDrawer[0] = { randX, randY };
 
@@ -323,7 +333,9 @@ bool Juggernaut::Subterfuge()
 	Second->Move(randyStoreX, randyStoreY, board);
 	Second->team = 2;
 	Second->getObject()->SetSphereColor(sf::Color::Blue);
-	Second->SetClass(1);
+	Second->SetClass(randyClass);
+
+	randyClass = std::floor(First->generateRandom(1, 5));
 
 	randyStoreX = std::floor(First->generateRandom(0, 9));
 	randyStoreY = std::floor(First->generateRandom(0, 9));
@@ -335,7 +347,9 @@ bool Juggernaut::Subterfuge()
 	Third->Move(randyStoreX, randyStoreY, board);
 	Third->team = 1;
 	Third->getObject()->SetSphereColor(sf::Color::Red);
-	Third->SetClass(2);
+	Third->SetClass(randyClass);
+
+	randyClass = std::floor(First->generateRandom(1, 5));
 
 	randyStoreX = std::floor(First->generateRandom(0, 9));
 	randyStoreY = std::floor(First->generateRandom(0, 9));
@@ -347,7 +361,9 @@ bool Juggernaut::Subterfuge()
 	Fourth->Move(randyStoreX, randyStoreY, board);
 	Fourth->team = 2;
 	Fourth->getObject()->SetSphereColor(sf::Color::Blue);
-	Fourth->SetClass(2);
+	Fourth->SetClass(randyClass);
+
+	randyClass = std::floor(First->generateRandom(1, 5));
 
 	randyStoreX = std::floor(First->generateRandom(0, 9));
 	randyStoreY = std::floor(First->generateRandom(0, 9));
@@ -359,7 +375,9 @@ bool Juggernaut::Subterfuge()
 	Fifth->Move(randyStoreX, randyStoreY, board);
 	Fifth->team = 1;
 	Fifth->getObject()->SetSphereColor(sf::Color::Red);
-	Fifth->SetClass(3);
+	Fifth->SetClass(randyClass);
+
+	randyClass = std::floor(First->generateRandom(1, 5));
 
 	randyStoreX = std::floor(First->generateRandom(0, 9));
 	randyStoreY = std::floor(First->generateRandom(0, 9));
@@ -371,7 +389,9 @@ bool Juggernaut::Subterfuge()
 	Sixth->Move(randyStoreX, randyStoreY, board);
 	Sixth->team = 2;
 	Sixth->getObject()->SetSphereColor(sf::Color::Blue);
-	Sixth->SetClass(3);
+	Sixth->SetClass(randyClass);
+
+	randyClass = std::floor(First->generateRandom(1, 5));
 
 	randyStoreX = std::floor(First->generateRandom(0, 9));
 	randyStoreY = std::floor(First->generateRandom(0, 9));
@@ -383,7 +403,9 @@ bool Juggernaut::Subterfuge()
 	Seventh->Move(randyStoreX, randyStoreY, board);
 	Seventh->team = 1;
 	Seventh->getObject()->SetSphereColor(sf::Color::Red);
-	Seventh->SetClass(4);
+	Seventh->SetClass(randyClass);
+
+	randyClass = std::floor(First->generateRandom(1, 5));
 
 	randyStoreX = std::floor(First->generateRandom(0, 9));
 	randyStoreY = std::floor(First->generateRandom(0, 9));
@@ -395,7 +417,9 @@ bool Juggernaut::Subterfuge()
 	Eighth->Move(randyStoreX, randyStoreY, board);
 	Eighth->team = 2;
 	Eighth->getObject()->SetSphereColor(sf::Color::Blue);
-	Eighth->SetClass(4);
+	Eighth->SetClass(randyClass);
+
+	randyClass = std::floor(First->generateRandom(1, 5));
 
 	randyStoreX = std::floor(First->generateRandom(0, 9));
 	randyStoreY = std::floor(First->generateRandom(0, 9));
@@ -407,7 +431,9 @@ bool Juggernaut::Subterfuge()
 	Ninth->Move(randyStoreX, randyStoreY, board);
 	Ninth->team = 2;
 	Ninth->getObject()->SetSphereColor(sf::Color::Blue);
-	Ninth->SetClass(3);
+	Ninth->SetClass(randyClass);
+
+	randyClass = std::floor(First->generateRandom(1, 5));
 
 	randyStoreX = std::floor(First->generateRandom(0, 9));
 	randyStoreY = std::floor(First->generateRandom(0, 9));
@@ -419,7 +445,9 @@ bool Juggernaut::Subterfuge()
 	Tenth->Move(randyStoreX, randyStoreY, board);
 	Tenth->team = 2;
 	Tenth->getObject()->SetSphereColor(sf::Color::Blue);
-	Tenth->SetClass(1);
+	Tenth->SetClass(randyClass);
+
+	randyClass = std::floor(First->generateRandom(1, 5));
 
 	randyStoreX = std::floor(First->generateRandom(0, 9));
 	randyStoreY = std::floor(First->generateRandom(0, 9));
@@ -431,9 +459,9 @@ bool Juggernaut::Subterfuge()
 	Eleventh->Move(randyStoreX, randyStoreY, board);
 	Eleventh->team = 1;
 	Eleventh->getObject()->SetSphereColor(sf::Color::Red);
-	Eleventh->SetClass(2);
+	Eleventh->SetClass(randyClass);
 
-
+	randyClass = std::floor(First->generateRandom(1, 5));
 
 	//Manager.PushGameObject(First->getObject());
 	Manager.PushPawn(First);

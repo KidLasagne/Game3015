@@ -9,37 +9,49 @@ Juggernaut.cpp(54): warning C4477: 'printf' : format string '%u' requires an arg
   Juggernaut.cpp(54): note: consider using '%llu' in the format string
   Juggernaut.cpp(54): note: consider using '%Iu' in the format string
   Juggernaut.cpp(54): note: consider using '%I64u' in the format string
-Juggernaut.cpp(206): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 Juggernaut.cpp(207): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(220): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(208): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 Juggernaut.cpp(221): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(236): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-Juggernaut.cpp(307): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(308): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(317): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(318): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(328): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(329): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(222): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(237): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+Juggernaut.cpp(313): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(314): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(316): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(323): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(327): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(328): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(338): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 Juggernaut.cpp(340): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 Juggernaut.cpp(341): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 Juggernaut.cpp(352): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(353): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(364): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(365): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(376): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(377): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(388): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(389): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(400): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(401): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(412): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(413): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(354): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(355): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(366): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(368): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(369): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(380): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(382): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(383): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(394): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(396): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(397): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(408): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(410): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(411): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(422): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 Juggernaut.cpp(424): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 Juggernaut.cpp(425): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(681): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(735): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-Juggernaut.cpp(827): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-Juggernaut.cpp(837): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Juggernaut.cpp(436): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(438): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(439): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(450): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(452): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(453): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(464): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(709): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(763): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+Juggernaut.cpp(855): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Juggernaut.cpp(865): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating code
   31 of 356 functions ( 8.7%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
